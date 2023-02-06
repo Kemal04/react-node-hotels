@@ -17,10 +17,14 @@ app.use('/', express.static('public'))
 const AuthRouter = require("./routes/auth.router")
 const UserRouter = require("./routes/user.router")
 const HotelRouter = require("./routes/hotel.router")
+const RoomtypeRouter = require("./routes/roomType.router");
+const RoomRouter = require("./routes/room.router");
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/hotel", HotelRouter);
+app.use("/api/roomType", RoomtypeRouter);
+app.use("/api/room", RoomRouter);
 
 //serv
 app.listen(port, () => {
