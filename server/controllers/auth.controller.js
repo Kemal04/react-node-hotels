@@ -19,7 +19,7 @@ exports.registerPost = async (req, res) => {
                 password: hashedPassword
             });
             const accessToken = sign(
-                { email: user.email, id: user.id, role: user.role },
+                { phoneNum: user.phoneNum, id: user.id, role: user.role },
                 "importantsecret"
             );
             res.json({ success: "Hasaba alyndy", token: accessToken });
@@ -44,7 +44,7 @@ exports.loginPost = async (req, res) => {
                     res.json({ error: "Ulanyjynyň nomeri ýa-da açar sözi nädogry" })
                 } else {
                     const accessToken = sign(
-                        { email: user.email, id: user.id, role: user.role },
+                        { phoneNum: user.phoneNum, id: user.id, role: user.role },
                         "importantsecret"
                     );
                     res.json({ success: "Giris kabul edildi", token: accessToken });
