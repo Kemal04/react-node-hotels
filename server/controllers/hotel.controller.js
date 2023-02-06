@@ -13,16 +13,14 @@ module.exports.createPost = async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     await Hotel.create({
-        name: req.body.name
+        name: req.body.name,
+        email: req.body.email,
+        password: hash
     })
-        .then((hotel) => {
-            Admin.create({
-                email: req.body.email,
-                password: hash,
-                hotelId: hotel.id
-            })
-                .then(() => {
-                    res.json({ success: "hotel ustunlikli gosuldy" });
-                });
+        .then(() => {
+            res.json({ success: "hotel ustunlikli gosuldy" });
+        })
+        .catch((err) => {
+            res.status(500).json(err)
         })
 }

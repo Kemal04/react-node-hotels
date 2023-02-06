@@ -1,19 +1,11 @@
-const { User, Admin } = require('../models/model');
+const { User, Admin, Hotel } = require('../models/model');
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
-const generateAccessToken = (id, role, username) => {
-    const payload = {
-      id,
-      role,
-      username
-    }
-    return sign(payload, "importantsecret", { expiresIn: "24h" })
-  }
 
 exports.registerPost = async (req, res) => {
-    const {username, phoneNum, password} = req.body;
+    const { username, phoneNum, password } = req.body;
     if (!(username && phoneNum && password)) {
         res.json({ error: "Ahli oyjukleri doldurun" });
     }
@@ -26,8 +18,11 @@ exports.registerPost = async (req, res) => {
                 phoneNum: phoneNum,
                 password: hashedPassword
             });
-            const accessToken = generateAccessToken(user.id, user.role, user.username);
-            res.json({ success: "Hasaba alyndy", token: accessToken} );
+            const accessToken = sign(
+                { email: user.email, id: user.id, role: user.role },
+                "importantsecret"
+            );
+            res.json({ success: "Hasaba alyndy", token: accessToken });
         }
         catch (err) {
             console.log(err)
@@ -36,6 +31,7 @@ exports.registerPost = async (req, res) => {
         res.json({ error: "Sizin nomeriniz bilen on hasap acylypdyr" })
     }
 }
+
 exports.loginPost = async (req, res) => {
     const { phoneNum, password } = req.body;
     await User.findOne({ where: { phoneNum: phoneNum } })
@@ -47,8 +43,11 @@ exports.loginPost = async (req, res) => {
                 if (!passwordIsValid) {
                     res.json({ error: "Ulanyjynyň nomeri ýa-da açar sözi nädogry" })
                 } else {
-                    const accessToken = generateAccessToken(user.id, user.role, user.username)
-                    res.json({ success:"Giris kabul edildi", token: accessToken });
+                    const accessToken = sign(
+                        { email: user.email, id: user.id, role: user.role },
+                        "importantsecret"
+                    );
+                    res.json({ success: "Giris kabul edildi", token: accessToken });
                 }
             }
         })
@@ -67,7 +66,7 @@ exports.infoGet = async (req, res) => {
     res.json(basicInfo);
 }
 
-exports.adminLogin = async (req,res) => {
+exports.rootmanLogin = async (req, res) => {
     const { email, password } = req.body;
     await Admin.findOne({ where: { email: email } })
         .then(admin => {
@@ -78,9 +77,34 @@ exports.adminLogin = async (req,res) => {
                 if (!passwordIsValid) {
                     res.json({ error: "Ulanyjynyň nomeri ýa-da açar sözi nädogry" })
                 } else {
-                    const accessToken = generateAccessToken(admin.id, admin.role)
+                    const accessToken = sign(
+                        { id: admin.id, email: admin.email, role: admin.role },
+                        "importantsecret"
+                    );
                     res.json({ token: accessToken });
                 }
             }
         })
 }
+
+exports.adminLogin = async (req, res) => {
+    const { email, password } = req.body;
+    await Hotel.findOne({ where: { email: email } })
+        .then(hotel => {
+            if (!hotel || hotel.email !== email) {
+                res.json({ error: "Ulanyjynyň nomeri ýa-da açar sözi nädogry" })
+            } else {
+                var passwordIsValid = bcrypt.compareSync(password, hotel.password)
+                if (!passwordIsValid) {
+                    res.json({ error: "Ulanyjynyň nomeri ýa-da açar sözi nädogry" })
+                } else {
+                    const accessToken = sign(
+                        { id: hotel.id, email: hotel.email, role: hotel.role },
+                        "importantsecret"
+                    );
+                    res.json({ token: accessToken });
+                }
+            }
+        })
+}
+

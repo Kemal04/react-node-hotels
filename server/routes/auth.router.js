@@ -12,6 +12,7 @@ router.get("/basicinfo/:id", AuthController.infoGet);
 
 // Admin login
 
-router.post("/rootman", AuthController.adminLogin);
+router.post("/rootman", AuthController.rootmanLogin);
+router.post("/admin/login", AuthController.adminLogin);
 
 module.exports = router;

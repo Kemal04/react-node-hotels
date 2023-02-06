@@ -25,7 +25,7 @@ const Admin = sequelize.define("admin", {
     },
     email: { type: DataTypes.STRING, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
-    role: { type: DataTypes.STRING, defaultValue: "Hotel", allowNull: false },
+    role: { type: DataTypes.STRING, defaultValue: "User", allowNull: false },
 });
 
 const Hotel = sequelize.define("hotel", {
@@ -36,8 +36,11 @@ const Hotel = sequelize.define("hotel", {
         allowNull: true
     },
     name: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false },
     phoneNum: { type: DataTypes.STRING, allowNull: true },
     address: { type: DataTypes.STRING, allowNull: true },
+    role: { type: DataTypes.STRING, defaultValue: "Hotel", allowNull: false },
 });
 
 const RoomType = sequelize.define("roomtype", {
@@ -68,12 +71,14 @@ const Room = sequelize.define("room", {
 
 Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$.2s8SLEln9Dnql5sPuvtfec93qtcKyvMAqDY8zeLg8IcndoHNtXWS", role: "Admin" } })
 
-Hotel.hasMany(Admin),
+Hotel.hasMany(Admin, { onDelete: "cascade" }),
 Admin.belongsTo(Hotel)
 
-RoomType.hasMany(Room),
+RoomType.hasMany(Room, { onDelete: "cascade" }),
 Room.belongsTo(RoomType)
 
+Hotel.hasMany(Room, { onDelete: "cascade" }),
+Room.belongsTo(Hotel)
 
 module.exports = {
     User,
