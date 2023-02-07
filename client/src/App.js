@@ -5,16 +5,19 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 
 //COMPONENTS
-import { Navbar, Footer } from "./components"
+import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar } from "./components"
 
 //USERINTERFACE
 import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/userInterface"
 
 //USERINTERFACE
-import { AdminLogin } from "./pages/admin"
+import { Admin, AdminBooking, AdminBookingEdit, AdminContactEdit, AdminContacts, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRoomEdit, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //ERROR
 import { Forbiden, NotFounded } from './pages/error';
+
+//ERROR
+import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit } from './pages/hotel';
 
 //TOAST
 import { ToastContainer } from 'react-toastify'
@@ -24,15 +27,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import ThemeContextProvider from "./context/ThemeContext"
 import { AuthContext } from './context/AuthContext';
 
+//CSS
+import './App.css'
+
 const App = () => {
 
     const [authState, setAuthState] = useState({
         phoneNum: "",
+        email: "",
         id: 0,
         status: false,
         role: "User",
     });
-    console.log(authState);
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/auth/auth", {
@@ -45,6 +51,7 @@ const App = () => {
             } else {
                 setAuthState({
                     phoneNum: response.data.phoneNum,
+                    email: response.data.email,
                     id: response.data.id,
                     status: true,
                     role: response.data.role,
@@ -81,7 +88,48 @@ const App = () => {
                                 }
                             </Route>
 
+                            <Route path="/" element={<AdminWithNavbar />}>
+                                {
+                                    authState.role === "Admin" && (
+                                        <>
+                                            <Route path='/admin' element={<Admin />}></Route>
+                                            <Route path='/admin/ulanyjylar' element={<AdminUsers />}></Route>
+
+                                            <Route path='/admin/teswirler' element={<AdminContacts />}></Route>
+                                            <Route path='/admin/teswir-uytget/:id' element={<AdminContactEdit />}></Route>
+
+                                            <Route path='/admin/hotellar' element={<AdminHotels />}></Route>
+                                            <Route path='/admin/hotel-gosmak' element={<AdminHotelsCreate />}></Route>
+
+                                            <Route path='/admin/otaglar' element={<AdminRooms />}></Route>
+                                            <Route path='/admin/otag-uytget/:id' element={<AdminRoomEdit />}></Route>
+
+                                            <Route path='/admin/otag-gornusleri' element={<AdminRoomTypes />}></Route>
+                                            <Route path='/admin/otag-gornusini-gosmak' element={<AdminRoomTypeCreate />}></Route>
+                                            <Route path='/admin/otag-gornusini-uytget/:id' element={<AdminRoomTypeEdit />}></Route>
+
+                                            <Route path='/admin/bronlanan-otaglar' element={<AdminBooking />}></Route>
+                                            <Route path='/admin/bronlanan-otaglary-uytget/:id' element={<AdminBookingEdit />}></Route>
+                                        </>
+                                    )
+                                }
+                            </Route>
+
+                            <Route path="/" element={<HotelWithNavbar />}>
+                                {
+                                    authState.role === "Hotel" && (
+                                        <>
+                                            <Route path='/hotel' element={<Hotel />}></Route>
+                                            <Route path='/hotel/otaglar' element={<HotelRooms />}></Route>
+                                            <Route path='/hotel/otag-gosmak' element={<HotelRoomCreate />}></Route>
+                                            <Route path='/hotel/otag-uytgetmek' element={<HotelRoomEdit />}></Route>
+                                        </>
+                                    )
+                                }
+                            </Route>
+
                             <Route path='/admin/giris-etmek' element={<AdminLogin />}></Route>
+                            <Route path='/hotel/giris-etmek' element={<HotelLogin />}></Route>
 
                             <Route path='/*' element={<NotFounded />}></Route>
                             <Route path='/404' element={<NotFounded />}></Route>
@@ -105,6 +153,38 @@ const WithNavbar = () => {
 
             <Footer />
         </>
+    );
+}
+
+const AdminWithNavbar = () => {
+    return (
+        <div className="hold-transition sidebar-mini layout-fixed">
+            <div className="wrapper">
+                <AdminNavbar />
+                <AdminSidebar />
+                <div className="content-wrapper" style={{ paddingTop: "70px" }}>
+                    <div className='content'>
+                        <Outlet />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+const HotelWithNavbar = () => {
+    return (
+        <div className="hold-transition sidebar-mini layout-fixed">
+            <div className="wrapper">
+                <HotelNavbar />
+                <HotelSidebar />
+                <div className="content-wrapper" style={{ paddingTop: "70px" }}>
+                    <div className='content'>
+                        <Outlet />
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
