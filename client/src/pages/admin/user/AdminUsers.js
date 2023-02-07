@@ -39,9 +39,9 @@ const AdminUsers = () => {
                                 {
                                     users.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((user, index) => (
                                         <tr key={index} className={user.role === "Admin" ? "fw-bold bg-light" : null}>
-                                            <td>{index}</td>
-                                            <td>{user.name}</td>
-                                            <td>{user.email}</td>
+                                            <td>{index + 1}</td>
+                                            <td>{user.username}</td>
+                                            <td>{user.phoneNum}</td>
                                             <td>{user.role}</td>
                                             <td>************</td>
                                         </tr>

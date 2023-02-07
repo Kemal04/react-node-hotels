@@ -11,6 +11,7 @@ const HotelRooms = () => {
     const dispatch = useDispatch()
 
     const { rooms } = useSelector(state => state.rooms)
+
     useEffect(() => {
         dispatch(getAllRooms())
     }, [dispatch])
@@ -47,13 +48,13 @@ const HotelRooms = () => {
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             {/* <td><img src={`http://localhost:3001/img/${room.img}`} alt={room.roomType.name} style={{width:"100px"}}/></td> */}
-                                            <td>{room.roomType.name}</td>
+                                            <td>{room.roomtypeId}</td>
                                             <td>№ {room.roomNum}</td>
                                             <td>{room.size} m<sup>2</sup></td>
                                             <td>{room.capacity} adam</td>
                                             <td>{room.price}<span className='small'> TMT</span></td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/otag-uytget/${room.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/hotel/otag-uytgetmek/${room.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(room.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>

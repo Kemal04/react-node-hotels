@@ -1,9 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { faBars, faBell, faComments, faSearch, faThLarge } from '@fortawesome/free-solid-svg-icons'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { faBars, faBell, faComments, faSearch, faSignOut } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AuthContext } from '../../context/AuthContext'
 
 const AdminNavbar = () => {
+
+    const { setAuthState } = useContext(AuthContext)
+
+    const navigate = useNavigate()
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        setAuthState({ email: "", id: 0, status: false, role: "User" })
+        navigate('/admin/giris-etmek')
+    };
+
     return (
         <>
             <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -15,7 +27,7 @@ const AdminNavbar = () => {
                         <Link to="/" className="nav-link">Baş Sahypa</Link>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
-                        <Link to="/biz-barada" className="nav-link">Biz barada</Link>
+                        <Link to="/biz-barada" className="nav-link">Biz Barada</Link>
                     </li>
                 </ul>
 
@@ -49,8 +61,8 @@ const AdminNavbar = () => {
                         </button>
                     </li>
                     <li className="nav-item">
-                        <button type="button" className="btn pb-0">
-                            <FontAwesomeIcon icon={faThLarge} className="h5" />
+                        <button onClick={logout} type="button" className="btn pb-0">
+                            <FontAwesomeIcon icon={faSignOut} className="h5" />
                         </button>
                     </li>
                 </ul>

@@ -40,7 +40,7 @@ const AdminContact = () => {
                                 {
                                     contacts.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((contact, index) => (
                                         <tr key={index}>
-                                            <td>{index}</td>
+                                            <td>{index + 1}</td>
                                             <td>{contact.name}</td>
                                             <td>{contact.subject}</td>
                                             <td>{contact.comment.substring(0, 40)}...</td>

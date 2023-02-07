@@ -7,7 +7,7 @@ const Footer = () => {
     const { darkMode } = useContext(ThemeContext)
 
     return (
-        <> 
+        <>
             <div className={darkMode ? 'bg-dark p-5 text-white border-top' : 'bg-primary-blue p-5 text-white'}>
                 <div className="container">
                     <div className="footer-text">
@@ -15,7 +15,7 @@ const Footer = () => {
                             <div className="col-lg-4">
                                 <div className="ft-about">
                                     <div className="mb-2">
-                                        <Link to="/" className=' text-decoration-none'>
+                                        <Link to="/" className={`text-decoration-none text-white`}>
                                             <div className="h3">Logo</div>
                                         </Link>
                                     </div>
@@ -44,7 +44,9 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="border-top text-center mt-3 pt-3">
-                    © 2023 Ähli hukuklary goralan
+                    <span>© </span>
+                    {new Date().toLocaleDateString(undefined, { year: "numeric" })}
+                    <span> Ähli hukuklary goralan</span>
                 </div>
             </div>
         </>

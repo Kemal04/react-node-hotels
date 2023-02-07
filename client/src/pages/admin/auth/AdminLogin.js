@@ -39,7 +39,8 @@ const AdminLogin = () => {
                         role: res.data.role,
                     });
                     toast.success(res.data.success)
-                    navigate("/")
+                    navigate("/admin")
+                    window.location.reload()
                 }
 
             })
@@ -52,10 +53,10 @@ const AdminLogin = () => {
                 <div className='h2 text-center text-white mx-5 mb-3'>Admin Panel</div>
                 <div className='h5 text-center text-secondary mx-5 mb-5'>Giriş etmek</div>
                 <div className="mb-4">
-                    <input name='email' value={email} onChange={(e) => setEmail(e.target.value)}  type="email" className="form-control rounded-0 border-0 text-white px-3 py-2" style={{ backgroundColor: "#3b4654" }} placeholder='Email address' />
+                    <input name='email' value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control rounded-0 border-0 text-white px-3 py-2" style={{ backgroundColor: "#3b4654" }} placeholder='Email address' />
                 </div>
                 <div className="mb-5">
-                    <input name='password' value={password} onChange={(e) => setPassword(e.target.value)}  type="password" className="form-control rounded-0 border-0 text-white px-3 py-2" style={{ backgroundColor: "#3b4654" }} placeholder='Password' />
+                    <input name='password' value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control rounded-0 border-0 text-white px-3 py-2" style={{ backgroundColor: "#3b4654" }} placeholder='Password' />
                 </div>
                 <button type="submit" className="btn btn-primary rounded-0">Giriş</button>
             </form>

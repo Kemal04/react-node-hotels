@@ -20,10 +20,10 @@ const About = () => {
                             <div className='h6 ls-2 mb-3' style={{ color: "#1cc3b2" }}>Biz Barada</div>
                             <div className='h2 mb-5'>20 Ýyllyk Tejribe</div>
                             <div className='text-secondary mb-3 w-75'>
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia dese mollit anim id est laborum. Sed ut perspiciatis unde omnis iste.
+                                Myhmanhana: Adamlaryň belli bir töleg üçin wagtlaýyn bolup, iýmit zerurlyklaryny kanagatlandyrýan ýeri.
                             </div>
                             <div className='text-secondary mb-3 w-75'>
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia dese mollit anim id est laborum. Sed ut perspiciatis unde omnis iste.
+                                Stayaşaýan ýerleri ýa-da tanyşlarynyň öýleri ýa-da howpsuz ýerleri. Soň bolsa ýygy-ýygydan gatnaşyp, söwda edip başladylar.
                             </div>
                             <img src="/img/icons/signature.png" alt="Signature" className='img-fluid mt-5' />
                         </div>
