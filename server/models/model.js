@@ -63,6 +63,7 @@ const Room = sequelize.define("room", {
     roomNum: { type: DataTypes.STRING, allowNull: false },
     capacity: { type: DataTypes.STRING, allowNull: false },
     size: { type: DataTypes.STRING, allowNull: false },
+    price: { type: DataTypes.STRING, allowNull: false },
     img: { type: DataTypes.STRING, allowNull: true },
     liked: { type: DataTypes.STRING, allowNull: true },
     viewed: { type: DataTypes.STRING, allowNull: true }
@@ -72,13 +73,13 @@ const Room = sequelize.define("room", {
 Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$.2s8SLEln9Dnql5sPuvtfec93qtcKyvMAqDY8zeLg8IcndoHNtXWS", role: "Admin" } })
 
 Hotel.hasMany(Admin, { onDelete: "cascade" }),
-Admin.belongsTo(Hotel)
+    Admin.belongsTo(Hotel)
 
 RoomType.hasMany(Room, { onDelete: "cascade" }),
-Room.belongsTo(RoomType)
+    Room.belongsTo(RoomType)
 
 Hotel.hasMany(Room, { onDelete: "cascade" }),
-Room.belongsTo(Hotel)
+    Room.belongsTo(Hotel)
 
 module.exports = {
     User,
