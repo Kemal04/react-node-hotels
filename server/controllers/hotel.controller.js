@@ -2,7 +2,7 @@ const { Admin, Hotel } = require("../models/model")
 const bcrypt = require('bcrypt');
 
 module.exports.allHotelGet = async (req, res) => {
-    await Admin.findAll({ where: { Role: "Hotel" }, include: Hotel })
+    await Hotel.findAll()
         .then((hotels) => {
             res.json({ hotels: hotels })
         })
