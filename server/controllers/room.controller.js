@@ -1,6 +1,5 @@
 const { Room, RoomTypes } = require("../models/model");
 
-
 module.exports.AllRoomsGet = async (req, res) => {
     await Room.findAll({ include: RoomTypes })
         .then((rooms) => {
@@ -13,7 +12,7 @@ module.exports.createPost = async (req, res) => {
         roomNum: req.body.roomNum,
         capacity: req.body.capacity,
         size: req.body.size,
-        img: req.body.roomNum,
+        img: req.file.filename,
         roomtypeId: req.body.roomtypeId,
         hotelId: req.user.id
     })

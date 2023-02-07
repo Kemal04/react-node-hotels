@@ -1,4 +1,4 @@
-const { Admin, Hotel } = require("../models/model")
+const { Hotel } = require("../models/model")
 const bcrypt = require('bcrypt');
 
 module.exports.allHotelGet = async (req, res) => {
@@ -22,5 +22,22 @@ module.exports.createPost = async (req, res) => {
         })
         .catch((err) => {
             res.status(500).json(err)
+        })
+}
+
+module.exports.editGet = async (req, res) => {
+    await Hotel.update({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    },
+    { 
+        where: { id: req.params.id } 
+    })
+        .then(() => {
+            res.json({ success: "Otelin maglumatlary uytgedildi" });
+        })
+        .catch((err) => {
+            res.json({ err })
         })
 }
