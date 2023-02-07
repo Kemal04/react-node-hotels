@@ -1,7 +1,7 @@
-const { Room, RoomTypes } = require("../models/model");
+const { Room, RoomType, Hotel } = require("../models/model");
 
 module.exports.AllRoomsGet = async (req, res) => {
-    await Room.findAll({ include: RoomTypes })
+    await Room.findAll({ include: Hotel})
         .then((rooms) => {
             res.json({ rooms: rooms })
         })
