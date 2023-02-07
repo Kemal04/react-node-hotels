@@ -18,7 +18,7 @@ const HotelRoomCreate = () => {
 
     const [img, setImg] = useState('')
     const [room, setRoom] = useState({
-        roomTypeId: "",
+        roomtypeId: "",
         roomNum: "",
         price: "",
         capacity: "",
@@ -34,13 +34,13 @@ const HotelRoomCreate = () => {
 
         const formData = new FormData()
         formData.append('img', img)
-        formData.append('roomTypeId', room.roomTypeId)
+        formData.append('roomtypeId', room.roomtypeId)
         formData.append('roomNum', room.roomNum)
         formData.append('price', room.price)
         formData.append('capacity', room.capacity)
         formData.append('size', room.size)
 
-        if (!room.roomTypeId) {
+        if (!room.roomtypeId) {
             toast.error("Otagyň görnüşini saýlaň")
         }
         else if (!room.roomNum) {
@@ -76,7 +76,7 @@ const HotelRoomCreate = () => {
                             <form className='row' encType='multipart/form-data'>
 
                                 <div className="col-lg-12 mb-3">
-                                    <select name='roomTypeId' className="form-select" onChange={handleChange}>
+                                    <select name='roomtypeId' className="form-select" onChange={handleChange}>
                                         <option defaultValue>Otag görnüşini sayla</option>
                                         {roomTypes.map(roomtype => (
                                             <option key={roomtype.id} value={roomtype.id}>{roomtype.name}</option>

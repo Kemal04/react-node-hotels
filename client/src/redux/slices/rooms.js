@@ -3,14 +3,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-    rooms: []
+    rooms: [],
 };
 
 export const getAllRooms = createAsyncThunk(
     "rooms/getAll",
     async () => {
         const { data } = await axios.get("http://localhost:3001/api/room")
-        return data.rooms
+        const rooms = data.rooms
+        return rooms
     }
 );
 

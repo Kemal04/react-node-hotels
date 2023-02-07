@@ -55,6 +55,7 @@ const Register = () => {
                     });
                     toast.success(res.data.success)
                     navigate("/")
+                    window.location.reload()
                 }
             })
         }

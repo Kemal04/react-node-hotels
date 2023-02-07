@@ -5,7 +5,8 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 
 //COMPONENTS
-import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar } from "./components"
+import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar
+ } from "./components"
 
 //USERINTERFACE
 import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/userInterface"
@@ -34,7 +35,6 @@ const App = () => {
 
     const [authState, setAuthState] = useState({
         phoneNum: "",
-        email: "",
         id: 0,
         status: false,
         role: "User",
@@ -51,7 +51,6 @@ const App = () => {
             } else {
                 setAuthState({
                     phoneNum: response.data.phoneNum,
-                    email: response.data.email,
                     id: response.data.id,
                     status: true,
                     role: response.data.role,
@@ -122,7 +121,7 @@ const App = () => {
                                             <Route path='/hotel' element={<Hotel />}></Route>
                                             <Route path='/hotel/otaglar' element={<HotelRooms />}></Route>
                                             <Route path='/hotel/otag-gosmak' element={<HotelRoomCreate />}></Route>
-                                            <Route path='/hotel/otag-uytgetmek' element={<HotelRoomEdit />}></Route>
+                                            <Route path='/hotel/otag-uytgetmek/:id' element={<HotelRoomEdit />}></Route>
                                         </>
                                     )
                                 }

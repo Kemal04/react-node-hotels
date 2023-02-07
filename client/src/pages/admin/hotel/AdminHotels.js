@@ -45,7 +45,7 @@ const AdminHotels = () => {
                                 {
                                     hotels.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((hotel, index) => (
                                         <tr key={index}>
-                                            <td>{index}</td>
+                                            <td>{index + 1}</td>
                                             <td>{hotel.name}</td>
                                             <td>{hotel.email}</td>
                                             <td>{hotel.password}</td>

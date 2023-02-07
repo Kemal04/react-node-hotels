@@ -4,6 +4,7 @@ import { faBed } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const HotelSidebar = () => {
+
     return (
         <>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -13,7 +14,7 @@ const HotelSidebar = () => {
                             <img src="/img/icons/user-1.jpg" className="img-circle elevation-2" alt='user' />
                         </div>
                         <div className="info">
-                            <NavLink to="" className="d-block text-uppercase text-decoration-none">Administrasiya</NavLink>
+                            <NavLink to="" className="d-block text-uppercase text-decoration-none"></NavLink>
                         </div>
                     </div>
 
@@ -22,7 +23,7 @@ const HotelSidebar = () => {
                             <i className="fas fa-home text-white"></i>
                         </div>
                         <div className="info">
-                            <NavLink to="/admin" className="d-block text-uppercase text-decoration-none">Esasy Sahypa</NavLink>
+                            <NavLink to="/hotel" className="d-block text-uppercase text-decoration-none">Esasy Sahypa</NavLink>
                         </div>
                     </div>
 

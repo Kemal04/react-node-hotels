@@ -20,23 +20,23 @@ const Contact = () => {
                             </div>
                             <div className='col-xl-3 mb-4 text-center'>
                                 <img src="/img/icons/loc.svg" alt="" style={{ width: "20px" }} />
-                                <div className='h4 mt-3'>Address</div>
+                                <div className='h4 mt-3'>Salgymyz</div>
                                 <div className='text-secondary'>Aşgabat ş., Oguzhan köç., 13 "A"</div>
                             </div>
                             <div className='col-xl-3 mb-4 text-center'>
                                 <img src="/img/icons/phone.svg" alt="" style={{ width: "20px" }} />
-                                <div className='h4 mt-3'>Açylyş wagty</div>
-                                <div className='text-secondary'>09:00 am, 22:00 pm</div>
+                                <div className='h4 mt-3'>Iş wagtlarymyz</div>
+                                <div className='text-secondary'>09:00-dan, 22:00 çenli</div>
                             </div>
                             <div className='col-xl-3 mb-4 text-center'>
                                 <img src="/img/icons/email.svg" alt="" style={{ width: "20px" }} />
-                                <div className='h4 mt-3'>Email</div>
+                                <div className='h4 mt-3'>E-mail salgymyz</div>
                                 <div className='text-secondary'>it@sanly.tm</div>
                             </div>
                         </div>
 
                         <div className='t-3'>
-                            <iframe title='0' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6360365.127578056!2d55.02286416404438!3d38.88631666238773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f65cb5574bc6ccb%3A0x7edd826b4169a491!2sT%C3%BCrkmenistan!5e0!3m2!1str!2s!4v1637062056772!5m2!1str!2s" style={{ border: "1px", width: "100%", height: "500px" }} allowFullScreen loading="lazy"></iframe>
+                            <iframe title='0' src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29427.223293100265!2d52.85261334369845!3d39.96563932613931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2s!4v1675774508961!5m2!1str!2s" style={{ border: "1px", width: "100%", height: "500px" }} allowFullScreen loading="lazy"></iframe>
                         </div>
 
                     </div>

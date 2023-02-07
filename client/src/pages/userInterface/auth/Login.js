@@ -2,18 +2,18 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import { AuthContext } from "../../../context/AuthContext";
 import { ThemeContext } from '../../../context/ThemeContext';
+import { AuthContext } from '../../../context/AuthContext';
 
 const Login = () => {
 
     const { darkMode } = useContext(ThemeContext)
+    const { setAuthState } = useContext(AuthContext);
 
     const [phoneNum, setPhoneNum] = useState("")
     const [password, setPassword] = useState("")
-    const { setAuthState } = useContext(AuthContext);
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const loginUser = async (e) => {
         e.preventDefault();
@@ -43,6 +43,7 @@ const Login = () => {
                     });
                     toast.success(res.data.success)
                     navigate("/")
+                    window.location.reload()
                 }
 
             })

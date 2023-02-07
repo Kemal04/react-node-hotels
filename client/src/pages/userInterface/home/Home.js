@@ -1,25 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import { ThemeContext } from '../../../context/ThemeContext';
 import BannerSlider from "../../../components/banner/BannerSlider"
+import { useDispatch, useSelector } from "react-redux";
+import { getAllContacts } from '../../../redux/slices/contact'
+import { getAllRooms } from '../../../redux/slices/rooms'
 
 const Home = () => {
 
     const { darkMode } = useContext(ThemeContext)
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const { rooms } = useSelector(state => state.rooms)
-    // useEffect(() => {
-    //     dispatch(getAllRooms())
-    // }, [dispatch])
+    const { rooms } = useSelector(state => state.rooms)
+    useEffect(() => {
+        dispatch(getAllRooms())
+    }, [dispatch])
 
-    // const { contacts } = useSelector(state => state.contacts)
-    // useEffect(() => {
-    //     dispatch(getAllContacts())
-    // }, [dispatch])
+    const { contacts } = useSelector(state => state.contacts)
+    useEffect(() => {
+        dispatch(getAllContacts())
+    }, [dispatch])
 
     const roomoptions = {
         type: 'loop',
@@ -96,7 +99,7 @@ const Home = () => {
                     <div className='row align-items-center'>
                         <div className='col-xl-6 col-lg-6'>
                             <div className='h6 ls-2 mb-3' style={{ color: "#1cc3b2" }}> BIz barada </div>
-                            <div className='display-4 mb-5'> Kuwwat" myhmanhanasyna hoş geldiňiz </div>
+                            <div className='display-4 mb-5'> Myhmanhanalar portalyna hoş geldiňiz </div>
                             <div className='h5 lh-lg ls-1 text-secondary mb-3'>
                                 Dünýäde 340-dan gowrak myhmanhana bar, NH Hotel Group, barjak ýeriňize garamazdan ajaýyp ýaşamak üçin dürli myhmanhanalary hödürleýär.                            </div>
                             <div> Alyp Baryjy: <span style={{ color: "#1cc3b2" }}> Kemal Hojayew</span> </div>
@@ -168,49 +171,54 @@ const Home = () => {
 
                 {/* Rooms Section  */}
                 <div className='container-fluid p-0 my-5'>
+
                     <Splide options={roomoptions} hasTrack={false}>
                         <SplideTrack className='row g-0'>
-                            <SplideSlide className='col-xl-12 mb-3'>
-                                <div className={darkMode ? 'row bg-white text-dark align-items-center' : 'row bg-primary-blue text-white align-items-center'}>
-                                    <div className='col-xl-6 col-lg-6 col-12'>
-                                        <img src="/img/banners/1.jpg" alt="room" className='img-fluid ml-0' />
-                                    </div>
-                                    <div className='col-xl-6 col-lg-6 col-12 d-flex align-items-start justify-content-center flex-column py-3'>
-                                        <div className='ms-5 display-5'>№ 321</div>
-                                        <div className='ms-5 my-4'>
-                                            <span className='h2 text-blue'>310 <small>TMT</small></span>
-                                            <span> / Gün</span>
+                            {
+                                rooms.map((room) => (
+                                    <SplideSlide className='col-xl-12 mb-3' key={room.id}>
+                                        <div className={darkMode ? 'row bg-white text-dark align-items-center' : 'row bg-primary-blue text-white align-items-center'}>
+                                            <div className='col-xl-6 col-lg-6 col-12'>
+                                                <img src="/img/banners/1.jpg" alt="room" className='img-fluid ml-0' />
+                                            </div>
+                                            <div className='col-xl-6 col-lg-6 col-12 d-flex align-items-start justify-content-center flex-column py-3'>
+                                                <div className='ms-5 display-5'>№ {room.roomNum}</div>
+                                                <div className='ms-5 my-4'>
+                                                    <span className='h2 text-blue'>{room.price} <small>TMT</small></span>
+                                                    <span> / Gün</span>
+                                                </div>
+                                                <div className='ms-3'>
+                                                    <ul className='ul'>
+                                                        <li className='li mb-3'>
+                                                            <span style={{ width: "120px", display: "inline-block" }}>Oteli</span>
+                                                            <span style={{ width: "auto", display: "inline-block" }}>: {room.hotel.name}</span>
+                                                        </li>
+                                                        <li className='li mb-3'>
+                                                            <span style={{ width: "120px", display: "inline-block" }}>Görnüşi</span>
+                                                            <span style={{ width: "auto", display: "inline-block" }}>: {room.roomtypeId}</span>
+                                                        </li>
+                                                        <li className='li mb-3'>
+                                                            <span style={{ width: "120px", display: "inline-block" }}>Meýdany</span>
+                                                            <span style={{ width: "auto", display: "inline-block" }}>: {room.size} m<sup>2</sup></span>
+                                                        </li>
+                                                        <li className='li mb-3'>
+                                                            <span style={{ width: "120px", display: "inline-block" }}>Adam sany</span>
+                                                            <span style={{ width: "auto", display: "inline-block" }}>: Iň köp {room.capacity} adam</span>
+                                                        </li>
+                                                        <li className='li mb-3'>
+                                                            <span style={{ width: "120px", display: "inline-block" }}>Hyzmatlar</span>
+                                                            <span style={{ width: "auto", display: "inline-block" }}>: Wifi, Telewizor, Hammam . . .</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className='ms-5 mt-4'>
+                                                    <Link to={`/otag/${room.id}`} className='btn btn-primary ls-1' style={{ fontWeight: "600" }}>Maglumatlary gör</Link>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='ms-3'>
-                                            <ul className='ul'>
-                                                <li className='li mb-3'>
-                                                    <span style={{ width: "120px", display: "inline-block" }}>Hoteli</span>
-                                                    <span style={{ width: "auto", display: "inline-block" }}>: "Berkarar"</span>
-                                                </li>
-                                                <li className='li mb-3'>
-                                                    <span style={{ width: "120px", display: "inline-block" }}>Görnüşi</span>
-                                                    <span style={{ width: "auto", display: "inline-block" }}>: Standart</span>
-                                                </li>
-                                                <li className='li mb-3'>
-                                                    <span style={{ width: "120px", display: "inline-block" }}>Meýdany</span>
-                                                    <span style={{ width: "auto", display: "inline-block" }}>: 31 m<sup>2</sup></span>
-                                                </li>
-                                                <li className='li mb-3'>
-                                                    <span style={{ width: "120px", display: "inline-block" }}>Adam sany</span>
-                                                    <span style={{ width: "auto", display: "inline-block" }}>: Iň köp 2 adam</span>
-                                                </li>
-                                                <li className='li mb-3'>
-                                                    <span style={{ width: "120px", display: "inline-block" }}>Hyzmatlar</span>
-                                                    <span style={{ width: "auto", display: "inline-block" }}>: Wifi, Telewizor, Hammam . . .</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className='ms-5 mt-4'>
-                                            <Link to={`/otaglar`} className='btn btn-primary ls-1' style={{ fontWeight: "600" }}>Maglumatlary gör</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </SplideSlide>
+                                    </SplideSlide>
+                                ))
+                            }
                         </SplideTrack>
                     </Splide>
                 </div>
@@ -227,14 +235,18 @@ const Home = () => {
                             <div className='display-5 mb-4'>Bize Gelen Teswirler</div>
                             <Splide options={contactOptions} hasTrack={false} className="my-5">
                                 <SplideTrack className='row'>
-                                    <SplideSlide className='col-xl-12'>
-                                        <div className='h5 lh-lg ls-1 text-secondary mb-5'>
-                                            Salam men Kemal
-                                        </div>
-                                        <div>
-                                            Kemal - <span className='text-blue'>kemalhojayew04@gmail.com</span>
-                                        </div>
-                                    </SplideSlide>
+                                    {
+                                        contacts.map((contact) => (
+                                            <SplideSlide className='col-xl-12' key={contact.id}>
+                                                <div className='h5 lh-lg ls-1 text-secondary mb-5'>
+                                                    {contact.comment}
+                                                </div>
+                                                <div>
+                                                    {contact.name} - <span className='text-blue'>{contact.email}</span>
+                                                </div>
+                                            </SplideSlide>
+                                        ))
+                                    }
                                 </SplideTrack>
                             </Splide>
                         </div>

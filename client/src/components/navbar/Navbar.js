@@ -9,7 +9,6 @@ const Navbar = () => {
     const { authState, setAuthState } = useContext(AuthContext)
 
     const { darkMode, toggleDarkMode } = useContext(ThemeContext)
-    console.log(authState);
 
     const darkModeClick = () => {
         toggleDarkMode();
@@ -26,7 +25,7 @@ const Navbar = () => {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12'>
-                            <div className='row align-items-center'> 
+                            <div className='row align-items-center'>
                                 <div className='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 small'>
                                     499401, 499402, 499403
                                 </div>
@@ -36,18 +35,15 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div className='col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 text-end d-xl-block d-lg-block d-md-block d-sm-none d-none'>
-                            <span className='px-2'>
-                                <img src="/img/icons/ins.svg" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
-                            </span>
-                            <span className='px-2'>
-                                <img src="/img/icons/facebook.svg" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
-                            </span>
-                            <span className='px-2'>
-                                <img src="/img/icons/tweeter.svg" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
-                            </span>
-                            <span className='px-2'>
-                                <img src="/img/icons/whatsap.svg" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
-                            </span>
+                            <Link to="/" className='px-3'>
+                                <img src="/img/icons/lang/tm.png" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
+                            </Link>
+                            <Link to="/" className='px-3'>
+                                <img src="/img/icons/lang/en.png" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
+                            </Link>
+                            <Link to="/" className='px-3'>
+                                <img src="/img/icons/lang/ru.png" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -96,14 +92,16 @@ const Navbar = () => {
                                             </div>
                                             <ul className="dropdown-menu rounded-0">
                                                 {
-                                                    authState.role === "Admin" ?
-                                                        <li><NavLink to={"/admin"} className="dropdown-item bg-white text-black">Admin</NavLink></li>
-                                                        :
-                                                        <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Şahsy Otag</NavLink></li>
-
+                                                    authState.role === "Admin" && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
+                                                }
+                                                {
+                                                    authState.role === "Hotel" && <li><NavLink to="/hotel" className="dropdown-item bg-white text-black">Hotel</NavLink></li>
+                                                }
+                                                {
+                                                    authState.role === "User" && <li><NavLink to="/ulanyjy-profili" className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>
                                                 }
                                                 <li><hr className="dropdown-divider" /></li>
-                                                <li><button onClick={logout} className="dropdown-item bg-white text-black">Çykyş</button></li>
+                                                <li><button onClick={logout} className="dropdown-item bg-white text-black">Ulgamdan çyk</button></li>
                                             </ul>
                                         </li>
                                     </div>

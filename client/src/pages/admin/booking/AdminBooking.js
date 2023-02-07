@@ -44,7 +44,7 @@ const AdminBooking = () => {
                                 {
                                     bookings.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((booking, index) => (
                                         <tr key={index} className={booking.check ? "text-success" : "text-danger"}>
-                                            <td>{index}</td>
+                                            <td>{index + 1}</td>
                                             <td>№ {booking.room.roomNum} Otag</td>
                                             <td>+993 {booking.phoneNumber}</td>
                                             <td>
