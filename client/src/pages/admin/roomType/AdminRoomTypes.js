@@ -40,12 +40,12 @@ const AdminRoomTypes = () => {
                             <tbody>
 
                                 {
-                                    roomTypes.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((roomtype, index) => (
+                                    roomTypes.map((roomtype, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td>{roomtype.name}</td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/otag-gornusini-uytget/${roomtype.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/otag-gornusini-uytgetmek/${roomtype.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(roomtype.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>

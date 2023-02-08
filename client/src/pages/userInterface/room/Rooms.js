@@ -104,7 +104,7 @@ const Rooms = () => {
                                                             </div>
                                                             <div className='col-xl-6 col-lg-6 col-md-6 col-6 d-flex flex-column mb-4 h6'>
                                                                 <span className='mb-2' style={{ color: '#afb4bf' }}>Görnüşi:</span>
-                                                                <span>"{room.roomtypeId}"</span>
+                                                                <span>"{room.roomtype.name}"</span>
                                                             </div>
                                                             <div className='col-xl-6 col-lg-6 col-md-6 col-6 d-flex flex-column mb-4 h6'>
                                                                 <span className='mb-2' style={{ color: '#afb4bf' }}>Oteli:</span>

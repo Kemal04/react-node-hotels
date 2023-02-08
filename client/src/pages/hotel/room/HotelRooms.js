@@ -3,21 +3,22 @@ import { Link, useNavigate } from 'react-router-dom'
 import { faPencil, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteRoom, getAllRooms } from '../../../redux/slices/rooms'
+import { deleteHotelRoom } from '../../../redux/slices/hotelRooms'
+import { getAllHotelRooms } from '../../../redux/slices/hotelRooms'
 
 const HotelRooms = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { rooms } = useSelector(state => state.rooms)
+    const { hotelRooms } = useSelector(state => state.hotelRooms)
 
     useEffect(() => {
-        dispatch(getAllRooms())
+        dispatch(getAllHotelRooms())
     }, [dispatch])
 
     const handleDelete = async (id) => {
-        dispatch(deleteRoom(id))
+        dispatch(deleteHotelRoom(id))
         navigate("/hotel/otaglar")
     }
 
@@ -44,11 +45,11 @@ const HotelRooms = () => {
                             </thead>
                             <tbody >
                                 {
-                                    rooms.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((room, index) => (
+                                    hotelRooms.map((room, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             {/* <td><img src={`http://localhost:3001/img/${room.img}`} alt={room.roomType.name} style={{width:"100px"}}/></td> */}
-                                            <td>{room.roomtypeId}</td>
+                                            <td>{room.roomtype.name}</td>
                                             <td>№ {room.roomNum}</td>
                                             <td>{room.size} m<sup>2</sup></td>
                                             <td>{room.capacity} adam</td>

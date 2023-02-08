@@ -18,3 +18,4 @@ export { default as AdminBookingEdit } from "./booking/AdminBookingEdit"
 
 export { default as AdminHotels } from "./hotel/AdminHotels"
 export { default as AdminHotelsCreate } from "./hotel/AdminHotelsCreate"
+export { default as AdminHotelEdit } from "./hotel/AdminHotelEdit"

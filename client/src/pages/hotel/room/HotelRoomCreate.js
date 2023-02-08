@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { creatRoom } from '../../../redux/slices/rooms'
+import { creatHotelRoom } from '../../../redux/slices/hotelRooms'
 import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
 
 const HotelRoomCreate = () => {
@@ -59,7 +59,7 @@ const HotelRoomCreate = () => {
             toast.error("Surat yok")
         }
         else {
-            dispatch(creatRoom(formData))
+            dispatch(creatHotelRoom(formData))
             navigate("/hotel/otaglar")
         }
     }

@@ -48,9 +48,9 @@ const AdminHotels = () => {
                                             <td>{index + 1}</td>
                                             <td>{hotel.name}</td>
                                             <td>{hotel.email}</td>
-                                            <td>{hotel.password}</td>
+                                            <td>*************</td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/hotel-uytget/${hotel.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/hotel-uytgetmek/${hotel.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(hotel.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>

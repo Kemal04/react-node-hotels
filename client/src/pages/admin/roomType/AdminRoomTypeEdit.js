@@ -19,13 +19,13 @@ const AdminRoomTypeEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/roomtypes/edit/${roomTypeId}`, {
+        axios.get(`http://localhost:3001/api/roomType/edit/${roomTypeId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
             .then((res) => {
-                setRoomType(res.data.roomtype)
+                setRoomType(res.data.roomType)
             }).catch((res) => {
                 toast.error(res.response.data.error)
                 navigate(`/${res.response.status}`)
@@ -40,7 +40,7 @@ const AdminRoomTypeEdit = () => {
             toast.error("Adyny yazyn")
         }
         else {
-            await axios.post(`http://localhost:3001/api/roomtypes/edit/${roomTypeId}`, roomType, {
+            await axios.post(`http://localhost:3001/api/roomType/edit/${roomTypeId}`, roomType, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
