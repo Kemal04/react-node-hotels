@@ -15,6 +15,7 @@ module.exports.AllRoomsGet = async (req, res) => {
             if (rooms) {
                 return res.json({ rooms: rooms });
             }
+            console.log(rooms);
         })
         .catch((err) => {
             res.status(500).json(err);

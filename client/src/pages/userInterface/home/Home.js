@@ -195,7 +195,7 @@ const Home = () => {
                                                         </li>
                                                         <li className='li mb-3'>
                                                             <span style={{ width: "120px", display: "inline-block" }}>Görnüşi</span>
-                                                            <span style={{ width: "auto", display: "inline-block" }}>: {room.roomtypeId}</span>
+                                                            <span style={{ width: "auto", display: "inline-block" }}>: {room.roomtype.name}</span>
                                                         </li>
                                                         <li className='li mb-3'>
                                                             <span style={{ width: "120px", display: "inline-block" }}>Meýdany</span>

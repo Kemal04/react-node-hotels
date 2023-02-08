@@ -7,7 +7,7 @@ const hotelController = require("../controllers/hotel.controller");
 
 router.get("/", hotelController.allHotelGet);
 router.get("/:hotelId", hotelController.singleGet);
-router.post("/edit/:hotelId", isAdmin, hotelController.editPost);
+router.post("/create", isAdmin, hotelController.createPost);
 router.get("/edit/:hotelId", isAdmin, hotelController.editGet);
 router.post("/edit/:hotelId", isAdmin, hotelController.editPost);
 router.delete("/delete/:hotelId", isAdmin, hotelController.destroy);

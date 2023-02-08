@@ -24,10 +24,7 @@ const HotelRoomEdit = () => {
         img: "",
     })
 
-    
-    
     const [img, setImg] = useState('')
-    console.log(img);
 
     const uploadPicture = (e) => {
         setImg({
@@ -46,7 +43,7 @@ const HotelRoomEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/rooms/edit/${roomId}`, {
+        axios.get(`http://localhost:3001/api/hotelRoom/edit/${roomId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -87,7 +84,7 @@ const HotelRoomEdit = () => {
             toast.error("Tutýan meýdanyny ýazyň")
         }
         else {
-            await axios.post(`http://localhost:3001/api/rooms/edit/${roomId}`, formData, {
+            await axios.post(`http://localhost:3001/api/hotelRoom/edit/${roomId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
@@ -95,7 +92,7 @@ const HotelRoomEdit = () => {
             })
                 .then((res) => {
                     toast.success(res.data.success)
-                    navigate("/admin/otaglar")
+                    navigate("/hotel/otaglar")
                 }).catch((res) => {
                     toast.error(res.response.data.error)
                     navigate(`/${res.response.status}`)

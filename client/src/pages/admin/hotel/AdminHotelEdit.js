@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { creatHotel } from '../../../redux/slices/hotels'
 
-const AdminHotelsCreate = () => {
+const AdminHotelEdit = () => {
 
-    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation();
+    const hotelId = location.pathname.split("/")[3];
 
     const [hotel, setHotel] = useState({
         name: "",
@@ -19,21 +19,42 @@ const AdminHotelsCreate = () => {
         setHotel((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
+    useEffect(() => {
+        axios.get(`http://localhost:3001/api/hotel/edit/${hotelId}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((res) => {
+            setHotel(res.data.hotel)
+        }).catch((err) => {
+            console.log(err.message)
+        })
+    }, [hotelId])
+
     const handleClick = async (e) => {
         e.preventDefault()
 
         if (!hotel.name) {
-            toast.error("Adyny yazyn")
+            toast.error("Adynyzy yazyn")
         }
         else if (!hotel.email) {
-            toast.error("E-mail adresini yazyn")
+            toast.error("E-mail ýazyň")
         }
         else if (!hotel.password) {
-            toast.error("Acar sozunu yazyn")
+            toast.error("Habary ýazyň")
         }
         else {
-            dispatch(creatHotel(hotel))
-            navigate("/admin/hotellar")
+            await axios.post(`http://localhost:3001/api/hotel/edit/${hotelId}`, hotel, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
+                .then((res) => {
+                    toast.success(res.data.success)
+                    navigate("/admin/hotellar")
+                }).catch((error) => {
+                    toast.error(error.message)
+                });
         }
     }
 
@@ -50,17 +71,17 @@ const AdminHotelsCreate = () => {
 
                                 <div className="col-lg-6 mb-3">
                                     <label className="form-label fw-bold">Ady</label>
-                                    <input name='name' onChange={handleChange} type="text" className="form-control rounded-0" autoComplete="off" />
+                                    <input name='name' value={hotel.name} onChange={handleChange} type="text" className="form-control rounded-0" autoComplete="off" />
                                 </div>
 
                                 <div className="col-lg-6 mb-3">
                                     <label className="form-label fw-bold">E-mail Adresi</label>
-                                    <input name='email' onChange={handleChange} type="email" className="form-control rounded-0" autoComplete="off" />
+                                    <input name='email' value={hotel.email} onChange={handleChange} type="email" className="form-control rounded-0" autoComplete="off" />
                                 </div>
 
                                 <div className="col-lg-12 mb-3">
                                     <label className="form-label fw-bold">Açar sözi</label>
-                                    <input name='password' onChange={handleChange} type="password" className="form-control rounded-0" autoComplete="off" />
+                                    <input name='password' value={hotel.password} onChange={handleChange} type="password" className="form-control rounded-0" autoComplete="off" />
                                 </div>
 
                                 <div className='d-grid mt-3'>
@@ -76,4 +97,4 @@ const AdminHotelsCreate = () => {
     )
 }
 
-export default AdminHotelsCreate
+export default AdminHotelEdit

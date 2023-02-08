@@ -5,6 +5,7 @@ import roomTypesReducer from './slices/roomTypes';
 import roomsReducer from './slices/rooms';
 import bookingsReducer from './slices/bookings';
 import hotelsReducer from './slices/hotels';
+import hotelRoomsReducer from './slices/hotelRooms';
 
 const reducer = {
     contacts: contactsReducer,
@@ -13,6 +14,7 @@ const reducer = {
     rooms: roomsReducer,
     bookings: bookingsReducer,
     hotels: hotelsReducer,
+    hotelRooms: hotelRoomsReducer,
 }
 
 const store = configureStore({

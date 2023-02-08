@@ -46,7 +46,7 @@ const AdminRooms = () => {
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             {/* <td><img src={`http://localhost:3001/img/${room.img}`} alt={room.roomType.name} style={{width:"100px"}}/></td> */}
-                                            <td>{room.roomType.name}</td>
+                                            <td>{room.roomtype.name}</td>
                                             <td>№ {room.roomNum}</td>
                                             <td>{room.size} m<sup>2</sup></td>
                                             <td>{room.capacity} adam</td>
