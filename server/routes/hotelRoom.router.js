@@ -7,10 +7,15 @@ const imageUpload = require("../helpers/image-upload")
 const multer = require("multer");
 const upload = multer({ dest: "./public/img" });
 
+
+// Otellerin admin paneli ucin roomlar
+
 router.get("/", isHotel, hotelRoomController.AllRoomsGet);
-router.get("/create", isHotel, hotelRoomController.createGet)
+router.get("/:roomId", isHotel, hotelRoomController.singleGet);
+router.get("/create", isHotel, hotelRoomController.createGet);
 router.post("/create", isHotel, imageUpload.upload.single("img"), hotelRoomController.createPost);
-router.get("/edit/:id", isHotel, hotelRoomController.editGet);
-router.post("/edit/:id", isHotel, imageUpload.upload.single("img"), hotelRoomController.editPost)
-router.delete("/delete/:id", isHotel, hotelRoomController.destroy)
+router.get("/edit/:roomId", isHotel, hotelRoomController.editGet);
+router.post("/edit/:roomId", isHotel, imageUpload.upload.single("img"), hotelRoomController.editPost);
+router.delete("/delete/:roomId", isHotel, hotelRoomController.destroy);
+
 module.exports = router;

@@ -1,6 +1,8 @@
 const { Room, RoomType, Hotel } = require("../models/model");
 const fs = require('fs')
 
+// Otellerin admin paneli ucin roomlar
+
 module.exports.AllRoomsGet = async (req, res) => {
     await Room.findAll({
         include: [
@@ -16,6 +18,29 @@ module.exports.AllRoomsGet = async (req, res) => {
         })
         .catch((err) => {
             res.status(500).json(err);
+        })
+}
+
+module.exports.singleGet = async (req, res) => {
+    await Room.findOne({
+        where: {
+            id: req.params.roomId,
+            hotelId: req.user.id
+        },
+        include: [
+            { model: Hotel, attributes: ['id', 'name'] },
+            { model: RoomType, attributes: ['id', 'name'] }
+        ]
+    })
+        .then((room) => {
+            if (room) {
+                res.json({ room: room })
+            } else {
+                res.json({ error: "Otag tapylmady" })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ err })
         })
 }
 
@@ -50,7 +75,7 @@ module.exports.createPost = async (req, res) => {
 module.exports.editGet = async (req, res) => {
     await Room.findOne({
         where: {
-            id: req.params.id,
+            id: req.params.roomId,
             hotelId: req.user.id
         },
         include: [
@@ -82,7 +107,7 @@ module.exports.editPost = async (req, res) => {
 
     await Room.findOne({
         where: {
-            id: req.params.id,
+            id: req.params.roomId,
             hotelId: req.user.id
         }
     })
@@ -107,7 +132,7 @@ module.exports.editPost = async (req, res) => {
 module.exports.destroy = async (req, res) => {
     await Room.findOne({
         where: {
-            id: req.params.id,
+            id: req.params.roomId,
             hotelId: req.user.id
         }
     })
