@@ -14,5 +14,4 @@ router.delete("/delete/:hotelId", isAdmin, hotelController.destroy);
 
 
 
-
 module.exports = router;
