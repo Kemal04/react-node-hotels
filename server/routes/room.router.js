@@ -1,13 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { isHotel } = require("../middlewares/authMiddleware");
-const RoomController = require("../controllers/room.controller");
-const fs = require('fs')
-const imageUpload = require("../helpers/image-upload")
-const multer = require("multer");
-const upload = multer({ dest: "./public/img" });
+const { isAdmin } = require("../middlewares/authMiddleware");
+const roomController = require("../controllers/room.controller");
 
-router.get("/", RoomController.AllRoomsGet);
-router.post("/create", isHotel, imageUpload.upload.single("img"), RoomController.createPost);
+router.get("/",  roomController.AllRoomsGet);
 
 module.exports = router;
