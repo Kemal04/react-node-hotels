@@ -1,10 +1,24 @@
-const { RoomType } = require("../models/model");
+const { RoomType, Room } = require("../models/model");
+
+//superAdmin ucin roomType
 
 module.exports.AllTypesGet = async (req, res) => {
     await RoomType.findAll()
         .then((roomTypes) => {
             res.json({ roomTypes: roomTypes })
         })
+}
+
+module.exports.singleGet = async (req, res) => {
+    await RoomType.findAll({
+        where: { id: req.params.roomTypeId }
+    })
+    .then((roomType) => {
+        res.json({ roomType: roomType })
+    }) 
+    .catch((err)=>{
+        res.status(500).json({err})
+    })
 }
 
 module.exports.createPost = async (req, res) => {
@@ -17,7 +31,16 @@ module.exports.createPost = async (req, res) => {
         })
 }
 
-module.exports.RoomtypeEdit = async (req, res) => {
+module.exports.RoomTypeEditGet = async (req, res) => {
+    await RoomType.findOne({
+        where: { id: req.params.id }
+    })
+        .then((roomType) => {
+            res.json({ roomType: roomType })
+        })
+}
+
+module.exports.RoomtypeEditPost = async (req, res) => {
     await RoomType.update(
         { name: req.body.name },
         { where: { id: req.params.id } })
