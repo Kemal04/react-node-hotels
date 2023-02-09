@@ -52,7 +52,7 @@ const AdminRooms = () => {
                                             <td>{room.capacity} adam</td>
                                             <td>{room.price}<span className='small'> TMT</span></td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/otag-uytget/${room.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/otag-uytgetmek/${room.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(room.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>
