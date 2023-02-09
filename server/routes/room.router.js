@@ -8,7 +8,7 @@ const roomController = require("../controllers/room.controller");
 router.get("/", roomController.AllRoomsGet);
 router.get("/:roomId", roomController.singleGet);
 router.get("/edit/:roomId", isAdmin, roomController.editGet);
-router.post("/edit/:roomId", isAdmin, roomController.editPost);
+router.post("/edit/:roomId", isAdmin, roomController.RoomEditPost);
 router.delete("/delete/:roomId", isAdmin, roomController.destroy);
 
 module.exports = router;
