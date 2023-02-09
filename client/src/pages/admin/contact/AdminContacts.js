@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact, getAllContacts } from '../../../redux/slices/contact'
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AdminContact = () => {
 
@@ -45,8 +47,8 @@ const AdminContact = () => {
                                             <td>{contact.subject}</td>
                                             <td>{contact.comment.substring(0, 40)}...</td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/teswir-uytget/${contact.id}`}>Duzeltmek</Link>
-                                                <button className='btn btn-sm btn-danger' onClick={() => handleDelete(contact.id)}>Pozmak</button>
+                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/teswir-uytgetmek/${contact.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <button className='btn btn-sm btn-danger' onClick={() => handleDelete(contact.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>
                                     ))

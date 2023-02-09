@@ -1,4 +1,5 @@
 const { Room, RoomType, Hotel } = require("../models/model");
+const fs = require('fs')
 
 //superAdmin ucin roomlar
 

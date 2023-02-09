@@ -95,14 +95,14 @@ const App = () => {
                                             <Route path='/admin/ulanyjylar' element={<AdminUsers />}></Route>
 
                                             <Route path='/admin/teswirler' element={<AdminContacts />}></Route>
-                                            <Route path='/admin/teswir-uytget/:id' element={<AdminContactEdit />}></Route>
+                                            <Route path='/admin/teswir-uytgetmek/:id' element={<AdminContactEdit />}></Route>
 
                                             <Route path='/admin/hotellar' element={<AdminHotels />}></Route>
                                             <Route path='/admin/hotel-gosmak' element={<AdminHotelsCreate />}></Route>
                                             <Route path='/admin/hotel-uytgetmek/:id' element={<AdminHotelEdit />}></Route>
 
                                             <Route path='/admin/otaglar' element={<AdminRooms />}></Route>
-                                            <Route path='/admin/otag-uytget/:id' element={<AdminRoomEdit />}></Route>
+                                            <Route path='/admin/otag-uytgetmek/:id' element={<AdminRoomEdit />}></Route>
 
                                             <Route path='/admin/otag-gornusleri' element={<AdminRoomTypes />}></Route>
                                             <Route path='/admin/otag-gornusini-gosmak' element={<AdminRoomTypeCreate />}></Route>

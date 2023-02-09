@@ -10,13 +10,12 @@ const AdminRoomEdit = () => {
     const dispatch = useDispatch()
 
     const { roomTypes } = useSelector(state => state.roomTypes)
-
     useEffect(() => {
         dispatch(getAllRoomTypes())
     }, [dispatch])
-
+    
     const [room, setRoom] = useState({
-        roomTypeId: "",
+        roomtypeId: "",
         roomNum: "",
         price: "",
         capacity: "",
@@ -24,10 +23,9 @@ const AdminRoomEdit = () => {
         img: "",
     })
 
-    
-    
+    console.log(room);
+
     const [img, setImg] = useState('')
-    console.log(img);
 
     const uploadPicture = (e) => {
         setImg({
@@ -46,7 +44,7 @@ const AdminRoomEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/rooms/edit/${roomId}`, {
+        axios.get(`http://localhost:3001/api/room/edit/${roomId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -64,14 +62,14 @@ const AdminRoomEdit = () => {
         e.preventDefault()
 
         const formData = new FormData()
-        formData.append('roomTypeId', room.roomTypeId)
+        formData.append('roomtypeId', room.roomtypeId)
         formData.append('roomNum', room.roomNum)
         formData.append('price', room.price)
         formData.append('capacity', room.capacity)
         formData.append('size', room.size)
         formData.append('img', img.pictureAsFile === undefined ? img : img.pictureAsFile)
 
-        if (!room.roomTypeId) {
+        if (!room.roomtypeId) {
             toast.error("Otagyň görnüşini saýlaň")
         }
         else if (!room.roomNum) {
@@ -86,8 +84,11 @@ const AdminRoomEdit = () => {
         else if (!room.size) {
             toast.error("Tutýan meýdanyny ýazyň")
         }
+        else if (!room.img) {
+            toast.error("Surat saylan")
+        }
         else {
-            await axios.post(`http://localhost:3001/api/rooms/edit/${roomId}`, formData, {
+            await axios.post(`http://localhost:3001/api/room/edit/${roomId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
@@ -115,8 +116,7 @@ const AdminRoomEdit = () => {
                             <form className='row'>
 
                                 <div className="col-lg-12 mb-3">
-                                    <select name='roomTypeId' onChange={handleChange} className="form-select">
-                                        <option defaultValue>Otagyň gornusini sayla</option>
+                                    <select name='roomtypeId' onChange={handleChange} className="form-select">
                                         {roomTypes.map(roomtype => (
                                             <option key={roomtype.id} value={roomtype.id}>{roomtype.name}</option>
                                         ))}

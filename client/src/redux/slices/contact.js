@@ -17,8 +17,12 @@ export const getAllContacts = createAsyncThunk(
 export const creatContact = createAsyncThunk(
     "contact/create",
     async (contact) => {
-        const { data } = await axios.post("http://localhost:3001/api/contact/create", contact)
-        toast.success(data.success)
+        await axios.post("http://localhost:3001/api/contact/create", contact)
+            .then((res) => {
+                toast.success(res.data.success)
+            }).catch((res) => {
+                toast.error(res.response.data.error)
+            });
     }
 );
 

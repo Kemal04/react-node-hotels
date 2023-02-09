@@ -1,19 +1,24 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom'
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../../redux/slices/users';
+import { deleteUsers, getAllUsers } from '../../../redux/slices/users';
 
 const AdminUsers = () => {
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const { users } = useSelector(state => state.users)
-
     useEffect(() => {
         dispatch(getAllUsers())
     }, [dispatch])
+
+    const handleDelete = async (id) => {
+        dispatch(deleteUsers(id))
+        navigate("/admin/ulanyjylar")
+    }
 
     return (
         <>
@@ -32,6 +37,7 @@ const AdminUsers = () => {
                                     <th scope="col">E-mail adresi</th>
                                     <th scope="col">Hukugy</th>
                                     <th scope="col">Açar sözi</th>
+                                    <th scope="col">Duzeltmek</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,6 +50,9 @@ const AdminUsers = () => {
                                             <td>{user.phoneNum}</td>
                                             <td>{user.role}</td>
                                             <td>************</td>
+                                            <td>
+                                                <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(user.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                                            </td>
                                         </tr>
                                     ))
                                 }

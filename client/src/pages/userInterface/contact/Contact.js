@@ -1,10 +1,53 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ThemeContext } from '../../../context/ThemeContext'
 import BannerImg from "../../../components/banner/BannerImg"
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import { creatContact } from '../../../redux/slices/contact'
 
 const Contact = () => {
 
     const { darkMode } = useContext(ThemeContext)
+
+    const dispatch = useDispatch();
+
+    const [contact, setContact] = useState({
+        name: "",
+        email: "",
+        subject: "",
+        comment: "",
+    })
+
+    const handleChange = (e) => {
+        setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const navigate = useNavigate()
+
+    const handleClick = async (e) => {
+        e.preventDefault()
+
+        if (!contact.name) {
+            toast.error("Adyňyzy ýazyň")
+        }
+        else if (!contact.email) {
+            toast.error("E-mail adresiňizi ýazyň")
+        }
+        else if (!contact.subject) {
+            toast.error("Temaňyzy ýazyň")
+        }
+        else if (!contact.comment) {
+            toast.error("Teswiriňizi ýazyň")
+        }
+        else if (contact.comment.length < 25) {
+            toast.error("Teswiriňizi 50 harpdan ybarat bolmaly")
+        }
+        else {
+            dispatch(creatContact(contact))
+            navigate("/")
+        }
+    }
 
     return (
         <>
@@ -48,19 +91,19 @@ const Contact = () => {
 
                     <div className='row justify-content-center'>
                         <div className="col-xl-4 mb-4">
-                            <input name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
+                            <input onChange={handleChange} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
                         </div>
                         <div className="col-xl-4 mb-4">
-                            <input name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
+                            <input onChange={handleChange} name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
                         </div>
                         <div className="col-xl-8 mb-4">
-                            <input name='subject' type="name" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
+                            <input onChange={handleChange} name='subject' type="name" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
                         </div>
                         <div className="col-xl-8 mb-4">
-                            <textarea name='comment' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
+                            <textarea onChange={handleChange} name='comment' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
                         </div>
                         <div className="col-xl-5 mb-4 text-center">
-                            <button className='btn btn-primary px-5'>Ugrat</button>
+                            <button onClick={handleClick} className='btn btn-primary px-5'>Ugrat</button>
                         </div>
                     </div>
                 </div>
