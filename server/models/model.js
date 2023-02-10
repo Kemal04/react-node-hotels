@@ -83,11 +83,33 @@ const Contact = sequelize.define("contact", {
     comment: { type: DataTypes.STRING, allowNull: false }
 })
 
+const Booking = sequelize.define("booking", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    checkIn: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    checkOut: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    phoneNum: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    check: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: "0"
+    }
+});
 
 Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$.2s8SLEln9Dnql5sPuvtfec93qtcKyvMAqDY8zeLg8IcndoHNtXWS", role: "Admin" } })
 
-Hotel.hasMany(Admin, { onDelete: "cascade" }),
-    Admin.belongsTo(Hotel)
 
 RoomType.hasMany(Room, { onDelete: "cascade" }),
     Room.belongsTo(RoomType)
@@ -95,11 +117,24 @@ RoomType.hasMany(Room, { onDelete: "cascade" }),
 Hotel.hasMany(Room, { onDelete: "cascade" }),
     Room.belongsTo(Hotel)
 
+Hotel.hasMany(Booking, { onDelete: "cascade" });
+Booking.belongsTo(Hotel);
+
+Room.hasMany(Booking, { onDelete: "cascade" });
+Booking.belongsTo(Room);
+
+User.hasMany(Booking, { onDelete: "cascade" });
+Booking.belongsTo(User);
+
+User.belongsToMany(Room, { through: 'RoomUserBooking' });
+Room.belongsToMany(User, { through: 'RoomUserBooking' });
+
 module.exports = {
     User,
     Admin,
     Hotel,
     RoomType,
     Room,
-    Contact
+    Contact,
+    Booking
 };
