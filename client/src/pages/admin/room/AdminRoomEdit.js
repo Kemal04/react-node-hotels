@@ -10,10 +10,11 @@ const AdminRoomEdit = () => {
     const dispatch = useDispatch()
 
     const { roomTypes } = useSelector(state => state.roomTypes)
+
     useEffect(() => {
         dispatch(getAllRoomTypes())
     }, [dispatch])
-    
+
     const [room, setRoom] = useState({
         roomtypeId: "",
         roomNum: "",
@@ -22,8 +23,6 @@ const AdminRoomEdit = () => {
         size: "",
         img: "",
     })
-
-    console.log(room);
 
     const [img, setImg] = useState('')
 
@@ -84,9 +83,6 @@ const AdminRoomEdit = () => {
         else if (!room.size) {
             toast.error("Tutýan meýdanyny ýazyň")
         }
-        else if (!room.img) {
-            toast.error("Surat saylan")
-        }
         else {
             await axios.post(`http://localhost:3001/api/room/edit/${roomId}`, formData, {
                 headers: {
@@ -117,6 +113,7 @@ const AdminRoomEdit = () => {
 
                                 <div className="col-lg-12 mb-3">
                                     <select name='roomtypeId' onChange={handleChange} className="form-select">
+                                        <option defaultValue>Otagyň gornusini sayla</option>
                                         {roomTypes.map(roomtype => (
                                             <option key={roomtype.id} value={roomtype.id}>{roomtype.name}</option>
                                         ))}

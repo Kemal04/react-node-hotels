@@ -5,20 +5,22 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 
 //COMPONENTS
-import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar
- } from "./components"
+import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar, ProfileNavbar } from "./components"
 
 //USERINTERFACE
 import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/userInterface"
 
-//USERINTERFACE
+//ADMIN
 import { Admin, AdminBooking, AdminBookingEdit, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRoomEdit, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //ERROR
 import { Forbiden, NotFounded } from './pages/error';
 
-//ERROR
+//HOTEL
 import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit } from './pages/hotel';
+
+//PROFILE
+import { Profile, ProfileBooking, ProfileEdit, ProfileHistory } from './pages/profile';
 
 //TOAST
 import { ToastContainer } from 'react-toastify'
@@ -128,6 +130,19 @@ const App = () => {
                                 }
                             </Route>
 
+                            <Route path="/" element={<ProfilWithNavbar />}>
+                                {
+                                    authState.status && (
+                                        <>
+                                            <Route path='/ulanyjy-profili/:id' element={<Profile />}></Route >
+                                            <Route path='/ulanyjy-profili-uytget/:id' element={<ProfileEdit />}></Route >
+                                            <Route path='/ulanyjy-profili/bronlarym/:id' element={<ProfileBooking />}></Route>
+                                            <Route path='/ulanyjy-profili/onki-bronlarym/:id' element={<ProfileHistory />}></Route>
+                                        </>
+                                    )
+                                }
+                            </Route>
+
                             <Route path='/admin/giris-etmek' element={<AdminLogin />}></Route>
                             <Route path='/hotel/giris-etmek' element={<HotelLogin />}></Route>
 
@@ -185,6 +200,15 @@ const HotelWithNavbar = () => {
                 </div>
             </div>
         </div>
+    );
+}
+
+const ProfilWithNavbar = () => {
+    return (
+        <>
+            <ProfileNavbar />
+            <Outlet />
+        </>
     );
 }
 

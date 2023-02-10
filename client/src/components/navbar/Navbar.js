@@ -98,7 +98,7 @@ const Navbar = () => {
                                                     authState.role === "Hotel" && <li><NavLink to="/hotel" className="dropdown-item bg-white text-black">Hotel</NavLink></li>
                                                 }
                                                 {
-                                                    authState.role === "User" && <li><NavLink to="/ulanyjy-profili" className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>
+                                                    authState.role === "User" && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>
                                                 }
                                                 <li><hr className="dropdown-divider" /></li>
                                                 <li><button onClick={logout} className="dropdown-item bg-white text-black">Ulgamdan çyk</button></li>
