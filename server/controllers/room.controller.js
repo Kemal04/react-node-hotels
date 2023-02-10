@@ -60,12 +60,12 @@ module.exports.editGet = async (req, res) => {
 };
 
 
-module.exports.editPost = async (req, res) => {
+module.exports.RoomEditPost = async (req, res) => {
     let img = req.body.img;
     if (req.file) {
         img = req.file.filename;
 
-        fs.unlink("public/img/" + req.body.img, err => {
+        fs.unlink("/public/img/" + req.body.img, err => {
             console.log(err);
         })
     }

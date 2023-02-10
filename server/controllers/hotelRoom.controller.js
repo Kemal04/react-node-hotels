@@ -101,7 +101,7 @@ module.exports.editPost = async (req, res) => {
     if (req.file) {
         img = req.file.filename;
 
-        fs.unlink("public/img/" + req.body.img, err => {
+        fs.unlink("/public/img/" + req.body.img, err => {
             console.log(err);
         })
     }
