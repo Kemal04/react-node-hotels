@@ -21,6 +21,7 @@ const RoomtypeRouter = require("./routes/roomType.router");
 const roomRouter = require("./routes/room.router")
 const hotelRoomRouter = require("./routes/hotelRoom.router");
 const contactRouter = require("./routes/contact.router");
+const bookingRouter = require("./routes/booking.router");
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/user", UserRouter);
@@ -29,6 +30,7 @@ app.use("/api/roomType", RoomtypeRouter);
 app.use("/api/room", roomRouter);
 app.use("/api/hotelRoom", hotelRoomRouter);
 app.use("/api/contact", contactRouter);
+app.use("/api/booking", bookingRouter);
 
 
 //serv
