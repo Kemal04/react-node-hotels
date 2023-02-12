@@ -11,7 +11,7 @@ const ProfileHistory = () => {
     const [user, setUser] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/users/${id}`).then((res) => {
+        axios.get(`http://localhost:3001/api/user/${id}`).then((res) => {
             setUser(res.data.user);
         });
     }, [id]);
@@ -22,7 +22,11 @@ const ProfileHistory = () => {
     useEffect(() => {
         const fetchBooking = async () => {
             try {
-                const res = await axios.get("http://localhost:3001/api/bookings/user?userId=" + id)
+                const res = await axios.get("http://localhost:3001/api/booking/user", {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                })
                 setBooking(res.data.booking)
             } catch (err) {
                 console.log(err)
@@ -39,9 +43,7 @@ const ProfileHistory = () => {
             <div className='banner-fixed d-flex align-items-center'>
                 <div className='container'>
                     <div className='row'>
-                        {/* <div className='col-lg-12 text-center text-white h2'>
-                            {user.name}
-                        </div> */}
+                        
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ const ProfileBooking = () => {
     const [user, setUser] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/users/${id}`).then((res) => {
+        axios.get(`http://localhost:3001/api/user/${id}`).then((res) => {
             setUser(res.data.user);
         });
     }, [id]);
@@ -22,7 +22,11 @@ const ProfileBooking = () => {
     useEffect(() => {
         const fetchBooking = async () => {
             try {
-                const res = await axios.get("http://localhost:3001/api/bookings/user?userId=" + id)
+                const res = await axios.get("http://localhost:3001/api/booking/user", {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                })
                 setBooking(res.data.booking)
             } catch (err) {
                 console.log(err)
@@ -111,7 +115,7 @@ const ProfileBooking = () => {
                                                                     </div>
                                                                     <div className='col-lg-12 mt-3'>
                                                                         <div style={{ fontWeight: "500", color: "#afb4bf" }}>Telefon belgisi:</div>
-                                                                        <div>+993 {room.phoneNumber}</div>
+                                                                        <div>+993 {room.phoneNum}</div>
                                                                     </div>
                                                                 </div>
 
