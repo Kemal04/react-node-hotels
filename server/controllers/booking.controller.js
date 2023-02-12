@@ -20,6 +20,7 @@ module.exports.singleBookingGet = async (req, res) => {
     await Booking.findAll({
         where: { userId: req.user.id },
         include: [
+            { model: Hotel, attributes: ['name'] },
             { model: Room },
             { model: User, attributes: ['id', 'username'] }
         ]
@@ -30,6 +31,23 @@ module.exports.singleBookingGet = async (req, res) => {
             res.status(500).json(err);
         })
 }
+
+module.exports.hotelBookingGet = async (req, res) => {
+    await Booking.findAll({
+        where: { userId: req.user.id },
+        include: [
+            { model: Room },
+            { model: User, attributes: ['id', 'username'] }
+        ]
+    })
+        .then((booking) => {
+            res.json({ booking: booking })
+        }).catch((err) => {
+            res.status(500).json(err);
+        })
+}
+
+
 
 //booking create for user
 module.exports.createBookingPost = async (req, res) => {

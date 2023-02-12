@@ -7,6 +7,7 @@ const bookingController = require("../controllers/booking.controller")
 
 router.get("/", bookingController.AllBookingGet);
 router.get("/user", validateToken, bookingController.singleBookingGet)
+router.get("/hotel", isHotel, bookingController.hotelBookingGet)
 
 //booking create for user
 router.post("/create", validateToken, bookingController.createBookingPost)
