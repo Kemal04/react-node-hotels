@@ -17,7 +17,7 @@ import { Admin, AdminBooking, AdminBookingEdit, AdminContactEdit, AdminContacts,
 import { Forbiden, NotFounded } from './pages/error';
 
 //HOTEL
-import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit } from './pages/hotel';
+import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit } from './pages/hotel';
 
 //PROFILE
 import { Profile, ProfileBooking, ProfileEdit, ProfileHistory } from './pages/profile';
@@ -111,7 +111,6 @@ const App = () => {
                                             <Route path='/admin/otag-gornusini-uytgetmek/:id' element={<AdminRoomTypeEdit />}></Route>
 
                                             <Route path='/admin/bronlanan-otaglar' element={<AdminBooking />}></Route>
-                                            <Route path='/admin/bronlanan-otaglary-uytget/:id' element={<AdminBookingEdit />}></Route>
                                         </>
                                     )
                                 }
@@ -122,9 +121,13 @@ const App = () => {
                                     authState.role === "Hotel" && (
                                         <>
                                             <Route path='/hotel' element={<Hotel />}></Route>
+
                                             <Route path='/hotel/otaglar' element={<HotelRooms />}></Route>
                                             <Route path='/hotel/otag-gosmak' element={<HotelRoomCreate />}></Route>
                                             <Route path='/hotel/otag-uytgetmek/:id' element={<HotelRoomEdit />}></Route>
+                                            
+                                            <Route path='/hotel/bronlar' element={<HotelBooking />}></Route>
+                                            <Route path='/hotel/bron-uytgetmek/:id' element={<HotelBookingEdit />}></Route>
                                         </>
                                     )
                                 }

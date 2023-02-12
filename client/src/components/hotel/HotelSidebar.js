@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { faBed } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const HotelSidebar = () => {
@@ -33,6 +33,12 @@ const HotelSidebar = () => {
                                 <NavLink to="/hotel/otaglar" className="nav-link">
                                     <FontAwesomeIcon icon={faBed} className="nav-icon me-2" />
                                     <p>Otaglar</p>
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/hotel/bronlar" className="nav-link">
+                                    <FontAwesomeIcon icon={faBook} className="nav-icon me-2" />
+                                    <p>Bronlanan otaglar</p>
                                 </NavLink>
                             </li>
                         </ul>

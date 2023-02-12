@@ -3,21 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBooking, getAllBookings } from '../../../redux/slices/bookings'
+import { deleteHotelBooking, getHotelBookings } from '../../../redux/slices/bookings'
 
-const AdminBooking = () => {
+const HotelBooking = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
     const { bookings } = useSelector(state => state.bookings)
     useEffect(() => {
-        dispatch(getAllBookings())
+        dispatch(getHotelBookings())
     }, [dispatch])
 
     const handleDelete = async (id) => {
-        dispatch(deleteBooking(id))
-        navigate("/admin/bronlanan-otaglar")
+        dispatch(deleteHotelBooking(id))
+        navigate("/hotel/bronlar")
     }
 
     return (
@@ -52,6 +52,7 @@ const AdminBooking = () => {
                                                 {new Date(booking.checkOut).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
                                             </td>
                                             <td>
+                                                <Link className='btn btn-outline-warning mx-1' to={`/hotel/bron-uytgetmek/${booking.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-outline-danger mx-1' onClick={() => handleDelete(booking.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>
@@ -66,4 +67,4 @@ const AdminBooking = () => {
     )
 }
 
-export default AdminBooking
+export default HotelBooking
