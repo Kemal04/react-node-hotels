@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { deleteHotelBooking, getHotelBookings } from '../../../redux/slices/bookings'
+import { deleteHotelBooking, getHotelBookings } from '../../../redux/slices/hotelBooking'
 
 const HotelBooking = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { bookings } = useSelector(state => state.bookings)
+    const { hotelBooking } = useSelector(state => state.hotelBooking)
+
     useEffect(() => {
         dispatch(getHotelBookings())
     }, [dispatch])
@@ -41,7 +42,7 @@ const HotelBooking = () => {
                             <tbody>
 
                                 {
-                                    bookings.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((booking, index) => (
+                                    hotelBooking.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((booking, index) => (
                                         <tr key={index} className={booking.check ? "text-success" : "text-danger"}>
                                             <td>{index + 1}</td>
                                             <td>№ {booking.room.roomNum} Otag</td>

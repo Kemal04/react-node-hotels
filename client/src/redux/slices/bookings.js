@@ -15,15 +15,6 @@ export const getAllBookings = createAsyncThunk(
     }
 );
 
-export const getHotelBookings = createAsyncThunk(
-    "bookings/getHotel",
-    async () => {
-        const { data } = await axios.get("http://localhost:3001/api/booking")
-        return data.booking
-
-    }
-);
-
 export const creatBooking = createAsyncThunk(
     "booking/create",
     async (booking) => {
@@ -55,22 +46,6 @@ export const deleteBooking = createAsyncThunk(
     }
 );
 
-export const deleteHotelBooking = createAsyncThunk(
-    "booking/deleteHotel",
-    async (id) => {
-        await axios.delete(`http://localhost:3001/api/booking/delete/${id}`, {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            },
-        })
-            .then((res) => {
-                toast.success(res.data)
-            }).catch((err) => {
-                toast.error(err.message)
-            })
-    }
-);
-
 
 const bookingsSlice = createSlice({
     name: "bookings",
@@ -82,17 +57,9 @@ const bookingsSlice = createSlice({
             state.bookings = action.payload
         })
 
-        builder.addCase(getHotelBookings.fulfilled, (state, action) => {
-            state.bookings = action.payload
-        })
-
         builder.addCase(creatBooking.fulfilled, (state, action) => { })
 
         builder.addCase(deleteBooking.fulfilled, (state, action) => {
-            state.bookings.splice(state.bookings.findIndex((arrow) => arrow.id === action.payload), 1);
-        })
-        
-        builder.addCase(deleteHotelBooking.fulfilled, (state, action) => {
             state.bookings.splice(state.bookings.findIndex((arrow) => arrow.id === action.payload), 1);
         })
     },
