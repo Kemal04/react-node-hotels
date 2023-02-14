@@ -11,7 +11,7 @@ import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar, P
 import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/userInterface"
 
 //ADMIN
-import { Admin, AdminBooking, AdminBookingEdit, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRoomEdit, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
+import { Admin, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRoomEdit, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //ERROR
 import { Forbiden, NotFounded } from './pages/error';
@@ -47,15 +47,15 @@ const App = () => {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
-        }).then((response) => {
-            if (response.data.error) {
+        }).then((res) => {
+            if (res.data.error) {
                 setAuthState({ ...authState, status: false, role: "User" });
             } else {
                 setAuthState({
-                    phoneNum: response.data.phoneNum,
-                    id: response.data.id,
+                    phoneNum: res.data.phoneNum,
+                    id: res.data.id,
                     status: true,
-                    role: response.data.role,
+                    role: res.data.role,
                 });
             }
         });

@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { faBed, faBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AuthContext } from '../../context/AuthContext';
+import axios from 'axios';
 
 const HotelSidebar = () => {
+
+    const { authState } = useContext(AuthContext)
+
+    const id = authState.id;
+    const [hotel, setHotel] = useState("");
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/api/hotel/${id}`).then((res) => {
+            setHotel(res.data.hotel);
+        });
+    }, [id]);
 
     return (
         <>
@@ -14,7 +27,7 @@ const HotelSidebar = () => {
                             <img src="/img/icons/user-1.jpg" className="img-circle elevation-2" alt='user' />
                         </div>
                         <div className="info">
-                            <NavLink to="" className="d-block text-uppercase text-decoration-none"></NavLink>
+                            <NavLink to="" className="d-block text-uppercase text-decoration-none">{hotel.name}</NavLink>
                         </div>
                     </div>
 
