@@ -1,5 +1,7 @@
 const { Room, RoomType, Hotel } = require("../models/model");
 const fs = require('fs')
+const sharp = require('sharp');
+const path = require("path");
 
 // Otellerin admin paneli ucin roomlar
 
@@ -56,6 +58,17 @@ module.exports.createGet = async (req, res) => {
 }
 
 module.exports.createPost = async (req, res) => {
+    let compresedImage = path.join(__dirname, '../', 'public', 'images', new Date().getTime() + ".jpg")
+    sharp(req.file.path).resize(640, 480).jpeg({
+        quality: 80,
+        chromaSubsampling: '4:4:4'
+    }).toFile(compresedImage, (err, info) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(info)
+        }
+    })
     await Room.create({
         roomNum: req.body.roomNum,
         capacity: req.body.capacity,
