@@ -100,6 +100,12 @@ module.exports.destroy = async (req, res) => {
     })
         .then((room) => {
             if (room) {
+                fs.unlink("./public/img/" + room.img, err => {
+                    console.log(err);
+                })
+                fs.unlink("./public/compress/" + room.img, err => {
+                    console.log(err);
+                })
                 room.destroy();
                 return res.json({ success: "Otag ustunlikli yok edildi" })
             } else {

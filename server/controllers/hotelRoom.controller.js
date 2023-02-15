@@ -58,17 +58,12 @@ module.exports.createGet = async (req, res) => {
 }
 
 module.exports.createPost = async (req, res) => {
-    let compresedImage = path.join(__dirname, '../', 'public', 'images', new Date().getTime() + ".jpg")
+    let compresedImage = path.join(__dirname, '../', 'public', 'compress', path.parse(req.file.originalname).name + "_" + Date.now() + path.extname(req.file.originalname))
     sharp(req.file.path).resize(640, 480).jpeg({
-        quality: 80,
+        quality: 50,
         chromaSubsampling: '4:4:4'
-    }).toFile(compresedImage, (err, info) => {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log(info)
-        }
-    })
+    }).toFile(compresedImage)
+
     await Room.create({
         roomNum: req.body.roomNum,
         capacity: req.body.capacity,
@@ -150,8 +145,15 @@ module.exports.destroy = async (req, res) => {
             hotelId: req.user.id
         }
     })
+
         .then((room) => {
             if (room) {
+                fs.unlink("./public/img/" + room.img, err => {
+                    console.log(err);
+                })
+                fs.unlink("./public/compress/" + room.img, err => {
+                    console.log(err);
+                })
                 room.destroy();
                 return res.json({ success: "Otag üstünlikli pozuldy" })
             }
