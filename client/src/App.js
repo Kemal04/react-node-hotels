@@ -32,6 +32,7 @@ import { AuthContext } from './context/AuthContext';
 
 //CSS
 import './App.css'
+import ScrollToTop from './components/scroll/ScrollToTop';
 
 const App = () => {
 
@@ -68,6 +69,7 @@ const App = () => {
                 <ThemeContextProvider>
                     <Router>
                         <ToastContainer />
+                        <ScrollToTop />
                         <Routes>
 
                             <Route path="/" element={<WithNavbar />}>
@@ -125,7 +127,7 @@ const App = () => {
                                             <Route path='/hotel/otaglar' element={<HotelRooms />}></Route>
                                             <Route path='/hotel/otag-gosmak' element={<HotelRoomCreate />}></Route>
                                             <Route path='/hotel/otag-uytgetmek/:id' element={<HotelRoomEdit />}></Route>
-                                            
+
                                             <Route path='/hotel/bronlar' element={<HotelBooking />}></Route>
                                             <Route path='/hotel/bron-uytgetmek/:id' element={<HotelBookingEdit />}></Route>
                                         </>
