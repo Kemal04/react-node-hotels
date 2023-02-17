@@ -3,7 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-    contacts: []
+    contacts: [],
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
 };
 
 export const getAllContacts = createAsyncThunk(
@@ -26,11 +29,24 @@ export const creatContact = createAsyncThunk(
     }
 );
 
+export const updateContact = createAsyncThunk(
+    "contact/update",
+    async (contact) => {
+        await axios.post(`http://localhost:3001/api/contact/edit/${contact.id}`, contact)
+            .then((res) => {
+                toast.success(res.data.success)
+            }).catch((res) => {
+                toast.error(res.response.data.error)
+            });
+    }
+);
+
 export const deleteContact = createAsyncThunk(
     "contact/delete",
     async (id) => {
         const { data } = await axios.delete(`http://localhost:3001/api/contact/delete/${id}`)
         toast.success(data.success)
+        return id
     }
 );
 
@@ -41,15 +57,45 @@ const contactSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
 
+        builder.addCase(getAllContacts.pending, (state, action) => {
+            state.isLoading = true
+        })
         builder.addCase(getAllContacts.fulfilled, (state, action) => {
+            state.isLoading = false
             state.contacts = action.payload
         })
+        builder.addCase(getAllContacts.rejected, (state, action) => {
+            state.isError = true
+        })
 
-        builder.addCase(creatContact.fulfilled, (state, action) => { })
+
+        builder.addCase(creatContact.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(creatContact.fulfilled, (state, action) => {
+            state.isSuccess = true
+        })
+        builder.addCase(creatContact.rejected, (state, action) => {
+            state.isError = true
+        })
+
 
         builder.addCase(deleteContact.fulfilled, (state, action) => {
-            state.contacts.splice(state.contacts.findIndex((arrow) => arrow.id === action.payload), 1);
+            const newList = state.contacts.filter((x) => x.id !== action.payload)
+            state.contacts = newList
         })
+
+
+        builder.addCase(updateContact.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(updateContact.fulfilled, (state, action) => {
+            state.isLoading = false
+        })
+        builder.addCase(updateContact.rejected, (state, action) => {
+            state.isError = true
+        })
+
     },
 });
 
