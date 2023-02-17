@@ -151,9 +151,9 @@ const App = () => {
                             <Route path='/admin/giris-etmek' element={<AdminLogin />}></Route>
                             <Route path='/hotel/giris-etmek' element={<HotelLogin />}></Route>
 
-                            <Route path='/*' element={<NotFounded />}></Route>
+                            {/* <Route path='/*' element={<NotFounded />}></Route>
                             <Route path='/404' element={<NotFounded />}></Route>
-                            <Route path='/403' element={<Forbiden />}></Route>
+                            <Route path='/403' element={<Forbiden />}></Route> */}
 
                         </Routes>
                     </Router>

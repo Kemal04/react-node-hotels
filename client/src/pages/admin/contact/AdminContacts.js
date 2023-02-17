@@ -10,7 +10,8 @@ const AdminContact = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { contacts } = useSelector(state => state.contacts)
+    const { contacts, isLoading, isError } = useSelector(state => state.contacts)
+
     useEffect(() => {
         dispatch(getAllContacts())
     }, [dispatch])
@@ -33,17 +34,23 @@ const AdminContact = () => {
                                 <tr>
                                     <th scope="col">№</th>
                                     <th scope="col">Ady</th>
-                                    <th scope="col">Düzetmek</th>
+                                    <th scope="col">E-mail adresi</th>
                                     <th scope="col">Temasy</th>
                                     <th scope="col">Mazmuny</th>
+                                    <th scope="col">Düzetmek</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {
+                                {isLoading === true && <tr><td>Loading</td></tr>}
+                                {isError === true && <tr><td>Error, please reload page</td></tr>}
+                            </tbody>
+                            <tbody>
+                                {isLoading === false &&
                                     contacts.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((contact, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td>{contact.name}</td>
+                                            <td>{contact.email}</td>
                                             <td>{contact.subject}</td>
                                             <td>{contact.comment.substring(0, 40)}...</td>
                                             <td>

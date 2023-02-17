@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { updateContact } from '../../../redux/slices/contact'
 
 const AdminContactEdit = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate()
     const location = useLocation();
     const contactId = location.pathname.split("/")[3];
@@ -44,13 +47,8 @@ const AdminContactEdit = () => {
             toast.error("Habary ýazyň")
         }
         else {
-            await axios.post(`http://localhost:3001/api/contact/edit/${contactId}`, contact)
-                .then((res) => {
-                    toast.success(res.data.success)
-                    navigate("/admin/teswirler")
-                }).catch((error) => {
-                    toast.error(error.message)
-                });
+            dispatch(updateContact(contact))
+            navigate("/admin/teswirler")
         }
     }
 
