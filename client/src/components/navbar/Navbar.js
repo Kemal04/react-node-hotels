@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import './navbar.css'
 import { ThemeContext } from '../../context/ThemeContext';
 import { AuthContext } from '../../context/AuthContext';
+import Search from '../search/Search';
 
 const Navbar = () => {
 
@@ -77,6 +78,9 @@ const Navbar = () => {
                                             <img src="/img/icons/moon.png" alt="Moon" style={{ width: "20px" }} />
                                     }
                                 </button>
+                            </li>
+                            <li className="nav-item mx-xl-2 pe-3 pt-1 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <Search />
                             </li>
                         </ul>
                         <form className="d-flex">
