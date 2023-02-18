@@ -3,6 +3,7 @@ const router = express.Router();
 const {isAdmin} = require("../middlewares/authMiddleware");
 const RoomtypeController = require("../controllers/roomType.controller")
 
+
 //superAdmin ucin roomType
 
 router.get("/", RoomtypeController.AllTypesGet);

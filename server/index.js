@@ -6,13 +6,19 @@ const port = 3001;
 
 //modules
 const cors = require("cors");
-
+const csrf = require('csurf')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 //Db
 const sequelize = require('./data/db');
 
 app.use(express.json());
 app.use(cors());
 app.use('/', express.static('public'))
+app.use(cookieParser())
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
 
 const AuthRouter = require("./routes/auth.router")
 const UserRouter = require("./routes/user.router")

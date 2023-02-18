@@ -50,7 +50,10 @@ module.exports.singleGet = async (req, res) => {
 module.exports.createGet = async (req, res) => {
     await RoomType.findAll({ attributes: ['id', 'name'] })
         .then((roomType) => {
-            res.json({ roomType: roomType });
+            res.json({
+                roomType: roomType,
+                csrfToken: req.csrfToken()
+            });
         })
         .catch((err) => {
             res.status(500).json(err);
