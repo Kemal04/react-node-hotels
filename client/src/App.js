@@ -11,7 +11,7 @@ import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar, P
 import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/userInterface"
 
 //ADMIN
-import { Admin, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRoomEdit, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
+import { Admin, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //ERROR
 import { Forbiden, NotFounded } from './pages/error';
@@ -106,7 +106,6 @@ const App = () => {
                                             <Route path='/admin/hotel-uytgetmek/:id' element={<AdminHotelEdit />}></Route>
 
                                             <Route path='/admin/otaglar' element={<AdminRooms />}></Route>
-                                            <Route path='/admin/otag-uytgetmek/:id' element={<AdminRoomEdit />}></Route>
 
                                             <Route path='/admin/otag-gornusleri' element={<AdminRoomTypes />}></Route>
                                             <Route path='/admin/otag-gornusini-gosmak' element={<AdminRoomTypeCreate />}></Route>

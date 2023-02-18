@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import {updateHotel} from "../../../redux/slices/hotels"
 
 const AdminHotelEdit = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate()
     const location = useLocation();
     const hotelId = location.pathname.split("/")[3];
@@ -44,17 +47,8 @@ const AdminHotelEdit = () => {
             toast.error("Habary ýazyň")
         }
         else {
-            await axios.post(`http://localhost:3001/api/hotel/edit/${hotelId}`, hotel, {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            })
-                .then((res) => {
-                    toast.success(res.data.success)
-                    navigate("/admin/hotellar")
-                }).catch((error) => {
-                    toast.error(error.message)
-                });
+            dispatch(updateHotel(hotel))
+            navigate("/admin/hotellar")
         }
     }
 

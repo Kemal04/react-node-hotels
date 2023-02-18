@@ -10,7 +10,7 @@ const AdminUsers = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { users } = useSelector(state => state.users)
+    const { users, isLoading, isError } = useSelector(state => state.users)
     useEffect(() => {
         dispatch(getAllUsers())
     }, [dispatch])
@@ -34,22 +34,25 @@ const AdminUsers = () => {
                                 <tr>
                                     <th scope="col">№</th>
                                     <th scope="col">Ulanyjy ady</th>
+                                    <th scope="col">Familyasy</th>
+                                    <th scope="col">Telefon Belgisi</th>
                                     <th scope="col">E-mail adresi</th>
-                                    <th scope="col">Hukugy</th>
-                                    <th scope="col">Açar sözi</th>
                                     <th scope="col">Duzeltmek</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                {
+                                {isLoading === true && <tr><td>Loading</td></tr>}
+                                {isError === true && <tr><td>Error, please reload page</td></tr>}
+                            </tbody>
+                            <tbody>
+                                {isLoading === false &&
                                     users.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((user, index) => (
                                         <tr key={index} className={user.role === "Admin" ? "fw-bold bg-light" : null}>
                                             <td>{index + 1}</td>
                                             <td>{user.username}</td>
-                                            <td>{user.phoneNum}</td>
-                                            <td>{user.role}</td>
-                                            <td>************</td>
+                                            <td>{user.surname === null ? "girizilmedik" : user.surname}</td>
+                                            <td>+993 {user.phoneNum}</td>
+                                            <td>{user.email === null ? "girizilmedik" : user.email}</td>
                                             <td>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(user.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>

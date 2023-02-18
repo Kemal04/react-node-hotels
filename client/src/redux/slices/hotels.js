@@ -3,7 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-    hotels: []
+    hotels: [],
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
 };
 
 export const getAllHotels = createAsyncThunk(
@@ -29,19 +32,33 @@ export const creatHotel = createAsyncThunk(
     }
 );
 
-export const deleteHotel = createAsyncThunk(
-    "hotel/delete",
-    async (id) => {
-        await axios.delete(`http://localhost:3001/api/hotel/delete/${id}`, {
+export const updateHotel = createAsyncThunk(
+    "hotel/update",
+    async (hotel) => {
+        await axios.post(`http://localhost:3001/api/hotel/edit/${hotel.id}`, hotel, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
             .then((res) => {
-                toast.success(res.data)
-            }).catch((err) => {
-                toast.error(err.message)
-            })
+                toast.success(res.data.success)
+            }).catch((res) => {
+                toast.error(res.response.data.error)
+            });
+    }
+);
+
+
+export const deleteHotel = createAsyncThunk(
+    "hotel/delete",
+    async (id) => {
+        const { data } = await axios.delete(`http://localhost:3001/api/hotel/delete/${id}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
+        toast.success(data.success)
+        return id
     }
 );
 
@@ -50,15 +67,43 @@ const hotelSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
+        builder.addCase(getAllHotels.pending, (state, action) => {
+            state.isLoading = true
+        })
         builder.addCase(getAllHotels.fulfilled, (state, action) => {
+            state.isLoading = false
             state.hotels = action.payload
         })
+        builder.addCase(getAllHotels.rejected, (state, action) => {
+            state.isError = true
+        })
 
-        builder.addCase(creatHotel.fulfilled, (state, action) => { })
+
+        builder.addCase(creatHotel.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(creatHotel.fulfilled, (state, action) => {
+            state.isSuccess = true
+        })
+        builder.addCase(creatHotel.rejected, (state, action) => {
+            state.isError = true
+        })
+
+
+        builder.addCase(updateHotel.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(updateHotel.fulfilled, (state, action) => {
+            state.isLoading = false
+        })
+        builder.addCase(updateHotel.rejected, (state, action) => {
+            state.isError = true
+        })
+
 
         builder.addCase(deleteHotel.fulfilled, (state, action) => {
-            state.hotels.splice(state.hotels.findIndex((arrow) => arrow.id === action.payload), 1);
+            const newList = state.hotels.filter((x) => x.id !== action.payload)
+            state.hotels = newList
         })
     },
 });

@@ -1,9 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { updateHotelBooking } from '../../../redux/slices/hotelBooking'
 
 const HotelBookingEdit = () => {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation();
+    const bookingId = location.pathname.split("/")[3];
 
     const [booking, setBooking] = useState({
         checkIn: "",
@@ -12,11 +19,6 @@ const HotelBookingEdit = () => {
         check: "",
         roomId: "",
     })
-
-    const navigate = useNavigate()
-    const location = useLocation();
-
-    const bookingId = location.pathname.split("/")[3];
 
     const handleChange = (e) => {
         setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -42,18 +44,8 @@ const HotelBookingEdit = () => {
             toast.error("sayla")
         }
         else {
-            await axios.post(`http://localhost:3001/api/booking/edit/${bookingId}`, booking, {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            })
-                .then((res) => {
-                    toast.success(res.data.success)
-                    navigate("/hotel/bronlar")
-                }).catch((res) => {
-                    toast.error(res.response.data.error)
-                    navigate(`/${res.response.status}`)
-                })
+            dispatch(updateHotelBooking(booking))
+            navigate("/hotel/bronlar")
         }
     }
 
@@ -67,32 +59,6 @@ const HotelBookingEdit = () => {
                                 Otag üýgetmek
                             </div>
                             <form className='row'>
-
-                                <div className="col-lg-6 mb-3" hidden>
-                                    <label className="form-label fw-bold">Otagyň Wagty</label>
-                                    <input name='checkIn' value={booking.checkIn} onChange={handleChange} type="text" className="form-control rounded-0 text-muted" autoComplete="off" disabled />
-                                </div>
-
-                                <div className="col-lg-6 mb-3" hidden>
-                                    <label className="form-label fw-bold">Otagyň Wagty</label>
-                                    <input name='checkIn' value={booking.checkOut} onChange={handleChange} type="text" className="form-control rounded-0 text-muted" autoComplete="off" disabled />
-                                </div>
-
-                                <div className="col-lg-6 mb-3" hidden>
-                                    <label className="form-label fw-bold">Ulanyjyn Telefon belgisi</label>
-                                    <input name='checkIn' value={booking.phoneNumber} onChange={handleChange} type="number" className="form-control rounded-0 text-muted" autoComplete="off" disabled />
-                                </div>
-
-                                <div className="col-lg-6 mb-3" hidden>
-                                    <label className="form-label fw-bold">Otag belgisi</label>
-                                    <input name='checkIn' value={booking.roomId} onChange={handleChange} type="number" className="form-control rounded-0 text-muted" autoComplete="off" disabled />
-                                </div>
-
-                                <div className="col-lg-6 mb-3" hidden>
-                                    <label className="form-label fw-bold">Ulanyjy belgisi</label>
-                                    <input name='checkIn' value={booking.userId} onChange={handleChange} type="number" className="form-control rounded-0 text-muted" autoComplete="off" disabled />
-                                </div>
-
                                 <div className="col-lg-12 mb-3">
                                     <label className="form-label fw-bold">Tassyklamak</label>
                                     <select name='check' onChange={handleChange} className="form-select">

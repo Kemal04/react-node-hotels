@@ -11,7 +11,7 @@ const HotelRooms = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { hotelRooms } = useSelector(state => state.hotelRooms)
+    const { hotelRooms, isLoading, isError } = useSelector(state => state.hotelRooms)
 
     useEffect(() => {
         dispatch(getAllHotelRooms())
@@ -43,8 +43,12 @@ const HotelRooms = () => {
                                     <th scope="col">Düzetmek</th>
                                 </tr>
                             </thead>
-                            <tbody >
-                                {
+                            <tbody>
+                                {isLoading === true && <tr><td>Loading</td></tr>}
+                                {isError === true && <tr><td>Error, please reload page</td></tr>}
+                            </tbody>
+                            <tbody>
+                                {isLoading === false &&
                                     hotelRooms.map((room, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>

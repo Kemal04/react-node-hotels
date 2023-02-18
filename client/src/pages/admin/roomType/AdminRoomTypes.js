@@ -10,7 +10,7 @@ const AdminRoomTypes = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { roomTypes } = useSelector(state => state.roomTypes)
+    const { roomTypes, isLoading, isError } = useSelector(state => state.roomTypes)
 
     useEffect(() => {
         dispatch(getAllRoomTypes())
@@ -38,8 +38,11 @@ const AdminRoomTypes = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
-                                {
+                                {isLoading === true && <tr><td>Loading</td></tr>}
+                                {isError === true && <tr><td>Error, please reload page</td></tr>}
+                            </tbody>
+                            <tbody>
+                                {isLoading === false &&
                                     roomTypes.map((roomtype, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
