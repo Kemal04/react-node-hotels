@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { creatHotelRoom } from '../../../redux/slices/hotelRooms'
+import { creatHotelRoom, getCreatHotelRoom } from '../../../redux/slices/hotelRooms'
 import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
 
 const HotelRoomCreate = () => {
 
+    const [csrfTokenState, setCsrfTokenState] = useState('');
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -14,6 +15,16 @@ const HotelRoomCreate = () => {
     useEffect(() => {
         dispatch(getAllRoomTypes())
     }, [dispatch])
+
+
+    const { hotelRooms } = useSelector(state => state.hotelRooms)
+    useEffect(() => {
+        dispatch(getCreatHotelRoom())
+    }, [dispatch])
+
+    useEffect(() => {
+        setCsrfTokenState(hotelRooms)
+    }, [hotelRooms])
 
     const [img, setImg] = useState('')
     const [room, setRoom] = useState({
@@ -33,6 +44,7 @@ const HotelRoomCreate = () => {
 
         const formData = new FormData()
         formData.append('img', img)
+        formData.append('csrfTokenState', csrfTokenState)
         formData.append('roomtypeId', room.roomtypeId)
         formData.append('roomNum', room.roomNum)
         formData.append('price', room.price)
