@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 
 const initialState = {
     hotelRooms: [],
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
 };
 
 export const getAllHotelRooms = createAsyncThunk(
@@ -35,20 +38,16 @@ export const creatHotelRoom = createAsyncThunk(
     }
 );
 
-
 export const deleteHotelRoom = createAsyncThunk(
     "room/delete",
     async (id) => {
-        await axios.delete(`http://localhost:3001/api/hotelRoom/delete/${id}`, {
+        const { data } = await axios.delete(`http://localhost:3001/api/hotelRoom/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
-            .then((res) => {
-                toast.success(res.data)
-            }).catch((err) => {
-                toast.error(err.message)
-            })
+        toast.success(data.success)
+        return id
     }
 );
 
@@ -58,14 +57,32 @@ const hotelRoomsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(getAllHotelRooms.pending, (state, action) => {
+            state.isLoading = true
+        })
         builder.addCase(getAllHotelRooms.fulfilled, (state, action) => {
+            state.isLoading = false
             state.hotelRooms = action.payload
         })
+        builder.addCase(getAllHotelRooms.rejected, (state, action) => {
+            state.isError = true
+        })
 
-        builder.addCase(creatHotelRoom.fulfilled, (state, action) => { })
+
+        builder.addCase(creatHotelRoom.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(creatHotelRoom.fulfilled, (state, action) => {
+            state.isSuccess = true
+        })
+        builder.addCase(creatHotelRoom.rejected, (state, action) => {
+            state.isError = true
+        })
+
 
         builder.addCase(deleteHotelRoom.fulfilled, (state, action) => {
-            state.hotelRooms.splice(state.hotelRooms.findIndex((arrow) => arrow.id === action.payload), 1);
+            const newList = state.hotelRooms.filter((x) => x.id !== action.payload)
+            state.hotelRooms = newList
         })
     },
 });

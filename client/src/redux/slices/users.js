@@ -3,7 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-    users: []
+    users: [],
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
 };
 
 export const getAllUsers = createAsyncThunk(
@@ -17,16 +20,13 @@ export const getAllUsers = createAsyncThunk(
 export const deleteUsers = createAsyncThunk(
     "users/delete",
     async (id) => {
-        await axios.delete(`http://localhost:3001/api/user/admin/delete/${id}`, {
+        const { data } = await axios.delete(`http://localhost:3001/api/user/admin/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
-            .then((res) => {
-                toast.success(res.data)
-            }).catch((err) => {
-                toast.error(err.message)
-            })
+        toast.success(data.success)
+        return id
     }
 );
 
@@ -35,12 +35,21 @@ const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(getAllUsers.pending, (state, action) => {
+            state.isLoading = true
+        })
         builder.addCase(getAllUsers.fulfilled, (state, action) => {
+            state.isLoading = false
             state.users = action.payload
         })
-        
+        builder.addCase(getAllUsers.rejected, (state, action) => {
+            state.isError = true
+        })
+
+
         builder.addCase(deleteUsers.fulfilled, (state, action) => {
-            state.users.splice(state.users.findIndex((arrow) => arrow.id === action.payload), 1);
+            const newList = state.users.filter((x) => x.id !== action.payload)
+            state.users = newList
         })
     },
 });

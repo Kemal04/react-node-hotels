@@ -11,7 +11,6 @@ const HotelRoomCreate = () => {
     const navigate = useNavigate()
 
     const { roomTypes } = useSelector(state => state.roomTypes)
-
     useEffect(() => {
         dispatch(getAllRoomTypes())
     }, [dispatch])

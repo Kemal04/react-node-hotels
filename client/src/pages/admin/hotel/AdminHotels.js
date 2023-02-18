@@ -10,7 +10,7 @@ const AdminHotels = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { hotels } = useSelector(state => state.hotels)
+    const { hotels, isLoading, isError } = useSelector(state => state.hotels)
 
     useEffect(() => {
         dispatch(getAllHotels())
@@ -41,8 +41,11 @@ const AdminHotels = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
-                                {
+                                {isLoading === true && <tr><td>Loading</td></tr>}
+                                {isError === true && <tr><td>Error, please reload page</td></tr>}
+                            </tbody>
+                            <tbody>
+                                {isLoading === false &&
                                     hotels.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((hotel, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>

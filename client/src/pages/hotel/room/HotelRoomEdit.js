@@ -8,9 +8,11 @@ import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
 const HotelRoomEdit = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation();
+    const roomId = location.pathname.split("/")[3];
 
     const { roomTypes } = useSelector(state => state.roomTypes)
-
     useEffect(() => {
         dispatch(getAllRoomTypes())
     }, [dispatch])
@@ -23,7 +25,6 @@ const HotelRoomEdit = () => {
         size: "",
         img: "",
     })
-
     const [img, setImg] = useState('')
 
     const uploadPicture = (e) => {
@@ -32,11 +33,6 @@ const HotelRoomEdit = () => {
             pictureAsFile: e.target.files[0],
         });
     };
-
-    const navigate = useNavigate()
-    const location = useLocation();
-
-    const roomId = location.pathname.split("/")[3];
 
     const handleChange = (e) => {
         setRoom((prev) => ({ ...prev, [e.target.name]: e.target.value }))

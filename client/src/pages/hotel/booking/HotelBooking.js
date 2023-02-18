@@ -10,8 +10,7 @@ const HotelBooking = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { hotelBooking } = useSelector(state => state.hotelBooking)
-
+    const { hotelBooking, isLoading, isError } = useSelector(state => state.hotelBooking)
     useEffect(() => {
         dispatch(getHotelBookings())
     }, [dispatch])
@@ -40,8 +39,11 @@ const HotelBooking = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
-                                {
+                                {isLoading === true && <tr><td>Loading</td></tr>}
+                                {isError === true && <tr><td>Error, please reload page</td></tr>}
+                            </tbody>
+                            <tbody>
+                                {isLoading === false &&
                                     hotelBooking.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((booking, index) => (
                                         <tr key={index} className={booking.check ? "text-success" : "text-danger"}>
                                             <td>{index + 1}</td>

@@ -3,7 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-    roomTypes: []
+    roomTypes: [],
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
 };
 
 export const getAllRoomTypes = createAsyncThunk(
@@ -29,19 +32,32 @@ export const creatRoomType = createAsyncThunk(
     }
 );
 
-export const deleteRoomType = createAsyncThunk(
-    "roomType/delete",
-    async (id) => {
-        await axios.delete(`http://localhost:3001/api/roomType/delete/${id}`, {
+export const updateRoomType = createAsyncThunk(
+    "roomType/update",
+    async (roomType) => {
+        await axios.post(`http://localhost:3001/api/roomType/edit/${roomType.id}`, roomType, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
             .then((res) => {
-                toast.success(res.data)
-            }).catch((err) => {
-                toast.error(err.message)
-            })
+                toast.success(res.data.success)
+            }).catch((res) => {
+                toast.error(res.response.data.error)
+            });
+    }
+);
+
+export const deleteRoomType = createAsyncThunk(
+    "roomType/delete",
+    async (id) => {
+        const { data } = await axios.delete(`http://localhost:3001/api/roomType/delete/${id}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
+        toast.success(data.success)
+        return id
     }
 );
 
@@ -50,15 +66,43 @@ const roomTypeSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
+        builder.addCase(getAllRoomTypes.pending, (state, action) => {
+            state.isLoading = true
+        })
         builder.addCase(getAllRoomTypes.fulfilled, (state, action) => {
+            state.isLoading = false
             state.roomTypes = action.payload
         })
+        builder.addCase(getAllRoomTypes.rejected, (state, action) => {
+            state.isError = true
+        })
 
-        builder.addCase(creatRoomType.fulfilled, (state, action) => { })
+
+        builder.addCase(creatRoomType.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(creatRoomType.fulfilled, (state, action) => {
+            state.isSuccess = true
+        })
+        builder.addCase(creatRoomType.rejected, (state, action) => {
+            state.isError = true
+        })
+
+
+        builder.addCase(updateRoomType.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(updateRoomType.fulfilled, (state, action) => {
+            state.isLoading = false
+        })
+        builder.addCase(updateRoomType.rejected, (state, action) => {
+            state.isError = true
+        })
+
 
         builder.addCase(deleteRoomType.fulfilled, (state, action) => {
-            state.roomTypes.splice(state.roomTypes.findIndex((arrow) => arrow.id === action.payload), 1);
+            const newList = state.roomTypes.filter((x) => x.id !== action.payload)
+            state.roomTypes = newList
         })
     },
 });

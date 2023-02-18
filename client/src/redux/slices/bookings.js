@@ -3,7 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-    bookings: []
+    bookings: [],
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
 };
 
 export const getAllBookings = createAsyncThunk(
@@ -33,16 +36,13 @@ export const creatBooking = createAsyncThunk(
 export const deleteBooking = createAsyncThunk(
     "booking/delete",
     async (id) => {
-        await axios.delete(`http://localhost:3001/api/booking/admin/delete/${id}`, {
+        const { data } = await axios.delete(`http://localhost:3001/api/booking/admin/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
-            .then((res) => {
-                toast.success(res.data)
-            }).catch((err) => {
-                toast.error(err.message)
-            })
+        toast.success(data.success)
+        return id
     }
 );
 
@@ -52,15 +52,32 @@ const bookingsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
+        builder.addCase(getAllBookings.pending, (state, action) => {
+            state.isLoading = true
+        })
         builder.addCase(getAllBookings.fulfilled, (state, action) => {
+            state.isLoading = false
             state.bookings = action.payload
         })
+        builder.addCase(getAllBookings.rejected, (state, action) => {
+            state.isError = true
+        })
 
-        builder.addCase(creatBooking.fulfilled, (state, action) => { })
+
+        builder.addCase(creatBooking.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(creatBooking.fulfilled, (state, action) => {
+            state.isSuccess = true
+        })
+        builder.addCase(creatBooking.rejected, (state, action) => {
+            state.isError = true
+        })
+
 
         builder.addCase(deleteBooking.fulfilled, (state, action) => {
-            state.bookings.splice(state.bookings.findIndex((arrow) => arrow.id === action.payload), 1);
+            const newList = state.roomTypes.filter((x) => x.id !== action.payload)
+            state.roomTypes = newList
         })
     },
 });

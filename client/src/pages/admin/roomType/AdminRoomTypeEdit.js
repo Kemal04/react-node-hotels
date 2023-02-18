@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { updateRoomType } from '../../../redux/slices/roomTypes'
 
 const AdminRoomTypeEdit = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const location = useLocation();
+    const roomTypeId = location.pathname.split("/")[3];
 
     const [roomType, setRoomType] = useState({
         name: "",
     })
-
-    const navigate = useNavigate()
-    const location = useLocation();
-
-    const roomTypeId = location.pathname.split("/")[3];
 
     const handleChange = (e) => {
         setRoomType((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -23,14 +25,12 @@ const AdminRoomTypeEdit = () => {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
+        }).then((res) => {
+            setRoomType(res.data.roomType)
+        }).catch((res) => {
+            toast.error(res.response.data.error)
+            navigate(`/${res.response.status}`)
         })
-            .then((res) => {
-                setRoomType(res.data.roomType)
-            }).catch((res) => {
-                toast.error(res.response.data.error)
-                navigate(`/${res.response.status}`)
-            })
-
     }, [navigate, roomTypeId])
 
     const handleClick = async (e) => {
@@ -40,18 +40,8 @@ const AdminRoomTypeEdit = () => {
             toast.error("Adyny yazyn")
         }
         else {
-            await axios.post(`http://localhost:3001/api/roomType/edit/${roomTypeId}`, roomType, {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            })
-                .then((res) => {
-                    toast.success(res.data.success)
-                    navigate("/admin/otag-gornusleri")
-                }).catch((res) => {
-                    toast.error(res.response.data.error)
-                    navigate(`/${res.response.status}`);
-                });
+            dispatch(updateRoomType(roomType))
+            navigate("/admin/otag-gornusleri")
         }
     }
 
