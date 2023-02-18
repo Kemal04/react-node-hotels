@@ -1,0 +1,37 @@
+.search-div {
+    display: inline-block;
+    position: relative;
+}
+
+.search-div:after {
+    content: "";
+    background: black;
+    width: 1px;
+    height: 15px;
+    position: absolute;
+    top: 19px;
+    right: -2px;
+    transform: rotate(135deg);
+}
+
+.search {
+    color: black;
+    font-size: 16px;
+    background: transparent;
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    border: solid 1px black;
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.5s;
+}
+
+.search:focus::placeholder {
+    opacity: 1;
+}
+
+.search:focus,
+.search:not(:placeholder-shown) {
+    width: 250px;
+}
