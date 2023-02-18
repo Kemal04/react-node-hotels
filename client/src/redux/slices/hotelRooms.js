@@ -22,13 +22,27 @@ export const getAllHotelRooms = createAsyncThunk(
     }
 );
 
+export const getCreatHotelRoom = createAsyncThunk(
+    "room/getCreate",
+    async () => {
+        const { data } = await axios.get("http://localhost:3001/api/hotelRoom/create", {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
+        return data.csrfToken
+    }
+);
+
 export const creatHotelRoom = createAsyncThunk(
     "room/create",
     async (formData) => {
+        console.log(formData.getAll());
         await axios.post("http://localhost:3001/api/hotelRoom/create", formData, {
             headers: {
-                "Content-Type": "multipart/form-data",
                 accessToken: localStorage.getItem("accessToken"),
+                "Content-Type": "multipart/form-data",
+                "xsrf-token": formData.get('csrfTokenState'),
             },
         }).then((res) => {
             toast.success(res.data.success)
@@ -68,6 +82,17 @@ const hotelRoomsSlice = createSlice({
             state.isError = true
         })
 
+
+        builder.addCase(getCreatHotelRoom.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(getCreatHotelRoom.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.hotelRooms = action.payload
+        })
+        builder.addCase(getCreatHotelRoom.rejected, (state, action) => {
+            state.isError = true
+        })
 
         builder.addCase(creatHotelRoom.pending, (state, action) => {
             state.isLoading = true
