@@ -17,10 +17,22 @@ export const getAllContacts = createAsyncThunk(
     }
 );
 
+export const getCreatContact = createAsyncThunk(
+    "contact/getCreate",
+    async () => {
+        const { data } = await axios.get("http://localhost:3001/api/contact/create")
+        return data.csrfToken
+    }
+);
+
 export const creatContact = createAsyncThunk(
     "contact/create",
-    async (contact) => {
-        await axios.post("http://localhost:3001/api/contact/create", contact)
+    async ({ contact, csrfToken }) => {
+        await axios.post("http://localhost:3001/api/contact/create", { contact, csrfToken }, {
+            headers: {
+                'CSRF-Token': csrfToken
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
             }).catch((res) => {
@@ -32,7 +44,11 @@ export const creatContact = createAsyncThunk(
 export const updateContact = createAsyncThunk(
     "contact/update",
     async (contact) => {
-        await axios.post(`http://localhost:3001/api/contact/edit/${contact.id}`, contact)
+        await axios.post(`http://localhost:3001/api/contact/edit/${contact.id}`, contact, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
             }).catch((res) => {
@@ -68,6 +84,17 @@ const contactSlice = createSlice({
             state.isError = true
         })
 
+
+        builder.addCase(getCreatContact.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(getCreatContact.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.contacts = action.payload
+        })
+        builder.addCase(getCreatContact.rejected, (state, action) => {
+            state.isError = true
+        })
 
         builder.addCase(creatContact.pending, (state, action) => {
             state.isLoading = true

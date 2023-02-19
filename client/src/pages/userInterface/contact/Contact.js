@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../../../context/ThemeContext'
 import BannerImg from "../../../components/banner/BannerImg"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { creatContact } from '../../../redux/slices/contact'
+import { creatContact, getCreatContact } from '../../../redux/slices/contact'
 
 const Contact = () => {
 
@@ -22,6 +22,20 @@ const Contact = () => {
     const handleChange = (e) => {
         setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
+
+
+    const { contacts } = useSelector(state => state.contacts)
+    useEffect(() => {
+        dispatch(getCreatContact())
+    }, [dispatch])
+
+    const [csrfToken, setCsrfToken] = useState("")
+    useEffect(() => {
+        setCsrfToken(contacts)
+    }, [contacts])
+
+    console.log(csrfToken);
+
 
     const navigate = useNavigate()
 
@@ -44,7 +58,7 @@ const Contact = () => {
             toast.error("Teswiriňizi 50 harpdan ybarat bolmaly")
         }
         else {
-            dispatch(creatContact(contact))
+            dispatch(creatContact({ contact, csrfToken }))
             navigate("/")
         }
     }
@@ -89,7 +103,9 @@ const Contact = () => {
                         <div className='h1'>Bize hat ugradyň</div>
                     </div>
 
-                    <div className='row justify-content-center'>
+                    <form className='row justify-content-center'>
+                        <input type="hidden" name="csrfToken" value={csrfToken}></input>
+
                         <div className="col-xl-4 mb-4">
                             <input onChange={handleChange} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
                         </div>
@@ -105,7 +121,7 @@ const Contact = () => {
                         <div className="col-xl-5 mb-4 text-center">
                             <button onClick={handleClick} className='btn btn-primary px-5'>Ugrat</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </>

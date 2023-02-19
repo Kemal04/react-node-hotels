@@ -5,12 +5,12 @@ const hotelRoomController = require("../controllers/hotelRoom.controller");
 const csrf = require('csurf')
 const bodyParser = require('body-parser')
 const parseForm = bodyParser.urlencoded({ extended: false })
-
+const csrfProtection = csrf({ cookie: true })
 
 const imageUpload = require("../helpers/image-upload")
 const multer = require("multer");
 const upload = multer({ dest: "./public/img" });
-const csrfProtection = csrf({ cookie: true })
+
 
 // Otellerin admin paneli ucin roomlar
 
