@@ -41,6 +41,11 @@ const Hotel = sequelize.define("hotel", {
     phoneNum: { type: DataTypes.STRING, allowNull: true },
     address: { type: DataTypes.STRING, allowNull: true },
     role: { type: DataTypes.STRING, defaultValue: "Hotel", allowNull: false },
+    checked: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: "0"
+    }
 });
 
 const RoomType = sequelize.define("roomtype", {
