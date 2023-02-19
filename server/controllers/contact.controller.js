@@ -22,6 +22,12 @@ module.exports.singleContact = async (req, res) => {
     })
 }
 
+module.exports.createContactGet = async (req,res) => {
+    res.json({
+        csrfToken: req.csrfToken()
+    })
+}
+
 module.exports.createContactPost = async (req, res) => {
     await Contact.create({
         name: req.body.name,
