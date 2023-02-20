@@ -4,7 +4,8 @@ const contactController = require("../controllers/contact.controller");
 const csrf = require('csurf')
 const bodyParser = require('body-parser')
 const parseForm = bodyParser.urlencoded({ extended: false })
-const csrfProtection = csrf({ cookie: true })
+const csrfProtection = csrf({ cookie: true, }) 
+
 
 //User ucin
 router.get("/", contactController.AllContactGet);

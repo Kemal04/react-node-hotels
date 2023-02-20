@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Cookies } from "react-cookie"
 
 const initialState = {
     contacts: [],
@@ -21,7 +22,9 @@ export const getCreatContact = createAsyncThunk(
     "contact/getCreate",
     async () => {
         const { data } = await axios.get("http://localhost:3001/api/contact/create")
-        return data.csrfToken
+        
+        const csrf = data.csrfToken
+        return csrf
     }
 );
 
@@ -30,8 +33,10 @@ export const creatContact = createAsyncThunk(
     async ({ contact, csrfToken }) => {
         await axios.post("http://localhost:3001/api/contact/create", { contact, csrfToken }, {
             headers: {
-                'CSRF-Token': csrfToken
+                "X-CSRF-TOKEN": csrfToken
             },
+            credentials: "include",
+            mode: "cors"
         })
             .then((res) => {
                 toast.success(res.data.success)
@@ -39,6 +44,7 @@ export const creatContact = createAsyncThunk(
                 toast.error(res.response.data.error)
             });
     }
+
 );
 
 export const updateContact = createAsyncThunk(
