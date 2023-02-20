@@ -232,7 +232,7 @@ const Home = () => {
                         </div>
                         <div className='col-xl-6 col-lg-6 col-12 mt-3'>
                             <div className='h6 ls-2 mb-3' style={{ color: "#1cc3b2" }}> Habarlaşmak </div>
-                            <div className='display-5 mb-4'>Bize Gelen Teswirler</div>
+                            {/* <div className='display-5 mb-4'>Bize Gelen Teswirler</div>
                             <Splide options={contactOptions} hasTrack={false} className="my-5">
                                 <SplideTrack className='row'>
                                     {
@@ -248,7 +248,7 @@ const Home = () => {
                                         ))
                                     }
                                 </SplideTrack>
-                            </Splide>
+                            </Splide> */}
                         </div>
                     </div>
                 </div>

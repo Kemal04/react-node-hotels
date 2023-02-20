@@ -37,12 +37,11 @@ export const getCreatHotelRoom = createAsyncThunk(
 export const creatHotelRoom = createAsyncThunk(
     "room/create",
     async (formData) => {
-        console.log(formData.getAll());
         await axios.post("http://localhost:3001/api/hotelRoom/create", formData, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
                 "Content-Type": "multipart/form-data",
-                "xsrf-token": formData.get('csrfTokenState'),
+                "X-CSRF-Token": formData.get('csrfTokenState'),
             },
         }).then((res) => {
             toast.success(res.data.success)
