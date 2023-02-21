@@ -22,7 +22,7 @@ const Contact = () => {
     const handleChange = (e) => {
         setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
+    
     const navigate = useNavigate()
 
     const handleClick = async (e) => {
@@ -81,7 +81,7 @@ const Contact = () => {
                         </div>
 
                         <div className='t-3'>
-                            <iframe title='0' src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29427.223293100265!2d52.85261334369845!3d39.96563932613931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2s!4v1675774508961!5m2!1str!2s" style={{ border: "1px", width: "100%", height: "500px" }} allowFullScreen loading="lazy"></iframe>
+                            {/* <iframe title='0' src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29427.223293100265!2d52.85261334369845!3d39.96563932613931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2s!4v1675774508961!5m2!1str!2s" style={{ border: "1px", width: "100%", height: "500px" }} allowFullScreen loading="lazy"></iframe> */}
                         </div>
 
                     </div>
@@ -91,7 +91,7 @@ const Contact = () => {
                         <div className='h1'>Bize hat ugradyň</div>
                     </div>
 
-                    <form className='row justify-content-center'>
+                    <form className='row justify-content-center' onSubmit={handleClick}>
                         <div className="col-xl-4 mb-4">
                             <input onChange={handleChange} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
                         </div>
@@ -105,7 +105,7 @@ const Contact = () => {
                             <textarea onChange={handleChange} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
                         </div>
                         <div className="col-xl-5 mb-4 text-center">
-                            <button onClick={handleClick} className='btn btn-primary px-5'>Ugrat</button>
+                            <button className='btn btn-primary px-5'>Ugrat</button>
                         </div>
                     </form>
                 </div>

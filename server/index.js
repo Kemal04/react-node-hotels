@@ -11,8 +11,13 @@ const bodyParser = require('body-parser')
 //Db
 const sequelize = require('./data/db');
 
+const corsOptions = {
+    origin:"http://localhost:3000",
+    credentials: true
+}
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use('/', express.static('public'))
 app.use(cookieParser())
 
