@@ -6,7 +6,6 @@ const port = 3001;
 
 //modules
 const cors = require("cors");
-const csrf = require('csurf')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 //Db

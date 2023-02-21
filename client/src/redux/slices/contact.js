@@ -18,26 +18,10 @@ export const getAllContacts = createAsyncThunk(
     }
 );
 
-export const getCreatContact = createAsyncThunk(
-    "contact/getCreate",
-    async () => {
-        const { data } = await axios.get("http://localhost:3001/api/contact/create")
-        
-        const csrf = data.csrfToken
-        return csrf
-    }
-);
-
 export const creatContact = createAsyncThunk(
     "contact/create",
-    async ({ contact, csrfToken }) => {
-        await axios.post("http://localhost:3001/api/contact/create", { contact, csrfToken }, {
-            headers: {
-                "X-CSRF-TOKEN": csrfToken
-            },
-            credentials: "include",
-            mode: "cors"
-        })
+    async ( contact ) => {
+        await axios.post("http://localhost:3001/api/contact/create", contact,)
             .then((res) => {
                 toast.success(res.data.success)
             }).catch((res) => {
@@ -90,17 +74,6 @@ const contactSlice = createSlice({
             state.isError = true
         })
 
-
-        builder.addCase(getCreatContact.pending, (state, action) => {
-            state.isLoading = true
-        })
-        builder.addCase(getCreatContact.fulfilled, (state, action) => {
-            state.isLoading = false
-            state.contacts = action.payload
-        })
-        builder.addCase(getCreatContact.rejected, (state, action) => {
-            state.isError = true
-        })
 
         builder.addCase(creatContact.pending, (state, action) => {
             state.isLoading = true
