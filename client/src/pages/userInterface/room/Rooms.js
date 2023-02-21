@@ -83,7 +83,7 @@ const Rooms = () => {
                                                         <img src={room.img ? `http://localhost:3001/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
                                                     </div>
                                                     <div className='col-xl-6'>
-                                                        <div className='h2 mt-3'>№ {room.roomNum}</div>
+                                                        <div className='h4 mt-3'><b className=''>{room.hotel.name}</b> № {room.roomNum}</div>
                                                         <div className='my-3'>
                                                             <span className='h4 text-blue'>{room.price} <small>TMT</small></span>
                                                             <span style={{ color: '#afb4bf' }}> / Gün</span>
@@ -102,8 +102,8 @@ const Rooms = () => {
                                                                 <span>"{room.roomtype.name}"</span>
                                                             </div>
                                                             <div className='col-xl-6 col-lg-6 col-md-6 col-6 d-flex flex-column mb-4 h6'>
-                                                                <span className='mb-2' style={{ color: '#afb4bf' }}>Oteli:</span>
-                                                                <span>{room.hotel.name}</span>
+                                                                <span className='mb-2' style={{ color: '#afb4bf' }}>Halandy:</span>
+                                                                <span>{room.liked === null ? 0 : room.liked}</span>
                                                             </div>
                                                         </div>
                                                         <div className='mt-4'>
