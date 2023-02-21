@@ -51,8 +51,7 @@ module.exports.createGet = async (req, res) => {
     await RoomType.findAll({ attributes: ['id', 'name'] })
         .then((roomType) => {
             res.json({
-                roomType: roomType,
-                csrfToken: req.csrfToken()
+                roomType: roomType
             });
         })
         .catch((err) => {

@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ThemeContext } from '../../../context/ThemeContext'
 import BannerImg from "../../../components/banner/BannerImg"
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { creatContact, getCreatContact } from '../../../redux/slices/contact'
+import { creatContact } from '../../../redux/slices/contact'
 
 const Contact = () => {
 
@@ -23,24 +23,12 @@ const Contact = () => {
         setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-
-    const { contacts } = useSelector(state => state.contacts)
-    useEffect(() => {
-        dispatch(getCreatContact())
-    }, [dispatch])
-
-    const [csrfToken, setCsrfToken] = useState("")
-    useEffect(() => {
-        setCsrfToken(contacts)
-    }, [contacts])
-
-    console.log(csrfToken);
-
-
     const navigate = useNavigate()
 
     const handleClick = async (e) => {
         e.preventDefault()
+
+        console.log(typeof(contact.name));
 
         if (!contact.name) {
             toast.error("Adyňyzy ýazyň")
@@ -55,10 +43,10 @@ const Contact = () => {
             toast.error("Teswiriňizi ýazyň")
         }
         else if (contact.comment.length < 25) {
-            toast.error("Teswiriňizi 50 harpdan ybarat bolmaly")
+            toast.error("Teswiriňizi 25 harpdan ybarat bolmaly")
         }
         else {
-            dispatch(creatContact({ contact, csrfToken }))
+            dispatch(creatContact(contact))
             navigate("/")
         }
     }
@@ -104,8 +92,6 @@ const Contact = () => {
                     </div>
 
                     <form className='row justify-content-center'>
-                        <input type="hidden" name="csrfToken" value={csrfToken}></input>
-
                         <div className="col-xl-4 mb-4">
                             <input onChange={handleChange} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
                         </div>
@@ -113,10 +99,10 @@ const Contact = () => {
                             <input onChange={handleChange} name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
                         </div>
                         <div className="col-xl-8 mb-4">
-                            <input onChange={handleChange} name='subject' type="name" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
+                            <input onChange={handleChange} name='subject' type="text" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
                         </div>
                         <div className="col-xl-8 mb-4">
-                            <textarea onChange={handleChange} name='comment' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
+                            <textarea onChange={handleChange} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
                         </div>
                         <div className="col-xl-5 mb-4 text-center">
                             <button onClick={handleClick} className='btn btn-primary px-5'>Ugrat</button>
