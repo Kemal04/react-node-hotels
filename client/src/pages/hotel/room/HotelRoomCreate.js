@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { creatHotelRoom, getCreatHotelRoom } from '../../../redux/slices/hotelRooms'
+import { creatHotelRoom } from '../../../redux/slices/hotelRooms'
 import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
 
 const HotelRoomCreate = () => {

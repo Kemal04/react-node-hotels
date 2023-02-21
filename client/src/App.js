@@ -13,9 +13,6 @@ import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/
 //ADMIN
 import { Admin, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
-//ERROR
-import { Forbiden, NotFounded } from './pages/error';
-
 //HOTEL
 import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit } from './pages/hotel';
 
@@ -149,10 +146,6 @@ const App = () => {
 
                             <Route path='/admin/giris-etmek' element={<AdminLogin />}></Route>
                             <Route path='/hotel/giris-etmek' element={<HotelLogin />}></Route>
-
-                            {/* <Route path='/*' element={<NotFounded />}></Route>
-                            <Route path='/404' element={<NotFounded />}></Route>
-                            <Route path='/403' element={<Forbiden />}></Route> */}
 
                         </Routes>
                     </Router>
