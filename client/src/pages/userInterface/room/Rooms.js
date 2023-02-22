@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 import Filter from '../../../components/filter/Filter'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRooms } from '../../../redux/slices/rooms'
+import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
+import { getAllHotels } from '../../../redux/slices/hotels'
+import EmptyRoom from '../../../components/emptyRoom/EmptyRoom'
 
 const Rooms = () => {
 
@@ -21,6 +24,16 @@ const Rooms = () => {
     useEffect(() => {
         setRoom(rooms);
     }, [rooms]);
+
+    const { roomTypes } = useSelector(state => state.roomTypes)
+    useEffect(() => {
+        dispatch(getAllRoomTypes())
+    }, [dispatch])
+
+    const { hotels } = useSelector(state => state.hotels)
+    useEffect(() => {
+        dispatch(getAllHotels())
+    }, [dispatch])
 
     function onSelectionChange(e) {
         const sortDirection = e.target.value;
@@ -48,6 +61,36 @@ const Rooms = () => {
         setRoom(roomsSort)
     }
 
+    const [result, setResult] = useState(true)
+
+    const roomType = [...new Set(roomTypes.map((Val) => Val.name))];
+
+    const hotel = [...new Set(hotels.map((Val) => Val))];
+
+    const filterItem = (value) => {
+        const newItem = rooms.filter((newVal) => newVal.roomtype.name === value);
+
+        setRoom(newItem);
+
+        !newItem.length ? setResult(false) : setResult(true)
+    };
+
+    const filterHotel = (value) => {
+
+        // const checkedProducts = hotels
+        //     .filter(hotel => hotel)
+        //     .map(hotel => hotel);
+        // console.log(checkedProducts);
+
+        // const filteredProducts = room.filter(() =>
+        //     checkedProducts.includes(room.hotel)
+        // );
+
+        // setRoom(filteredProducts);
+
+        // !filteredProducts.length ? setResult(false) : setResult(true)
+    };
+
     return (
         <>
             <BannerImg name="Otaglar" />
@@ -55,7 +98,14 @@ const Rooms = () => {
                 <div className='container py-5'>
                     <div className='row align-items-start justify-content-center'>
                         <div className='col-xl-2'>
-                            <Filter />
+                            <Filter
+                                filterItem={filterItem}
+                                roomType={roomType}
+                                filterHotel={filterHotel}
+                                hotel={hotel}
+                                rooms={rooms}
+                                setRoom={setRoom}
+                            />
                         </div>
 
                         <div className='col-xl-8 mb-3'>
@@ -73,8 +123,8 @@ const Rooms = () => {
                                 </div>
                             </div>
                             <div className='row'>
-                                {
-
+                                {result
+                                    ?
                                     room.map((room, index) => (
                                         <div className='col-xl-12' key={index}>
                                             <div className='card border-0 my-4' style={{ backgroundColor: "transparent", boxShadow: 'none' }}>
@@ -114,6 +164,8 @@ const Rooms = () => {
                                             </div>
                                         </div>
                                     ))
+                                    :
+                                    <EmptyRoom />
                                 }
                             </div>
                         </div>
