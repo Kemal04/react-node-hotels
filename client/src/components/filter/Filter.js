@@ -1,7 +1,7 @@
 import React from 'react'
 import "../../pages/userInterface/room/room.css"
 
-const Filter = ({ filterItem, setRoom, roomType, rooms, filterHotel, hotel }) => {
+const Filter = ({ filterItem, setRoom, roomType, rooms, filterHandler, hotel }) => {
     return (
         <>
             <div className='row'>
@@ -30,7 +30,7 @@ const Filter = ({ filterItem, setRoom, roomType, rooms, filterHotel, hotel }) =>
                             {hotel.map((hotel, index) => {
                                 return (
                                     <label key={index} className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>{hotel.name}
-                                        <input id={hotel.id} onChange ={() => filterHotel(hotel.name)} type="checkbox" className="opacity-0" />
+                                        <input id={hotel.id} value={hotel.id} onChange={filterHandler} type="checkbox" className="opacity-0" />
                                         <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
                                     </label>
                                 )
