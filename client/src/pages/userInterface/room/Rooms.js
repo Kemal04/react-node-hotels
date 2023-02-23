@@ -65,8 +65,6 @@ const Rooms = () => {
 
     const roomType = [...new Set(roomTypes.map((Val) => Val.name))];
 
-    const hotel = [...new Set(hotels.map((Val) => Val))];
-
     const filterItem = (value) => {
         const newItem = rooms.filter((newVal) => newVal.roomtype.name === value);
 
@@ -75,21 +73,29 @@ const Rooms = () => {
         !newItem.length ? setResult(false) : setResult(true)
     };
 
-    const filterHotel = (value) => {
+    const [filterHotels, setFilterHotels] = useState([])
+    useEffect(() => {
+        setFilterHotels(hotels);
+    }, [hotels]);
 
-        // const checkedProducts = hotels
-        //     .filter(hotel => hotel)
-        //     .map(hotel => hotel);
-        // console.log(checkedProducts);
+    const filteredDATA = room.filter((node) =>
+        filterHotels.length > 0
+            ?
+            (filterHotels) => node.hotel.id.includes(filterHotels)
+            :
+            room
+    )
 
-        // const filteredProducts = room.filter(() =>
-        //     checkedProducts.includes(room.hotel)
-        // );
-
-        // setRoom(filteredProducts);
-
-        // !filteredProducts.length ? setResult(false) : setResult(true)
-    };
+    const filterHandler = (e) => {
+        if (e.target.checked) {
+            setFilterHotels([...filterHotels, e.target.value])
+            console.log([...filterHotels, e.target.value]);
+        } else {
+            setFilterHotels(
+                filterHotels.filter((filterHotel) => filterHotel !== e.target.value)
+            )
+        }
+    }
 
     return (
         <>
@@ -101,9 +107,9 @@ const Rooms = () => {
                             <Filter
                                 filterItem={filterItem}
                                 roomType={roomType}
-                                filterHotel={filterHotel}
-                                hotel={hotel}
+                                hotel={filterHotels}
                                 rooms={rooms}
+                                filterHandler={filterHandler}
                                 setRoom={setRoom}
                             />
                         </div>
@@ -125,7 +131,7 @@ const Rooms = () => {
                             <div className='row'>
                                 {result
                                     ?
-                                    room.map((room, index) => (
+                                    filteredDATA.map((room, index) => (
                                         <div className='col-xl-12' key={index}>
                                             <div className='card border-0 my-4' style={{ backgroundColor: "transparent", boxShadow: 'none' }}>
                                                 <div className='row align-items-center'>
