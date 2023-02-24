@@ -1,6 +1,6 @@
 const { Room, RoomType, Hotel } = require("../models/model");
 const fs = require('fs')
-const sharp = require('sharp');
+// const sharp = require('sharp');
 const path = require("path");
 
 // Otellerin admin paneli ucin roomlar

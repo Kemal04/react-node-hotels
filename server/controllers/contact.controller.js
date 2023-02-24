@@ -1,11 +1,36 @@
+const sequelizePaginate = require("sequelize-paginate");
+
 const { Contact } = require("../models/model")
+sequelizePaginate.paginate(Contact);
+
+const getNextPage = (page, total) => {
+    const a = page < total ? +page + 1 : total;
+    return a;
+};
+
 
 //User ucin
 
 module.exports.AllContactGet = async (req, res) => {
-    await Contact.findAll().then((contacts) => {
-        res.json({ contacts: contacts })
+    const page = req.query.page ? req.query.page : 1;
+    const size = 3;
+    const options = {
+        page: +page,
+        paginate: +size,
+    };
+    var before = page > 1 ? +page - 1 : 1;
+    await Contact.paginate(options).then((contacts) => {
+        res.json({
+            contacts: contacts,
+            pagination: {
+                before: before,
+                page: page,
+                next: getNextPage(page, Math.floor(contacts.total / size) + 1),
+                total: contacts.total,
+            },
+        })
     }).catch((err) => {
+        console.log(err)
         res.status(500).json({ err })
     })
 }

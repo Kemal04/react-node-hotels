@@ -1,29 +1,22 @@
 //Express 
 const express = require('express');
 const app = express();
-//port
-const port = 3001;
+require('dotenv').config();
+const port = process.env.PORT;
 
-//modules
 const cors = require("cors");
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-//Db
 const sequelize = require('./data/db');
+const apilimiter = require("./middlewares/rateLimit");
+const corsOptions = require("./middlewares/corsOption");
 
-const corsOptions = {
-    origin:"http://localhost:3000",
-    credentials: true
-}
 
 app.use(express.json());
+app.use(express.json({ limit: "50mb" }))
+app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}))
 app.use(cors(corsOptions));
 app.use('/', express.static('public'))
-app.use(cookieParser())
 
-
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use("/api", apilimiter)
 const AuthRouter = require("./routes/auth.router")
 const UserRouter = require("./routes/user.router")
 const HotelRouter = require("./routes/hotel.router")
