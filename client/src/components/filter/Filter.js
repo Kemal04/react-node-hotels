@@ -1,7 +1,7 @@
 import React from 'react'
 import "../../pages/userInterface/room/room.css"
 
-const Filter = ({ filterItem, setRoom, roomType, rooms, filterHandler, hotel }) => {
+const Filter = ({ filterItem, setRoom, roomType, rooms, hotel, filterHotel, capacity, filterCapacity }) => {
     return (
         <>
             <div className='row'>
@@ -30,7 +30,7 @@ const Filter = ({ filterItem, setRoom, roomType, rooms, filterHandler, hotel }) 
                             {hotel.map((hotel, index) => {
                                 return (
                                     <label key={index} className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>{hotel.name}
-                                        <input id={hotel.id} value={hotel.id} onChange={filterHandler} type="checkbox" className="opacity-0" />
+                                        <input onChange={() => filterHotel(hotel.name)} type="checkbox" className="opacity-0 " />
                                         <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
                                     </label>
                                 )
@@ -46,20 +46,17 @@ const Filter = ({ filterItem, setRoom, roomType, rooms, filterHandler, hotel }) 
                     <div className='label mb-3 fw-bold small'>Adam sany</div>
                     <div className="d-flex justify-content-center flex-column">
 
-                        <label className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>1 we 2 adamlyk
-                            <input type="radio" className="opacity-0" />
-                            <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
-                        </label>
-
-                        <label className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>3 we 4 adamlyk
-                            <input type="radio" className="opacity-0" />
-                            <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
-                        </label>
-
-                        <label className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>5 köp adamlyk
-                            <input type="radio" className="opacity-0" />
-                            <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
-                        </label>
+                        {capacity.map((capacity, index) => {
+                            return (
+                                <label key={index} className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>{capacity}
+                                    <input onChange={() => filterCapacity(capacity)} type="checkbox" className="opacity-0 " />
+                                    <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
+                                </label>
+                            )
+                        })}
+                        <div className="small mb-2" style={{ cursor: "pointer" }} onClick={() => setRoom(rooms)} >
+                            Hemmesi
+                        </div>
 
                     </div>
                 </div>
