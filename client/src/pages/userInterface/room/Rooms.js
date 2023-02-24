@@ -12,9 +12,9 @@ import EmptyRoom from '../../../components/emptyRoom/EmptyRoom'
 const Rooms = () => {
 
     const { darkMode } = useContext(ThemeContext)
-
     const dispatch = useDispatch()
 
+    //ROOMS
     const { rooms } = useSelector(state => state.rooms)
     useEffect(() => {
         dispatch(getAllRooms())
@@ -25,15 +25,20 @@ const Rooms = () => {
         setRoom(rooms);
     }, [rooms]);
 
+    //ROOMTYPES
     const { roomTypes } = useSelector(state => state.roomTypes)
     useEffect(() => {
         dispatch(getAllRoomTypes())
     }, [dispatch])
 
+    //HOTELS
     const { hotels } = useSelector(state => state.hotels)
     useEffect(() => {
         dispatch(getAllHotels())
     }, [dispatch])
+
+    //RESULT
+    const [result, setResult] = useState(true)
 
     function onSelectionChange(e) {
         const sortDirection = e.target.value;
@@ -61,41 +66,31 @@ const Rooms = () => {
         setRoom(roomsSort)
     }
 
-    const [result, setResult] = useState(true)
-
     const roomType = [...new Set(roomTypes.map((Val) => Val.name))];
 
     const filterItem = (value) => {
         const newItem = rooms.filter((newVal) => newVal.roomtype.name === value);
-
         setRoom(newItem);
-
         !newItem.length ? setResult(false) : setResult(true)
     };
 
-    const [filterHotels, setFilterHotels] = useState([])
-    useEffect(() => {
-        setFilterHotels(hotels);
-    }, [hotels]);
 
-    const filteredDATA = room.filter((node) =>
-        filterHotels.length > 0
-            ?
-            (filterHotels) => node.hotel.id.includes(filterHotels)
-            :
-            room
-    )
+    const hotel = [...new Set(hotels.map((Val) => Val))];
 
-    const filterHandler = (e) => {
-        if (e.target.checked) {
-            setFilterHotels([...filterHotels, e.target.value])
-            console.log([...filterHotels, e.target.value]);
-        } else {
-            setFilterHotels(
-                filterHotels.filter((filterHotel) => filterHotel !== e.target.value)
-            )
-        }
-    }
+    const filterHotel = (value) => {
+        const newItem = rooms.filter((newVal) => newVal.hotel.name === value);
+        setRoom(newItem);
+        !newItem.length ? setResult(false) : setResult(true)
+    };
+
+
+    const capacity = [...new Set(rooms.map((Val) => Val.capacity))];
+
+    const filterCapacity = (value) => {
+        const newItem = rooms.filter((newVal) => newVal.capacity === value);
+        setRoom(newItem);
+        !newItem.length ? setResult(false) : setResult(true)
+    };
 
     return (
         <>
@@ -107,10 +102,14 @@ const Rooms = () => {
                             <Filter
                                 filterItem={filterItem}
                                 roomType={roomType}
-                                hotel={filterHotels}
                                 rooms={rooms}
-                                filterHandler={filterHandler}
                                 setRoom={setRoom}
+
+                                hotel={hotel}
+                                filterHotel={filterHotel}
+
+                                capacity={capacity}
+                                filterCapacity={filterCapacity}
                             />
                         </div>
 
@@ -131,7 +130,7 @@ const Rooms = () => {
                             <div className='row'>
                                 {result
                                     ?
-                                    filteredDATA.map((room, index) => (
+                                    room.map((room, index) => (
                                         <div className='col-xl-12' key={index}>
                                             <div className='card border-0 my-4' style={{ backgroundColor: "transparent", boxShadow: 'none' }}>
                                                 <div className='row align-items-center'>
