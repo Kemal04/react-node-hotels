@@ -1,14 +1,14 @@
 const whiteList = ["localhost:3000"]
 
 const corsOptions = (req, callback) => {
-    let corsOptions;
+    let corsOption;
     if (whiteList.indexOf(req.header("Origin")) !== -1) {
-        corsOptions = { origin: true }
+        corsOption = { origin: true }
     } else {
-        corsOptions = { origin: false }
+        corsOption = { origin: false }
     }
 
-    callback(null, corsOptions)
+    callback(null, corsOption)
 }
 
 module.exports = corsOptions;
