@@ -1,23 +1,23 @@
 const mysql = require('mysql2');
-const config = require("../config");
+require('dotenv').config();
 
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize(config.db.database, config.db.user, config.db.password, {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     dialect: "mysql",
-    host: config.db.host,
+    host: process.env.DB_HOST,
     define: {
         timestamps: true
     }
 });
 
-async function connect(){
-    try{
-        await sequelize.sync({alter: true});
+async function connect() {
+    try {
+        await sequelize.sync({ alter: true });
         await sequelize.authenticate();
         console.log("server running and all tables sync");
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
