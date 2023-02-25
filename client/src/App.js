@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar, ProfileNavbar } from "./components"
 
 //USERINTERFACE
-import { About, Contact, Home, Rooms, RoomRead, Register, Login } from "./pages/userInterface"
+import { About, Contact, Home, Rooms, RoomRead, Register, Login, HotelRead } from "./pages/userInterface"
 
 //ADMIN
 import { Admin, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
@@ -76,6 +76,8 @@ const App = () => {
 
                                 <Route path='/otaglar' element={<Rooms />}></Route>
                                 <Route path='/otag/:id' element={<RoomRead />}></Route>
+
+                                <Route path='/hotel/:id' element={<HotelRead />}></Route>
 
                                 {
                                     !authState.status && (

@@ -28,8 +28,9 @@ const HotelLogin = () => {
         }
         else {
             await axios.post("http://localhost:3001/api/auth/admin/login", data).then((res) => {
-                if (res.data.error) {
+                if (res) {
                     toast.error(res.data.error)
+                    console.log(res);
                 } else {
                     localStorage.setItem("accessToken", res.data.token)
                     setAuthState({

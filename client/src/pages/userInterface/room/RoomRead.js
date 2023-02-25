@@ -227,8 +227,12 @@ const RoomRead = () => {
                                         </div>
                                     </div>
                                     <div className="col-lg-12 mt-4">
-                                        <label className="form-label fw-bold pe-2">Yatda sakla</label>
-                                        <input value={hotel.id} id="kemal" type="checkbox" name='hotelId' onChange={handleChange} />
+                                        <div className="form-check">
+                                            <input className='form-check-input' value={hotel.id} id="kemal" type="checkbox" name='hotelId' onChange={handleChange} />
+                                            <label className="form-check-label" htmlFor="flexCheckDefault">
+                                                Yatda Sakla
+                                            </label>
+                                        </div>
                                     </div>
                                     <div className='col-xl-12 border-top mt-5 pt-3'>
                                         <div className='d-flex justify-content-between align-items-center'>

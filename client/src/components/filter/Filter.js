@@ -30,14 +30,16 @@ const Filter = ({ filterItem, setRoom, roomType, rooms, hotel, filterHotel, capa
                             {hotel.map((hotel, index) => {
                                 return (
                                     <label key={index} className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>{hotel.name}
-                                        <input onChange={() => filterHotel(hotel.name)} type="checkbox" className="opacity-0 " />
+                                        <input name='radio' onClick={() => filterHotel(hotel.name)} type="radio" className="opacity-0 " />
                                         <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
                                     </label>
                                 )
                             })}
-                            <div className="small mb-2" style={{ cursor: "pointer" }} onClick={() => setRoom(rooms)} >
-                                Hemmesi
-                            </div>
+
+                            <label className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>Hemmesi
+                                <input name='radio' onClick={() => setRoom(rooms)} type="radio" className="opacity-0 " />
+                                <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -49,14 +51,16 @@ const Filter = ({ filterItem, setRoom, roomType, rooms, hotel, filterHotel, capa
                         {capacity.map((capacity, index) => {
                             return (
                                 <label key={index} className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>{capacity}
-                                    <input onChange={() => filterCapacity(capacity)} type="checkbox" className="opacity-0 " />
+                                    <input name='radio' onClick={() => filterCapacity(capacity)} type="radio" className="opacity-0 " />
                                     <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
                                 </label>
                             )
                         })}
-                        <div className="small mb-2" style={{ cursor: "pointer" }} onClick={() => setRoom(rooms)} >
-                            Hemmesi
-                        </div>
+
+                        <label className="small mb-2 fw-normal d-flex align-items-center position-relative ps-4 check" style={{ cursor: "pointer", userSelect: "none" }}>Hemmesi
+                            <input name='radio' onClick={() => setRoom(rooms)} type="radio" className="opacity-0 " />
+                            <span className="position-absolute top-0 start-0 bg-light checkmark" style={{ height: "20px", width: "20px" }}></span>
+                        </label>
 
                     </div>
                 </div>
