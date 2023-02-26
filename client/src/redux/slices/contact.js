@@ -4,22 +4,31 @@ import { toast } from "react-toastify";
 
 const initialState = {
     contacts: [],
+    pages: {},
     isLoading: false,
     isError: false,
     isSuccess: false,
 };
 
+
 export const getAllContacts = createAsyncThunk(
     "contacts/getAll",
-    async () => {
-        const { data } = await axios.get("http://localhost:3001/api/contact")
-        return data.contacts;
+    async (page) => {
+        console.log(page);
+        const { data } = await axios.get(`http://localhost:3001/api/contact`, {
+            params: {
+                page: page
+            }
+        })
+        const contacts = data.contacts.docs;
+        const pages = data.contacts.pages;
+        return { contacts: contacts, pages: pages };
     }
 );
 
 export const creatContact = createAsyncThunk(
     "contact/create",
-    async ( contact ) => {
+    async (contact) => {
         await axios.post("http://localhost:3001/api/contact/create", contact,)
             .then((res) => {
                 toast.success(res.data.success)
@@ -67,7 +76,8 @@ const contactSlice = createSlice({
         })
         builder.addCase(getAllContacts.fulfilled, (state, action) => {
             state.isLoading = false
-            state.contacts = action.payload
+            state.contacts = action.payload.contacts
+            state.pages = action.payload.pages
         })
         builder.addCase(getAllContacts.rejected, (state, action) => {
             state.isError = true

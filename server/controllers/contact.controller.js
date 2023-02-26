@@ -13,6 +13,7 @@ const getNextPage = (page, total) => {
 
 module.exports.AllContactGet = async (req, res) => {
     const page = req.query.page ? req.query.page : 1;
+    console.log(req.query);
     const size = 3;
     const options = {
         page: +page,

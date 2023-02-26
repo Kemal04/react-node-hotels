@@ -97,6 +97,7 @@ const App = () => {
                                             <Route path='/admin' element={<Admin />}></Route>
                                             <Route path='/admin/ulanyjylar' element={<AdminUsers />}></Route>
 
+                                            {/* <Route path='/admin/teswirler' element={<AdminContacts />}></Route> */}
                                             <Route path='/admin/teswirler' element={<AdminContacts />}></Route>
                                             <Route path='/admin/teswir-uytgetmek/:id' element={<AdminContactEdit />}></Route>
 
