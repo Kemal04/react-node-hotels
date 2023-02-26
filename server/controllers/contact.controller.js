@@ -1,5 +1,5 @@
 const sequelizePaginate = require("sequelize-paginate");
-
+// const axios = require("axios")
 const { Contact } = require("../models/model")
 sequelizePaginate.paginate(Contact);
 
@@ -48,18 +48,25 @@ module.exports.singleContact = async (req, res) => {
 }
 
 module.exports.createContactPost = async (req, res) => {
-    await Contact.create({
-        name: req.body.name,
-        email: req.body.email,
-        subject: req.body.subject,
-        comment: req.body.comment
-    })
-        .then(() => {
-            res.json({ success: "Teswir ustunlikli ugrdyldy" });
-        })
-        .catch((err) => {
-            res.status(500).json(err);
-        })
+    // axios({
+    //     url: `https://www.google.com/recaptcha/api/siteverify/?secret=${process.env.SECRET_KEY}&response=${req.body.recaptchaValue}`,
+    //     method: 'POST'
+    // }).then(async ({ data }) => {
+    //     if (data.success) {
+    //         await Contact.create({
+    //             name: req.body.name,
+    //             email: req.body.email,
+    //             subject: req.body.subject,
+    //             comment: req.body.comment
+    //         }).then(() => {
+    //             res.json({ success: "Teswir ustunlikli ugrdyldy" });
+    //         })
+    //     } else {
+    //         return res.status(400).json({ error: "Recaptcha verifikasiya amala asmady" })
+    //     }
+    // }).catch((err) => {
+    //     res.status(500).json(err);
+    // })
 }
 
 
