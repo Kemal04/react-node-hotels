@@ -28,8 +28,6 @@ const Contact = () => {
     const handleClick = async (e) => {
         e.preventDefault()
 
-        console.log(typeof(contact.name));
-
         if (!contact.name) {
             toast.error("Adyňyzy ýazyň")
         }

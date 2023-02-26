@@ -10,7 +10,7 @@ const apilimiter = rateLimit({
     message: async (req, res) => {
 		res.json( "salam")
 	},
-    // skip: (req, res) => allowList.includes(req.ip),
+    skip: (req, res) => allowList.includes(req.ip),
     standardHeaders: true,
     legacyHeaders: false
 })

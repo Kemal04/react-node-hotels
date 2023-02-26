@@ -35,7 +35,7 @@ const AdminSidebar = () => {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/admin/teswirler" className="nav-link">
+                                <NavLink to="/admin/teswirler?page=1" className="nav-link">
                                     <FontAwesomeIcon icon={faCommentAlt} className="nav-icon me-2" />
                                     <p>Teswirler</p>
                                 </NavLink>
