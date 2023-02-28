@@ -1,6 +1,4 @@
-const { Booking, Room, User, RoomType, Hotel } = require("../models/model");
-const { validateToken, isAdmin, isHotel } = require("../middlewares/AuthMiddleware");
-
+const { Booking, Room, User, Hotel } = require("../models/model");
 
 module.exports.AllBookingGet = async (req, res) => {
     await Booking.findAll({
@@ -10,7 +8,9 @@ module.exports.AllBookingGet = async (req, res) => {
             { model: User, attributes: ['id', 'username'] }
         ]
     }).then((booking) => {
-        res.json({ booking: booking })
+        res.json({
+            booking: booking
+        })
     }).catch((err) => {
         res.status(500).json(err);
     })

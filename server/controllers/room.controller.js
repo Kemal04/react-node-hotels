@@ -1,6 +1,7 @@
 const { Room, RoomType, Hotel } = require("../models/model");
 const fs = require('fs')
 
+
 //superAdmin ucin roomlar
 
 module.exports.AllRoomsGet = async (req, res) => {
@@ -11,7 +12,9 @@ module.exports.AllRoomsGet = async (req, res) => {
         ]
     })
         .then((rooms) => {
-            res.json({ rooms: rooms })
+            res.json({
+                rooms: rooms
+            })
         })
 }
 

@@ -3,6 +3,7 @@ const fs = require('fs')
 // const sharp = require('sharp');
 const path = require("path");
 
+
 // Otellerin admin paneli ucin roomlar
 
 module.exports.AllRoomsGet = async (req, res) => {
@@ -15,7 +16,9 @@ module.exports.AllRoomsGet = async (req, res) => {
     })
         .then((rooms) => {
             if (rooms) {
-                return res.json({ rooms: rooms });
+                return res.json({
+                    rooms: rooms
+                });
             }
             console.log(rooms);
         })
@@ -72,6 +75,7 @@ module.exports.createPost = async (req, res) => {
         size: req.body.size,
         price: req.body.price,
         img: req.file.filename,
+        description: req.body.description,
         roomtypeId: req.body.roomtypeId,
         hotelId: req.user.id
     })
@@ -128,6 +132,7 @@ module.exports.editPost = async (req, res) => {
                     room.capacity = req.body.capacity,
                     room.size = req.body.size,
                     room.price = req.body.price,
+                    room.description = req.body.description,
                     room.img = img,
                     room.roomtypeId = req.body.roomtypeId,
                     room.save();
