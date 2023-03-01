@@ -3,9 +3,11 @@ const { User } = require("../models/model")
 
 module.exports.getAlldata = async (req, res) => {
     await User.findAll().then((users) => {
-        res.json({ users: users })
+        res.json({
+            users: users
+        })
     }).catch((err) => {
-        res.status(500).json({ err })
+        res.status(500).json({ err: err })
     })
 }
 
