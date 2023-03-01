@@ -137,21 +137,22 @@ Hotel.hasMany(Room, { onDelete: "cascade" }),
 
 Hotel.hasMany(Booking, { onDelete: "cascade" });
 Booking.belongsTo(Hotel);
-
 Room.hasMany(Booking, { onDelete: "cascade" });
 Booking.belongsTo(Room);
-
 User.hasMany(Booking, { onDelete: "cascade" });
 Booking.belongsTo(User);
+User.belongsToMany(Room, { through: 'RoomUserBooking' });
+Room.belongsToMany(User, { through: 'RoomUserBooking' });
+
 
 User.hasMany(RoomContact, { onDelete: "cascade" });
 RoomContact.belongsTo(User);
-
 Room.hasMany(RoomContact, { onDelete: "cascade" });
 RoomContact.belongsTo(Room);
+Hotel.hasMany(RoomContact, { onDelete: "cascade" });
+RoomContact.belongsTo(Hotel);
 
-User.belongsToMany(Room, { through: 'RoomUserBooking' });
-Room.belongsToMany(User, { through: 'RoomUserBooking' });
+
 
 module.exports = {
     User,
