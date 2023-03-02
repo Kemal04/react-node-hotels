@@ -66,6 +66,7 @@ const Room = sequelize.define("room", {
     size: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.STRING, allowNull: false },
     img: { type: DataTypes.STRING, allowNull: true },
+    description: { type: DataTypes.STRING, allowNull: false },
     liked: { type: DataTypes.STRING, allowNull: true },
     viewed: { type: DataTypes.STRING, allowNull: true }
 
@@ -81,7 +82,9 @@ const Contact = sequelize.define("contact", {
     name: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false },
     subject: { type: DataTypes.STRING, allowNull: false },
-    comment: { type: DataTypes.STRING, allowNull: false }
+    comment: { type: DataTypes.STRING, allowNull: false },
+    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" }
+
 })
 
 const Booking = sequelize.define("booking", {
@@ -90,24 +93,38 @@ const Booking = sequelize.define("booking", {
         autoIncrement: true,
         primaryKey: true
     },
-    checkIn: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    checkOut: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    phoneNum: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    check: {
-        type: DataTypes.TINYINT,
-        allowNull: false,
-        defaultValue: "0"
-    }
+    checkIn: { type: DataTypes.DATE, allowNull: false },
+    checkOut: { type: DataTypes.DATE, allowNull: false },
+    phoneNum: { type: DataTypes.INTEGER, allowNull: false },
+    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" }
 });
+
+const Banner = sequelize.define("banner", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: true
+    },
+    title: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.STRING, allowNull: false },
+    img: { type: DataTypes.STRING, allowNull: false },
+    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" }
+})
+
+const RoomContact = sequelize.define("roomContact", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: true
+    },
+    name: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false },
+    subject: { type: DataTypes.STRING, allowNull: false },
+    comment: { type: DataTypes.STRING, allowNull: false },
+    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" }
+})
 
 Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$.2s8SLEln9Dnql5sPuvtfec93qtcKyvMAqDY8zeLg8IcndoHNtXWS", role: "Admin" } })
 
@@ -120,15 +137,22 @@ Hotel.hasMany(Room, { onDelete: "cascade" }),
 
 Hotel.hasMany(Booking, { onDelete: "cascade" });
 Booking.belongsTo(Hotel);
-
 Room.hasMany(Booking, { onDelete: "cascade" });
 Booking.belongsTo(Room);
-
 User.hasMany(Booking, { onDelete: "cascade" });
 Booking.belongsTo(User);
-
 User.belongsToMany(Room, { through: 'RoomUserBooking' });
 Room.belongsToMany(User, { through: 'RoomUserBooking' });
+
+
+User.hasMany(RoomContact, { onDelete: "cascade" });
+RoomContact.belongsTo(User);
+Room.hasMany(RoomContact, { onDelete: "cascade" });
+RoomContact.belongsTo(Room);
+Hotel.hasMany(RoomContact, { onDelete: "cascade" });
+RoomContact.belongsTo(Hotel);
+
+
 
 module.exports = {
     User,
@@ -137,5 +161,7 @@ module.exports = {
     RoomType,
     Room,
     Contact,
-    Booking
+    Booking,
+    Banner,
+    RoomContact
 };

@@ -1,12 +1,33 @@
 const { Hotel } = require("../models/model")
 const bcrypt = require('bcrypt');
+const sequelizePaginate = require("sequelize-paginate");
+sequelizePaginate.paginate(Hotel);
 
+const getNextPage = (page, total) => {
+    const a = page < total ? +page + 1 : total;
+    return a;
+};
 //superAdmin ucin hotel CRUD
 
 module.exports.allHotelGet = async (req, res) => {
-    await Hotel.findAll()
+    const page = req.query.page ? req.query.page : 1;
+    const size = 5;
+    const options = {
+        page: +page,
+        paginate: +size,
+    };
+    var before = page > 1 ? +page - 1 : 1;
+    await Hotel.paginate(options)
         .then((hotels) => {
-            res.json({ hotels: hotels })
+            res.json({
+                hotels: hotels,
+                pagination: {
+                    before: before,
+                    page: page,
+                    next: getNextPage(page, Math.floor(hotels.total / size) + 1),
+                    total: hotels.total,
+                }
+            })
         })
 }
 

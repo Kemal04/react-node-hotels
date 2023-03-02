@@ -13,7 +13,6 @@ const getNextPage = (page, total) => {
 
 module.exports.AllContactGet = async (req, res) => {
     const page = req.query.page ? req.query.page : 1;
-    console.log(req.query);
     const size = 3;
     const options = {
         page: +page,
@@ -86,7 +85,8 @@ module.exports.editContactPost = async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             subject: req.body.subject,
-            comment: req.body.comment
+            comment: req.body.comment,
+            check: req.body.check
         },
         { where: { id: req.params.contactId } })
         .then(() => {

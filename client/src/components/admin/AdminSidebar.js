@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { faBed, faBook, faCommentAlt, faHotel, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faBook, faCommentAlt, faHotel, faImage, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AdminSidebar = () => {
@@ -29,13 +29,19 @@ const AdminSidebar = () => {
                     <nav className="mt-2">
                         <ul className="nav nav-pills nav-sidebar flex-column nav-treeview" data-widget="treeview" role="menu" data-accordion="false">
                             <li className="nav-item">
+                                <NavLink to="/admin/bannerler" className="nav-link">
+                                    <FontAwesomeIcon icon={faImage} className="nav-icon me-2" />
+                                    <p>Bannerler</p>
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
                                 <NavLink to="/admin/ulanyjylar" className="nav-link">
                                     <FontAwesomeIcon icon={faUser} className="nav-icon me-2" />
                                     <p>Ulanyjylar</p>
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/admin/teswirler?page=1" className="nav-link">
+                                <NavLink to="/admin/teswirler" className="nav-link">
                                     <FontAwesomeIcon icon={faCommentAlt} className="nav-icon me-2" />
                                     <p>Teswirler</p>
                                 </NavLink>

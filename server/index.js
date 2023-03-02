@@ -25,6 +25,9 @@ const roomRouter = require("./routes/room.router")
 const hotelRoomRouter = require("./routes/hotelRoom.router");
 const contactRouter = require("./routes/contact.router");
 const bookingRouter = require("./routes/booking.router");
+const bannerRouter = require("./routes/banner.router");
+const roomContactRouter = require("./routes/roomContact.router");
+
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/user", UserRouter);
@@ -34,6 +37,9 @@ app.use("/api/room", roomRouter);
 app.use("/api/hotelRoom", hotelRoomRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/booking", bookingRouter);
+app.use("/api/banner", bannerRouter);
+app.use("/api/roomContact", roomContactRouter);
+
 
 
 //serv

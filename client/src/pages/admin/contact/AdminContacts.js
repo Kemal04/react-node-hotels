@@ -17,7 +17,6 @@ const AdminContact = () => {
 
     const changePage = ({ selected }) => {
         setPage(selected + 1)
-        console.log(selected + 1);
     }
 
     const [contact, setContact] = useState([])

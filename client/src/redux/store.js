@@ -7,6 +7,7 @@ import bookingsReducer from './slices/bookings';
 import hotelsReducer from './slices/hotels';
 import hotelRoomsReducer from './slices/hotelRooms';
 import hotelBookingReducer from './slices/hotelBooking';
+import bannerReducer from './slices/banner';
 
 const reducer = {
     contacts: contactsReducer,
@@ -17,6 +18,7 @@ const reducer = {
     hotels: hotelsReducer,
     hotelRooms: hotelRoomsReducer,
     hotelBooking: hotelBookingReducer,
+    banner: bannerReducer,
 }
 
 const store = configureStore({

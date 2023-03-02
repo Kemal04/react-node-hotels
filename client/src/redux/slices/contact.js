@@ -14,7 +14,6 @@ const initialState = {
 export const getAllContacts = createAsyncThunk(
     "contacts/getAll",
     async (page) => {
-        console.log(page);
         const { data } = await axios.get(`http://localhost:3001/api/contact`, {
             params: {
                 page: page
