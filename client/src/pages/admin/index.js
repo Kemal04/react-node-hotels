@@ -17,3 +17,8 @@ export { default as AdminBooking } from "./booking/AdminBooking"
 export { default as AdminHotels } from "./hotel/AdminHotels"
 export { default as AdminHotelsCreate } from "./hotel/AdminHotelsCreate"
 export { default as AdminHotelEdit } from "./hotel/AdminHotelEdit"
+
+
+export { default as AdminBanners } from "./banner/AdminBanners"
+export { default as AdminBannerCreate } from "./banner/AdminBannerCreate"
+export { default as AdminBannerEdit } from "./banner/AdminBannerEdit"

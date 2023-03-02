@@ -11,7 +11,7 @@ import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar, P
 import { About, Contact, Home, Rooms, RoomRead, Register, Login, HotelRead } from "./pages/userInterface"
 
 //ADMIN
-import { Admin, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
+import { Admin, AdminBannerCreate, AdminBannerEdit, AdminBanners, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //HOTEL
 import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit } from './pages/hotel';
@@ -97,13 +97,16 @@ const App = () => {
                                             <Route path='/admin' element={<Admin />}></Route>
                                             <Route path='/admin/ulanyjylar' element={<AdminUsers />}></Route>
 
-                                            {/* <Route path='/admin/teswirler' element={<AdminContacts />}></Route> */}
                                             <Route path='/admin/teswirler' element={<AdminContacts />}></Route>
                                             <Route path='/admin/teswir-uytgetmek/:id' element={<AdminContactEdit />}></Route>
 
                                             <Route path='/admin/hotellar' element={<AdminHotels />}></Route>
                                             <Route path='/admin/hotel-gosmak' element={<AdminHotelsCreate />}></Route>
                                             <Route path='/admin/hotel-uytgetmek/:id' element={<AdminHotelEdit />}></Route>
+                                            
+                                            <Route path='/admin/bannerler' element={<AdminBanners />}></Route>
+                                            <Route path='/admin/banner-gosmak' element={<AdminBannerCreate />}></Route>
+                                            <Route path='/admin/banner-uytgetmek/:id' element={<AdminBannerEdit />}></Route>
 
                                             <Route path='/admin/otaglar' element={<AdminRooms />}></Route>
 
