@@ -44,7 +44,7 @@ exports.loginPost = async (req, res) => {
                     res.json({ error: "Ulanyjynyň nomeri ýa-da açar sözi nädogry" })
                 } else {
                     const accessToken = sign(
-                        { phoneNum: user.phoneNum, id: user.id, role: user.role },
+                        { phoneNum: user.phoneNum, id: user.id,  role: user.role },
                         "importantsecret"
                     );
                     res.json({ success: "Giris kabul edildi", token: accessToken });
