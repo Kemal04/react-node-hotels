@@ -50,16 +50,20 @@ module.exports.createContactGet = async (req, res) => {
 }
 
 module.exports.createContactPost = async (req, res) => {
-    await RoomContact.create({ 
+    await RoomContact.create({
         name: req.body.name,
         email: req.body.email,
         subject: req.body.subject,
-        comment:req.body.comment
-     })
+        comment: req.body.comment,
+        userId: req.user.id,
+        roomId: req.body.roomId,
+        hotelId: req.body.hotelId
+    })
         .then(() => {
             res.json({ success: "Teswir ustunlikli ugradyldy" });
         })
         .catch((err) => {
+            console.log(err)
             res.status(500).json(err);
         })
 }

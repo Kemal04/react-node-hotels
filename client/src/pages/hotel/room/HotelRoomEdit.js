@@ -17,12 +17,15 @@ const HotelRoomEdit = () => {
         dispatch(getAllRoomTypes())
     }, [dispatch])
 
+
+    const [roomType, setRoomType] = useState('')
     const [room, setRoom] = useState({
         roomtypeId: "",
         roomNum: "",
         price: "",
         capacity: "",
         size: "",
+        description: "",
         img: "",
     })
     const [img, setImg] = useState('')
@@ -45,6 +48,7 @@ const HotelRoomEdit = () => {
             },
         }).then((res) => {
             setRoom(res.data.room)
+            setRoomType(res.data.room.roomtype)
             setImg(res.data.room.img)
         }).catch((res) => {
             toast.error(res.response.data.error)
@@ -57,9 +61,10 @@ const HotelRoomEdit = () => {
         e.preventDefault()
 
         const formData = new FormData()
-        formData.append('roomtypeId', room.roomtypeId)
+        formData.append('roomtypeId', room.roomtypeId === undefined ? roomType.id : room.roomtypeId)
         formData.append('roomNum', room.roomNum)
         formData.append('price', room.price)
+        formData.append('description', room.description)
         formData.append('capacity', room.capacity)
         formData.append('size', room.size)
         formData.append('img', img.pictureAsFile === undefined ? img : img.pictureAsFile)
@@ -73,6 +78,9 @@ const HotelRoomEdit = () => {
         }
         else if (!room.price) {
             toast.error("Bahasyny ýazyň")
+        }
+        else if (!room.description) {
+            toast.error("Beyany yazyn")
         }
         else if (!room.capacity) {
             toast.error("Adam sanyny ýazyň")
@@ -110,7 +118,7 @@ const HotelRoomEdit = () => {
 
                                 <div className="col-lg-12 mb-3">
                                     <select name='roomtypeId' onChange={handleChange} className="form-select">
-                                        <option defaultValue>Otagyň gornusini sayla</option>
+                                        <option value={roomType.id} defaultValue>{roomType.name}</option>
                                         {roomTypes.map(roomtype => (
                                             <option key={roomtype.id} value={roomtype.id}>{roomtype.name}</option>
                                         ))}
@@ -141,6 +149,11 @@ const HotelRoomEdit = () => {
                                         <input name='size' value={room.size} onChange={handleChange} type="number" className="form-control rounded-0" aria-describedby="basic-addon1" autoComplete="off" />
                                         <span className="input-group-text rounded-0" id="basic-addon1">ft</span>
                                     </div>
+                                </div>
+                                
+                                <div className="col-lg-12 mb-3">
+                                    <label className="form-label fw-bold">Otagyň Beyany</label>
+                                    <textarea name='description' value={room.description} onChange={handleChange} className="form-control rounded-0" rows={8} ></textarea>
                                 </div>
 
                                 <div className="col-lg-12 mb-3">

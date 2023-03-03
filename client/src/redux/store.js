@@ -8,9 +8,11 @@ import hotelsReducer from './slices/hotels';
 import hotelRoomsReducer from './slices/hotelRooms';
 import hotelBookingReducer from './slices/hotelBooking';
 import bannerReducer from './slices/banner';
+import roomContactsReducer from './slices/roomContacts';
 
 const reducer = {
     contacts: contactsReducer,
+    roomContacts: roomContactsReducer,
     users: usersReducer,
     roomTypes: roomTypesReducer,
     rooms: roomsReducer,

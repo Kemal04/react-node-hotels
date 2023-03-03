@@ -9,6 +9,7 @@ import BannerImg from '../../../components/banner/BannerImg';
 import { AuthContext } from '../../../context/AuthContext';
 import { useDispatch } from 'react-redux';
 import { creatBooking } from '../../../redux/slices/bookings'
+import { creatRoomContact } from '../../../redux/slices/roomContacts';
 
 const RoomRead = () => {
 
@@ -20,11 +21,10 @@ const RoomRead = () => {
         autoplay: true,
     };
 
-    const dispatch = useDispatch()
-
     const { authState } = useContext(AuthContext)
     const { darkMode } = useContext(ThemeContext)
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation();
     const roomId = location.pathname.split("/")[2];
@@ -32,28 +32,41 @@ const RoomRead = () => {
     const [room, setRoom] = useState("")
     const [roomType, setRoomType] = useState("")
     const [hotel, setHotel] = useState("")
-
-    useEffect(() => {
-        axios.get(`http://localhost:3001/api/room/${roomId}`).then((res) => {
-            setRoom(res.data.room)
-            setRoomType(res.data.room.roomtype)
-            setHotel(res.data.room.hotel)
-        }).catch((err) => {
-            toast.error(err.message)
-        })
-    }, [roomId]);
-
-    const handleChange = (e) => {
-        setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    }
-
     const [booking, setBooking] = useState({
         roomId: roomId,
         hotelId: "",
         checkIn: "",
         checkOut: "",
         phoneNum: "",
-    });
+    })
+    const [contact, setContact] = useState({
+        name: "",
+        email: "",
+        subject: "",
+        comment: "",
+        hotelId: "",
+        roomId: roomId,
+    })
+    console.log(contact);
+
+    const handleChange = (e) => {
+        setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const changeContact = (e) => {
+        setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/api/room/${roomId}`).then((res) => {
+            setRoom(res.data.room)
+            setRoomType(res.data.room.roomtype)
+            setHotel(res.data.room.hotel)
+            contact.hotelId = res.data.room.hotel.id
+        }).catch((err) => {
+            toast.error(err.message)
+        })
+    }, [contact, roomId]);
 
     const bookingRoom = async (e) => {
         e.preventDefault()
@@ -75,6 +88,31 @@ const RoomRead = () => {
         }
         else {
             dispatch(creatBooking(booking))
+            navigate("/")
+        }
+    }
+
+    const clickContact = async (e) => {
+        e.preventDefault()
+
+
+        if (!contact.name) {
+            toast.error("Adyňyzy ýazyň")
+        }
+        else if (!contact.email) {
+            toast.error("E-mail adresiňizi ýazyň")
+        }
+        else if (!contact.subject) {
+            toast.error("Temaňyzy ýazyň")
+        }
+        else if (!contact.comment) {
+            toast.error("Teswiriňizi ýazyň")
+        }
+        else if (contact.comment.length < 25) {
+            toast.error("Teswiriňizi 25 harpdan ybarat bolmaly")
+        }
+        else {
+            dispatch(creatRoomContact(contact))
             navigate("/")
         }
     }
@@ -118,17 +156,10 @@ const RoomRead = () => {
                                 </div>
                             </div>
                             <div className='row mt-4'>
-                                <div className='col-xl-12 p-0 lh-lg' style={{ color: "#636a76" }}>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Çukurlar, kirpikler, mikrokontrollar… Myhmanhanada galan myhmanlaryň seresap bolmagy biderek däl. Şeýle-de bolsa, myhmanhanalarda arassaçylyga üns bermek baradaky tagallalaryň netijesinde köp myhmanhanalarda arassaçylyk we howpsuzlyk standartlary ýokarlandy. Mysal üçin, ABŞ-nyň iň gowy günbatar myhmanhana zynjyry häzirki wagtda ultramelewşe şöhlesini çykarýan taýaklary ulanýar. Bular bakteriýalardan we mikroblardan arassalamak üçin zatlaryň üstünden geçirilýär. Bu myhmanhanalar arassalanmagy aňsatlaşdyrmak üçin suw geçirmeýän uzakdan hem peýdalanýarlar.
-                                </div>
                                 <div className='col-xl-12 p-0 lh-lg mt-3' style={{ color: "#636a76" }}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Myhmanhanalarda otaglaryna baranlarynda myhmanlaryň iň köp ulanýan zatlarynyň arasynda telewizion uzaklyklar bar. Şonuň üçin uzakdakylar otagdaky iň hapa zatlardyr we arassalaýjylar olary hiç wagt arassalamaýarlar. Hýuston uniwersitetiniň 2012-nji ýyldaky gözleginde uzakdakylaryň hajathana ýaly hapa bolandygy anyklandy. Lightagtylyk wyklýuçatelleri bilen deň derejede hapa. Şonuň üçin otagyňyza gireniňizde olary dezinfeksiýa mata bilen süpürmek maslahat berilýär.
+                                    {room.description}
                                 </div>
-                                <div className='col-xl-12 p-0 lh-lg mt-3' style={{ color: "#636a76" }}>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Myhmanhana otagyňyzyň gowy arassalanmadygyna şübhelenýän bolsaňyz, dezinfeksiýa süpürgiçler we spreýler bilen aýlanmak iň gowusydyr. Goşmaça ynandyrmak isleýän bolsaňyz, ýorganlaryň we telefonlaryň arassaçylyk monitorlary bilen näderejede arassadygyny barlap bilersiňiz.                            </div>
                             </div>
                             <div className='row my-5 align-items-center'>
                                 <div className='col-xl-12 p-0 h4'>
@@ -200,7 +231,25 @@ const RoomRead = () => {
                                     </div>
                                 </div>
                             </div>
+                            <form className='row justify-content-center' onSubmit={clickContact}>
+                                <div className="col-xl-4 mb-4">
+                                    <input onChange={changeContact} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
+                                </div>
+                                <div className="col-xl-4 mb-4">
+                                    <input onChange={changeContact} name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
+                                </div>
+                                <div className="col-xl-8 mb-4">
+                                    <input onChange={changeContact} name='subject' type="text" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
+                                </div>
+                                <div className="col-xl-8 mb-4">
+                                    <textarea onChange={changeContact} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
+                                </div>
+                                <div className="col-xl-5 mb-4 text-center">
+                                    <button className='btn btn-primary px-5'>Ugrat</button>
+                                </div>
+                            </form>
                         </div>
+
 
                         <div className='col-xl-4 col-12'>
                             <div className='card p-5 rounded-0'>

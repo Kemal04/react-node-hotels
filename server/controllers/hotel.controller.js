@@ -1,4 +1,4 @@
-const { Hotel } = require("../models/model")
+const { Hotel,Room, RoomType } = require("../models/model")
 const bcrypt = require('bcrypt');
 const sequelizePaginate = require("sequelize-paginate");
 sequelizePaginate.paginate(Hotel);
@@ -35,12 +35,16 @@ module.exports.singleGet = async (req, res) => {
     await Hotel.findOne({
         where: { id: req.params.hotelId }
     })
-        .then((hotel) => {
-            if (hotel) {
-                res.json({ hotel: hotel })
-            } else {
-                res.json({ error: "Otel tapylmady" })
-            }
+        .then(async(data) => {
+            await Room.findAll({
+                where: {hotelId: req.params.hotelId},
+                include:{model: RoomType, attributes: ['id', 'name'] }
+            }).then((rooms)=>{
+                res.json({
+                    hotel:data,
+                    rooms:rooms
+                })
+            })
         })
 }
 
