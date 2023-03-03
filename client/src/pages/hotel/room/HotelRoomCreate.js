@@ -21,6 +21,7 @@ const HotelRoomCreate = () => {
         roomNum: "",
         price: "",
         capacity: "",
+        description: "",
         size: "",
     })
 
@@ -34,6 +35,7 @@ const HotelRoomCreate = () => {
         const formData = new FormData()
         formData.append('img', img)
         formData.append('roomtypeId', room.roomtypeId)
+        formData.append('description', room.description)
         formData.append('roomNum', room.roomNum)
         formData.append('price', room.price)
         formData.append('capacity', room.capacity)
@@ -47,6 +49,9 @@ const HotelRoomCreate = () => {
         }
         else if (!room.price) {
             toast.error("Bahasyny ýazyň")
+        }
+        else if (!room.description) {
+            toast.error("Beyany yazyn")
         }
         else if (!room.capacity) {
             toast.error("Adam sanyny ýazyň")
@@ -68,7 +73,7 @@ const HotelRoomCreate = () => {
             <div className='container'>
                 <div className='row justify-content-center'>
                     <div className='col-lg-8'>
-                        <div className='my-5 py-5'>
+                        <div className='pb-5'>
                             <div className='d-flex justify-content-center aling-items-center h2 mb-5'>
                                 Otag goşmak
                             </div>
@@ -107,6 +112,11 @@ const HotelRoomCreate = () => {
                                         <input name='size' onChange={handleChange} type="number" className="form-control rounded-0" autoComplete="off" />
                                         <span className="input-group-text rounded-0" id="basic-addon1">m <sup>2</sup></span>
                                     </div>
+                                </div>
+
+                                <div className="col-lg-12 mb-3">
+                                    <label className="form-label fw-bold">Otagyň Beyany</label>
+                                    <textarea name='description' onChange={handleChange} className="form-control rounded-0" rows={8} ></textarea>
                                 </div>
 
                                 <div className="col-lg-12 mb-3">

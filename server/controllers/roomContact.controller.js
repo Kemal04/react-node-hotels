@@ -70,14 +70,15 @@ module.exports.createContactPost = async (req, res) => {
         email: req.body.email,
         subject: req.body.subject,
         comment: req.body.comment,
-        hotelId: req.body.hotelId,
-        roomId: req.body.roomId,
         userId: req.user.id,
+        roomId: req.body.roomId,
+        hotelId: req.body.hotelId
     })
         .then(() => {
             res.json({ success: "Teswir ustunlikli ugradyldy" });
         })
         .catch((err) => {
+            console.log(err)
             res.status(500).json(err);
         })
 }

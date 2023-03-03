@@ -13,7 +13,7 @@ export const getAllHotels = createAsyncThunk(
     "hotels/getAll",
     async () => {
         const { data } = await axios.get("http://localhost:3001/api/hotel")
-        return data.hotels
+        return data.hotels.docs
     }
 );
 
