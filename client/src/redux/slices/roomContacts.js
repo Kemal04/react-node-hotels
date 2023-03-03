@@ -14,7 +14,7 @@ const initialState = {
 export const getAllRoomContacts = createAsyncThunk(
     "roomContacts/getAll",
     async (page) => {
-        const { data } = await axios.get(`http://localhost:3001/api/roomContact`, {
+        const { data } = await axios.get(`http://localhost:3001/api/roomContact?page=0`, {
             params: {
                 page: page
             }

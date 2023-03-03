@@ -1,17 +1,22 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { ThemeContext } from '../../../context/ThemeContext'
 import BannerImg from "../../../components/banner/BannerImg"
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { creatContact } from '../../../redux/slices/contact'
+import { ReCAPTCHA } from 'react-google-recaptcha'
+import RecaptchaWrapper from 'react-google-recaptcha/lib/recaptcha-wrapper'
 
 const Contact = () => {
 
     const { darkMode } = useContext(ThemeContext)
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const captchaRef = useRef()
 
+    const [recaptchaValue, setRecaptchaValue] = useState("")
     const [contact, setContact] = useState({
         name: "",
         email: "",
@@ -22,11 +27,17 @@ const Contact = () => {
     const handleChange = (e) => {
         setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    
-    const navigate = useNavigate()
+
+    const captureChange = (value) => {
+        setRecaptchaValue(value);
+    }
+
+    console.log(recaptchaValue);
 
     const handleClick = async (e) => {
         e.preventDefault()
+
+        captchaRef.current.reset();
 
         if (!contact.name) {
             toast.error("Adyňyzy ýazyň")
@@ -44,7 +55,7 @@ const Contact = () => {
             toast.error("Teswiriňizi 25 harpdan ybarat bolmaly")
         }
         else {
-            dispatch(creatContact(contact))
+            dispatch(creatContact({ contact, recaptchaValue }))
             navigate("/")
         }
     }
@@ -101,6 +112,9 @@ const Contact = () => {
                         </div>
                         <div className="col-xl-8 mb-4">
                             <textarea onChange={handleChange} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
+                        </div>
+                        <div className='col-xl-8 mb-4'>
+                            <RecaptchaWrapper sitekey='6Lf0_7UkAAAAADeNPjH78y3He38O7Vjmvyqi_Yvt' onChange={captureChange} ref={captchaRef} />
                         </div>
                         <div className="col-xl-5 mb-4 text-center">
                             <button className='btn btn-primary px-5'>Ugrat</button>
