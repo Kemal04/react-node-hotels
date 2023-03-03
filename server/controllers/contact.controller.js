@@ -1,5 +1,5 @@
 const sequelizePaginate = require("sequelize-paginate");
-// const axios = require("axios")
+const axios = require("axios")
 const { Contact } = require("../models/model")
 sequelizePaginate.paginate(Contact);
 

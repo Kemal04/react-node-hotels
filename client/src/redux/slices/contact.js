@@ -27,8 +27,8 @@ export const getAllContacts = createAsyncThunk(
 
 export const creatContact = createAsyncThunk(
     "contact/create",
-    async (contact) => {
-        await axios.post("http://localhost:3001/api/contact/create", contact,)
+    async ({ contact, recaptchaValue }) => {
+        await axios.post("http://localhost:3001/api/contact/create", { contact, recaptchaValue })
             .then((res) => {
                 toast.success(res.data.success)
             }).catch((res) => {
