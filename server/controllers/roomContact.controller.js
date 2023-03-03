@@ -1,19 +1,34 @@
 const { RoomContact, User, Room, Hotel } = require("../models/model")
 
 
-
 //User ucin
 
 module.exports.AllContactGet = async (req, res) => {
-    await RoomContact.findAll({
+    const page = parseInt(req.query.page);
+    const size = 3;
+    var before = page > 1 ? page - 1 : 1;
+    var next = page + 1;
+    const offset = page * size;
+    const limit = size;
+    
+    await RoomContact.findAndCountAll({
+        limit,
+        offset,
         include: [
-            { model: User, attributes: ['id', 'username'] },
             { model: Hotel, attributes: ['id', 'name'] },
+            { model: User, attributes: ['id', 'username'] },
             { model: Room, attributes: ['id', 'roomNum'] }
         ]
     }).then((contacts) => {
         return res.json({
-            contacts: contacts
+            contacts: contacts.rows,
+            pagination: {
+                before: before,
+                page: page,
+                total: contacts.count,
+                next: next,
+                pages: Math.ceil(contacts.count / limit)
+            }
         })
     }).catch((err) => {
         console.log(err)

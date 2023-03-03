@@ -63,12 +63,11 @@ module.exports.createGet = async (req, res) => {
 }
 
 module.exports.createPost = async (req, res) => {
-    let compresedImage = path.join(__dirname, '../', 'public', 'compress', path.parse(req.file.originalname).name + "_" + Date.now() + path.extname(req.file.originalname))
+    let compresedImage = path.join(__dirname, '../', 'uploads', 'img', path.parse(req.file.originalname).name + "_" + Date.now() + path.extname(req.file.originalname))
     sharp(req.file.path).resize(640, 480).jpeg({
         quality: 50,
         chromaSubsampling: '4:4:4'
     }).toFile(compresedImage)
-
     await Room.create({
         roomNum: req.body.roomNum,
         capacity: req.body.capacity,
