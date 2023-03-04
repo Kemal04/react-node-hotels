@@ -14,7 +14,7 @@ import { About, Contact, Home, Rooms, RoomRead, Register, Login, HotelRead } fro
 import { Admin, AdminBannerCreate, AdminBannerEdit, AdminBanners, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //HOTEL
-import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit } from './pages/hotel';
+import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit, HotelContacts, HotelContactEdit } from './pages/hotel';
 
 //PROFILE
 import { Profile, ProfileBooking, ProfileEdit, ProfileHistory } from './pages/profile';
@@ -103,7 +103,7 @@ const App = () => {
                                             <Route path='/admin/hotellar' element={<AdminHotels />}></Route>
                                             <Route path='/admin/hotel-gosmak' element={<AdminHotelsCreate />}></Route>
                                             <Route path='/admin/hotel-uytgetmek/:id' element={<AdminHotelEdit />}></Route>
-                                            
+
                                             <Route path='/admin/bannerler' element={<AdminBanners />}></Route>
                                             <Route path='/admin/banner-gosmak' element={<AdminBannerCreate />}></Route>
                                             <Route path='/admin/banner-uytgetmek/:id' element={<AdminBannerEdit />}></Route>
@@ -132,6 +132,9 @@ const App = () => {
 
                                             <Route path='/hotel/bronlar' element={<HotelBooking />}></Route>
                                             <Route path='/hotel/bron-uytgetmek/:id' element={<HotelBookingEdit />}></Route>
+
+                                            <Route path='/hotel/teswirler' element={<HotelContacts />}></Route>
+                                            <Route path='/hotel/teswir-uytgetmek/:id' element={<HotelContactEdit />}></Route>
                                         </>
                                     )
                                 }

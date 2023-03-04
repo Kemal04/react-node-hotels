@@ -19,8 +19,8 @@ export const getAllRoomContacts = createAsyncThunk(
                 page: page
             }
         })
-        const roomContacts = data.roomContacts.docs;
-        const pages = data.roomContacts.pages;
+        const roomContacts = data.contacts;
+        const pages = data.pagination.pages
         return { roomContacts: roomContacts, pages: pages };
     }
 );
