@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { faBed, faBook } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faBook, faComment } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
@@ -52,6 +52,12 @@ const HotelSidebar = () => {
                                 <NavLink to="/hotel/bronlar" className="nav-link">
                                     <FontAwesomeIcon icon={faBook} className="nav-icon me-2" />
                                     <p>Bronlanan otaglar</p>
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/hotel/teswirler" className="nav-link">
+                                    <FontAwesomeIcon icon={faComment} className="nav-icon me-2" />
+                                    <p>Teswirler</p>
                                 </NavLink>
                             </li>
                         </ul>
