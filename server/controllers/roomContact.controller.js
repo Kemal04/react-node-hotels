@@ -10,7 +10,6 @@ module.exports.AllContactGet = async (req, res) => {
     const limit = page * size;
     var before = offset > 0 ? page - 1 : 1;
     var next = page + 1;
-
     await RoomContact.findAndCountAll({
         limit,
         offset,
@@ -53,7 +52,7 @@ module.exports.singleContact = async (req, res) => {
             res.json({ contact: contact })
         } else {
             res.json({ error: "Tapylmady" })
-        }
+        } 
     })
 }
 
