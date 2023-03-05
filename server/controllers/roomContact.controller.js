@@ -1,11 +1,11 @@
+const { Op } = require("sequelize");
 const { RoomContact, User, Room, Hotel } = require("../models/model")
-
-
 //User ucin
 
 module.exports.AllContactGet = async (req, res) => {
     const page = req.query.page ? parseInt(req.query.page) : 1;
-    const size = 3;
+    const search = req.query.search || "";
+    const size = 10;
     const offset = (page - 1) * size;
     const limit = page * size;
     var before = offset > 0 ? page - 1 : 1;
@@ -18,7 +18,11 @@ module.exports.AllContactGet = async (req, res) => {
             { model: User, attributes: ['id', 'username'] },
             { model: Room, attributes: ['id', 'roomNum'] }
         ],
-        where: req.user.role == "Hotel" ? { hotelId: req.user.id } : null
+        where: req.user.role == "Hotel" ? { 
+            hotelId: req.user.id, 
+            [Op.or]: [{ name: { [Op.like]: '%' + search + '%' } },{ email: { [Op.like]: '%' + search + '%' } }]
+        } : null
+        
     }).then((contacts) => {
         return res.json({
             contacts: contacts.rows,
@@ -52,7 +56,7 @@ module.exports.singleContact = async (req, res) => {
             res.json({ contact: contact })
         } else {
             res.json({ error: "Tapylmady" })
-        } 
+        }
     })
 }
 

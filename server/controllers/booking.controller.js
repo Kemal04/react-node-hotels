@@ -1,7 +1,15 @@
 const { Booking, Room, User, Hotel } = require("../models/model");
 
 module.exports.AllBookingGet = async (req, res) => {
-    await Booking.findAll({
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const size = 10;
+    const offset = (page - 1) * size;
+    const limit = page * size;
+    var before = offset > 0 ? page - 1 : 1;
+    var next = page + 1;
+    await Booking.findAndCountAll({
+        limit,
+        offset,
         include: [
             { model: Hotel, attributes: ['name'] },
             { model: Room },
@@ -9,7 +17,14 @@ module.exports.AllBookingGet = async (req, res) => {
         ]
     }).then((booking) => {
         res.json({
-            booking: booking
+            booking: booking.rows,
+            pagination: {
+                before: before,
+                next: next,
+                page: page,
+                total: booking.count,
+                pages: Math.ceil(booking.count / size)
+            }
         })
     }).catch((err) => {
         res.status(500).json(err);
@@ -34,7 +49,7 @@ module.exports.singleBookingGet = async (req, res) => {
 
 module.exports.hotelBookingGet = async (req, res) => {
     await Booking.findAll({
-        where: { userId: req.user.id },
+        where: { hotelId: req.user.id },
         include: [
             { model: Room },
             { model: User, attributes: ['id', 'username'] }

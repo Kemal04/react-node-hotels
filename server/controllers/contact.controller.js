@@ -1,33 +1,27 @@
 const sequelizePaginate = require("sequelize-paginate");
 const axios = require("axios")
 const { Contact } = require("../models/model")
-sequelizePaginate.paginate(Contact);
-
-const getNextPage = (page, total) => {
-    const a = page < total ? +page + 1 : total;
-    return a;
-};
 
 
 //User ucin
 
 module.exports.AllContactGet = async (req, res) => {
-    const page = req.query.page ? req.query.page : 1;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
     const size = 3;
-    const options = {
-        page: +page,
-        paginate: +size,
-    };
-    var before = page > 1 ? +page - 1 : 1;
-    await Contact.paginate(options).then((contacts) => {
+    const offset = (page - 1) * size;
+    const limit = page * size;
+    var before = offset > 0 ? page - 1 : 1;
+    var next = page + 1;
+    await Contact.findAndCountAll({ limit, offset }).then((contacts) => {
         res.json({
-            contacts: contacts,
+            contacts: contacts.rows,
             pagination: {
                 before: before,
+                next: next,
                 page: page,
-                next: getNextPage(page, Math.floor(contacts.total / size) + 1),
-                total: contacts.total,
-            },
+                total: contacts.count,
+                pages: Math.ceil(contacts.count / size)
+            }
         })
     }).catch((err) => {
         console.log(err)
