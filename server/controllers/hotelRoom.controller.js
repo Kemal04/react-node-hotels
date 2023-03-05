@@ -6,7 +6,15 @@ const path = require("path");
 // Otellerin admin paneli ucin roomlar
 
 module.exports.AllRoomsGet = async (req, res) => {
-    await Room.findAll({
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const size = 10;
+    const offset = (page - 1) * size;
+    const limit = page * size;
+    var before = offset > 0 ? page - 1 : 1;
+    var next = page + 1;
+    await Room.findAndCountAll({
+        limit,
+        offset,
         include: [
             { model: Hotel, attributes: ['id', 'name'] },
             { model: RoomType, attributes: ['id', 'name'] }
@@ -16,7 +24,14 @@ module.exports.AllRoomsGet = async (req, res) => {
         .then((rooms) => {
             if (rooms) {
                 return res.json({
-                    rooms: rooms
+                    rooms: rooms.rows,
+                    pagination: {
+                        before: before,
+                        next: next,
+                        page: page,
+                        total: rooms.count,
+                        pages: Math.ceil(rooms.count / size)
+                    }
                 });
             }
             console.log(rooms);

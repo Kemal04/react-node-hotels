@@ -2,9 +2,22 @@ const { User } = require("../models/model")
 
 
 module.exports.getAlldata = async (req, res) => {
-    await User.findAll().then((users) => {
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const size = 10;
+    const offset = (page - 1) * size;
+    const limit = page * size;
+    var before = offset > 0 ? page - 1 : 1;
+    var next = page + 1;
+    await User.findAndCountAll({ limit, offset }).then((users) => {
         res.json({
-            users: users
+            users: users.rows,
+            pagination: {
+                before: before,
+                next: next,
+                page: page,
+                total: users.count,
+                pages: Math.ceil(users.count / size)
+            }
         })
     }).catch((err) => {
         res.status(500).json({ err: err })
