@@ -13,7 +13,7 @@ const HotelContacts = () => {
 
     const { roomContacts, isLoading, isError, pages } = useSelector(state => state.roomContacts)
 
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
 
     const changePage = ({ selected }) => {
         setPage(selected + 1)
