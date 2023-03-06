@@ -1,31 +1,28 @@
-const { Hotel,Room, RoomType } = require("../models/model")
+const { Hotel, Room, RoomType } = require("../models/model")
 const bcrypt = require('bcrypt');
-const sequelizePaginate = require("sequelize-paginate");
-sequelizePaginate.paginate(Hotel);
+const fs = require('fs')
+const path = require("path");
 
-const getNextPage = (page, total) => {
-    const a = page < total ? +page + 1 : total;
-    return a;
-};
+
 //superAdmin ucin hotel CRUD
 
 module.exports.allHotelGet = async (req, res) => {
-    const page = req.query.page ? req.query.page : 1;
-    const size = 5;
-    const options = {
-        page: +page,
-        paginate: +size,
-    };
-    var before = page > 1 ? +page - 1 : 1;
-    await Hotel.paginate(options)
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const size = 10;
+    const offset = (page - 1) * size;
+    const limit = page * size;
+    var before = offset > 0 ? page - 1 : 1;
+    var next = page + 1;
+    await Hotel.findAndCountAll({ limit, offset })
         .then((hotels) => {
             res.json({
-                hotels: hotels,
+                hotels: hotels.rows,
                 pagination: {
                     before: before,
+                    next: next,
                     page: page,
-                    next: getNextPage(page, Math.floor(hotels.total / size) + 1),
-                    total: hotels.total,
+                    total: hotels.count,
+                    pages: Math.ceil(hotels.count / size)
                 }
             })
         })
@@ -35,14 +32,14 @@ module.exports.singleGet = async (req, res) => {
     await Hotel.findOne({
         where: { id: req.params.hotelId }
     })
-        .then(async(data) => {
+        .then(async (data) => {
             await Room.findAll({
-                where: {hotelId: req.params.hotelId},
-                include:{model: RoomType, attributes: ['id', 'name'] }
-            }).then((rooms)=>{
+                where: { hotelId: req.params.hotelId },
+                include: { model: RoomType, attributes: ['id', 'name'] }
+            }).then((rooms) => {
                 res.json({
-                    hotel:data,
-                    rooms:rooms
+                    hotel: data,
+                    rooms: rooms
                 })
             })
         })
@@ -107,5 +104,52 @@ module.exports.destroy = async (req, res) => {
             } else {
                 res.json({ error: "Otel tapylmady" })
             }
+        })
+}
+
+module.exports.editProfilGet = async (req, res) => {
+    await Hotel.findOne({
+        where: {
+            id: req.params.hotelId,
+            hotelId: req.user.id
+        }
+    })
+        .then((hotel) => {
+            if (hotel) {
+                res.json({ hotel: hotel })
+            } else {
+                res.json({ error: "Otel tapylmady" })
+            }
+        })
+}
+
+module.exports.editProfilPost = async (req, res) => {
+    let img = req.body.img;
+    if (req.file) {
+        img = req.file.filename;
+
+        fs.unlink("/public/img/" + req.body.img, err => {
+            console.log(err);
+        })
+    }
+    await Hotel.findOne({
+        where: {
+            id: req.params.hotelId,
+            hotelId: req.user.id
+        }
+    })
+        .then((hotel) => {
+            if (hotel) {
+                hotel.phoneNum = req.body.phoneNum,
+                    hotel.address = req.body.address,
+                    hotel.img = img
+                hotel.save();
+                return res.json({ success: "Maglumatlarynyz üstünlikli gosuldy" })
+            } else {
+                res.json({ error: "Tapylmady" })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json(err);
         })
 }
