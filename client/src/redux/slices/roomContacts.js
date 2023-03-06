@@ -15,8 +15,12 @@ export const getAllRoomContacts = createAsyncThunk(
     "roomContacts/getAll",
     async (page) => {
         const { data } = await axios.get(`http://localhost:3001/api/roomContact`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
             params: {
                 page: page
+
             }
         })
         const roomContacts = data.contacts;

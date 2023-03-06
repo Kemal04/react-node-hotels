@@ -40,14 +40,13 @@ const RoomRead = () => {
         phoneNum: "",
     })
     const [contact, setContact] = useState({
+        roomId: roomId,
+        hotelId: "",
         name: "",
         email: "",
         subject: "",
         comment: "",
-        hotelId: "",
-        roomId: roomId,
     })
-    console.log(contact);
 
     const handleChange = (e) => {
         setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -63,10 +62,11 @@ const RoomRead = () => {
             setRoomType(res.data.room.roomtype)
             setHotel(res.data.room.hotel)
             contact.hotelId = res.data.room.hotel.id
+            booking.hotelId = res.data.room.hotel.id
         }).catch((err) => {
             toast.error(err.message)
         })
-    }, [contact, roomId]);
+    }, [booking, contact, roomId]);
 
     const bookingRoom = async (e) => {
         e.preventDefault()
@@ -77,13 +77,13 @@ const RoomRead = () => {
         else if (!booking.checkOut) {
             toast.error("Çykyş wagtyny ýazyň")
         }
-        else if (!booking.hotelId) {
-            toast.error("Yatda saklanmady")
-        }
         else if (!booking.phoneNum) {
             toast.error("Telefon belgiňizi ýazyň")
         }
         else if (booking.phoneNum.length < 8) {
+            toast.error("Telefon belgisi 8 sandan ybarat bolmaly")
+        }
+        else if (booking.phoneNum.length > 8) {
             toast.error("Telefon belgisi 8 sandan ybarat bolmaly")
         }
         else {
@@ -273,14 +273,6 @@ const RoomRead = () => {
                                                 <span className="input-group-text rounded-0">+993</span>
                                             </div>
                                             <input onChange={handleChange} type="number" min="60000000" max="65999999" className="form-control" autoComplete='off' name="phoneNum" required />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-12 mt-4">
-                                        <div className="form-check">
-                                            <input className='form-check-input' value={hotel.id} id="kemal" type="checkbox" name='hotelId' onChange={handleChange} />
-                                            <label className="form-check-label" htmlFor="flexCheckDefault">
-                                                Yatda Sakla
-                                            </label>
                                         </div>
                                     </div>
                                     <div className='col-xl-12 border-top mt-5 pt-3'>

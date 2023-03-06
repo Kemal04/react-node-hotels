@@ -19,8 +19,8 @@ export const getAllContacts = createAsyncThunk(
                 page: page
             }
         })
-        const contacts = data.contacts.docs;
-        const pages = data.contacts.pages;
+        const contacts = data.contacts;
+        const pages = data.pagination.pages;
         return { contacts: contacts, pages: pages };
     }
 );

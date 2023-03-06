@@ -1,21 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { faPencil, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteHotelRoom } from '../../../redux/slices/hotelRooms'
 import { getAllHotelRooms } from '../../../redux/slices/hotelRooms'
+import ReactPaginate from 'react-paginate'
 
 const HotelRooms = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { hotelRooms, isLoading, isError } = useSelector(state => state.hotelRooms)
+    const { hotelRooms, isLoading, isError, pages } = useSelector(state => state.hotelRooms)
+
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
 
     useEffect(() => {
-        dispatch(getAllHotelRooms())
-    }, [dispatch])
+        dispatch(getAllHotelRooms(page))
+    }, [dispatch, page])
 
     const handleDelete = async (id) => {
         dispatch(deleteHotelRoom(id))
@@ -68,6 +75,20 @@ const HotelRooms = () => {
                             </tbody>
                         </table>
                     </div>
+                    <nav className='col-xl-12 d-flex justify-content-center'>
+                        <ReactPaginate
+                            previousLabel="< previous"
+                            nextLabel="next >"
+                            pageCount={pages}
+                            onPageChange={changePage}
+                            containerClassName={"pagination"}
+                            pageLinkClassName={"page-link"}
+                            previousLinkClassName={"page-link"}
+                            nextLinkClassName={"page-link"}
+                            activeLinkClassName={"page-link active"}
+                            disabledLinkClassName={"page-link disabled"}
+                        />
+                    </nav>
                 </div>
             </div>
         </>

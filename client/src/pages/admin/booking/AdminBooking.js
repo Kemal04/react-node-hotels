@@ -1,16 +1,24 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBooking, getAllBookings } from '../../../redux/slices/bookings'
+import ReactPaginate from 'react-paginate';
 
 const AdminBooking = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { bookings, isLoading, isError } = useSelector(state => state.bookings)
+    const { bookings, isLoading, isError, pages } = useSelector(state => state.bookings)
+
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
+
     useEffect(() => {
         dispatch(getAllBookings())
     }, [dispatch])
@@ -32,10 +40,9 @@ const AdminBooking = () => {
                             <thead className='table-dark'>
                                 <tr>
                                     <th scope="col">№</th>
-                                    <th scope="col">Otag belgisi</th>
+                                    <th scope="col">Otag ady</th>
                                     <th scope="col">Telefon belgisi</th>
                                     <th scope="col">Giriş we Çykyş wagtlary</th>
-                                    <th scope="col">Tassyklamak</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,15 +54,12 @@ const AdminBooking = () => {
                                     bookings.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((booking, index) => (
                                         <tr key={index} className={booking.check ? "text-success" : "text-danger"}>
                                             <td>{index + 1}</td>
-                                            <td>№ {booking.room.roomNum} Otag</td>
+                                            <td> № {booking.room.roomNum} Otag</td>
                                             <td>+993 {booking.phoneNum}</td>
                                             <td>
                                                 {new Date(booking.checkIn).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
                                                 <span className='mx-2'>|</span>
                                                 {new Date(booking.checkOut).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
-                                            </td>
-                                            <td>
-                                                <button className='btn btn-outline-danger mx-1' onClick={() => handleDelete(booking.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>
                                     ))
@@ -63,6 +67,20 @@ const AdminBooking = () => {
                             </tbody>
                         </table>
                     </div>
+                    <nav className='col-xl-12 d-flex justify-content-center'>
+                        <ReactPaginate
+                            previousLabel="< previous"
+                            nextLabel="next >"
+                            pageCount={pages}
+                            onPageChange={changePage}
+                            containerClassName={"pagination"}
+                            pageLinkClassName={"page-link"}
+                            previousLinkClassName={"page-link"}
+                            nextLinkClassName={"page-link"}
+                            activeLinkClassName={"page-link active"}
+                            disabledLinkClassName={"page-link disabled"}
+                        />
+                    </nav>
                 </div>
             </div>
         </>

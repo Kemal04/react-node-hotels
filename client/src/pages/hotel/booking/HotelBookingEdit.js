@@ -13,11 +13,7 @@ const HotelBookingEdit = () => {
     const bookingId = location.pathname.split("/")[3];
 
     const [booking, setBooking] = useState({
-        checkIn: "",
-        checkOut: "",
-        phoneNumber: "",
         check: "",
-        roomId: "",
     })
 
     const handleChange = (e) => {
@@ -37,14 +33,15 @@ const HotelBookingEdit = () => {
         })
     }, [navigate, bookingId])
 
+    
     const handleClick = async (e) => {
         e.preventDefault()
-
+        
         if (!booking.check) {
             toast.error("sayla")
         }
         else {
-            dispatch(updateHotelBooking(booking))
+            dispatch(updateHotelBooking({bookingId, booking}))
             navigate("/hotel/bronlar")
         }
     }
@@ -64,6 +61,7 @@ const HotelBookingEdit = () => {
                                     <select name='check' onChange={handleChange} className="form-select">
                                         <option defaultChecked>Sayla</option>
                                         <option value="1">Tassykla</option>
+                                        <option value="0">Tassyklama</option>
                                     </select>
                                 </div>
 

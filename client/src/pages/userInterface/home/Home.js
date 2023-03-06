@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
@@ -14,7 +14,8 @@ const Home = () => {
 
     const dispatch = useDispatch();
 
-    const { rooms } = useSelector(state => state.rooms)
+    const { rooms, pages } = useSelector(state => state.rooms)
+    
     useEffect(() => {
         dispatch(getAllRooms())
     }, [dispatch])
@@ -40,7 +41,6 @@ const Home = () => {
         autoplay: true,
         arrows: false,
     };
-
     return (
         <>
             <BannerSlider />

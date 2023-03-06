@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
     hotelBooking: [],
+    pages: {},
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -11,22 +12,26 @@ const initialState = {
 
 export const getHotelBookings = createAsyncThunk(
     "hotelBooking/getHotel",
-    async () => {
+    async (page) => {
         const { data } = await axios.get("http://localhost:3001/api/booking", {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
+            params: {
+                page: page
+            }
         })
-        const hotelBooking = data.booking
-        return hotelBooking
+        const hotelBooking = data.booking;
+        const pages = data.pagination.pages     
+        return { hotelBooking: hotelBooking, pages: pages };
 
     }
 );
 
 export const updateHotelBooking = createAsyncThunk(
     "hotelBooking/update",
-    async (booking) => {
-        await axios.post(`http://localhost:3001/api/booking/edit/${booking.id}`, booking, {
+    async ({ bookingId, booking }) => {
+        await axios.post(`http://localhost:3001/api/booking/edit/${bookingId}`, booking, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -34,7 +39,7 @@ export const updateHotelBooking = createAsyncThunk(
             .then((res) => {
                 toast.success(res.data.success)
             }).catch((res) => {
-                toast.error(res.response.data.error)
+                toast.error(res.data.error)
             });
     }
 );
@@ -63,7 +68,8 @@ const hotelBookingsSlice = createSlice({
         })
         builder.addCase(getHotelBookings.fulfilled, (state, action) => {
             state.isLoading = false
-            state.hotelBooking = action.payload
+            state.hotelBooking = action.payload.hotelBooking
+            state.pages = action.payload.pages
         })
         builder.addCase(getHotelBookings.rejected, (state, action) => {
             state.isError = true
