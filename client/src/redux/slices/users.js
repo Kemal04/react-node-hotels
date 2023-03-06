@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
     users: [],
+    pages: {},
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -11,9 +12,15 @@ const initialState = {
 
 export const getAllUsers = createAsyncThunk(
     "users/getAll",
-    async () => {
-        const { data } = await axios.get("http://localhost:3001/api/user")
-        return data.users;
+    async (page) => {
+        const { data } = await axios.get("http://localhost:3001/api/user", {
+            params: {
+                page: page
+            }
+        })
+        const users = data.users;
+        const pages = data.pagination.pages     
+        return { users: users, pages: pages };
     }
 )
 
@@ -40,7 +47,8 @@ const userSlice = createSlice({
         })
         builder.addCase(getAllUsers.fulfilled, (state, action) => {
             state.isLoading = false
-            state.users = action.payload
+            state.users = action.payload.users
+            state.pages = action.payload.pages
         })
         builder.addCase(getAllUsers.rejected, (state, action) => {
             state.isError = true

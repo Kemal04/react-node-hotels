@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
     hotels: [],
+    pages: {},
     isLoading: false,
     isError: false,
     isSuccess: false,

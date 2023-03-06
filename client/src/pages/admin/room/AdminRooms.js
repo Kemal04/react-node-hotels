@@ -1,19 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteRoom, getAllRooms } from '../../../redux/slices/rooms'
+import ReactPaginate from 'react-paginate'
 
 const AdminRooms = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { rooms, isLoading, isError } = useSelector(state => state.rooms)
+    const { rooms, isLoading, isError, pages } = useSelector(state => state.rooms)
+
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
+
     useEffect(() => {
-        dispatch(getAllRooms())
-    }, [dispatch])
+        dispatch(getAllRooms(page))
+    }, [dispatch, page])
 
     const handleDelete = async (id) => {
         dispatch(deleteRoom(id))
@@ -66,6 +74,20 @@ const AdminRooms = () => {
                             </tbody>
                         </table>
                     </div>
+                    <nav className='col-xl-12 d-flex justify-content-center'>
+                        <ReactPaginate
+                            previousLabel="< previous"
+                            nextLabel="next >"
+                            pageCount={pages}
+                            onPageChange={changePage}
+                            containerClassName={"pagination"}
+                            pageLinkClassName={"page-link"}
+                            previousLinkClassName={"page-link"}
+                            nextLinkClassName={"page-link"}
+                            activeLinkClassName={"page-link active"}
+                            disabledLinkClassName={"page-link disabled"}
+                        />
+                    </nav>
                 </div>
             </div>
         </>

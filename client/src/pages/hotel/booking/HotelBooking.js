@@ -1,19 +1,27 @@
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { deleteHotelBooking, getHotelBookings } from '../../../redux/slices/hotelBooking'
+import ReactPaginate from 'react-paginate';
 
 const HotelBooking = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { hotelBooking, isLoading, isError } = useSelector(state => state.hotelBooking)
+    const { hotelBooking, isLoading, isError,pages } = useSelector(state => state.hotelBooking)
+
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
+
     useEffect(() => {
-        dispatch(getHotelBookings())
-    }, [dispatch])
+        dispatch(getHotelBookings(page))
+    }, [dispatch, page])
 
     const handleDelete = async (id) => {
         dispatch(deleteHotelBooking(id))
@@ -64,6 +72,20 @@ const HotelBooking = () => {
                             </tbody>
                         </table>
                     </div>
+                    <nav className='col-xl-12 d-flex justify-content-center'>
+                        <ReactPaginate
+                            previousLabel="< previous"
+                            nextLabel="next >"
+                            pageCount={pages}
+                            onPageChange={changePage}
+                            containerClassName={"pagination"}
+                            pageLinkClassName={"page-link"}
+                            previousLinkClassName={"page-link"}
+                            nextLinkClassName={"page-link"}
+                            activeLinkClassName={"page-link active"}
+                            disabledLinkClassName={"page-link disabled"}
+                        />
+                    </nav>
                 </div>
             </div>
         </>

@@ -1,19 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUsers, getAllUsers } from '../../../redux/slices/users';
+import ReactPaginate from 'react-paginate';
 
 const AdminUsers = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { users, isLoading, isError } = useSelector(state => state.users)
+    const { users, isLoading, isError, pages } = useSelector(state => state.users)
+
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
+
     useEffect(() => {
-        dispatch(getAllUsers())
-    }, [dispatch])
+        dispatch(getAllUsers(page))
+    }, [dispatch, page])
 
     const handleDelete = async (id) => {
         dispatch(deleteUsers(id))
@@ -62,6 +70,20 @@ const AdminUsers = () => {
                             </tbody>
                         </table>
                     </div>
+                    <nav className='col-xl-12 d-flex justify-content-center'>
+                        <ReactPaginate
+                            previousLabel="< previous"
+                            nextLabel="next >"
+                            pageCount={pages}
+                            onPageChange={changePage}
+                            containerClassName={"pagination"}
+                            pageLinkClassName={"page-link"}
+                            previousLinkClassName={"page-link"}
+                            nextLinkClassName={"page-link"}
+                            activeLinkClassName={"page-link active"}
+                            disabledLinkClassName={"page-link disabled"}
+                        />
+                    </nav>
                 </div>
             </div>
         </>

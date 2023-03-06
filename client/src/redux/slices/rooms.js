@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
     rooms: [],
+    pages: {},
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -11,10 +12,15 @@ const initialState = {
 
 export const getAllRooms = createAsyncThunk(
     "rooms/getAll",
-    async () => {
-        const { data } = await axios.get("http://localhost:3001/api/room")
-        const rooms = data.rooms
-        return rooms
+    async (page) => {
+        const { data } = await axios.get("http://localhost:3001/api/room", {
+            params: {
+                page: page
+            }
+        })
+        const rooms = data.rooms;
+        const pages = data.pagination.pages     
+        return { rooms: rooms, pages: pages };
     }
 );
 
@@ -41,7 +47,8 @@ const roomsSlice = createSlice({
         })
         builder.addCase(getAllRooms.fulfilled, (state, action) => {
             state.isLoading = false
-            state.rooms = action.payload
+            state.rooms = action.payload.rooms
+            state.pages = action.payload.pages
         })
         builder.addCase(getAllRooms.rejected, (state, action) => {
             state.isError = true
