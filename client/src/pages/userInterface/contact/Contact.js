@@ -32,8 +32,6 @@ const Contact = () => {
         setRecaptchaValue(value);
     }
 
-    console.log(recaptchaValue);
-
     const handleClick = async (e) => {
         e.preventDefault()
 
@@ -90,7 +88,7 @@ const Contact = () => {
                         </div>
 
                         <div className='t-3'>
-                            {/* <iframe title='0' src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29427.223293100265!2d52.85261334369845!3d39.96563932613931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2s!4v1675774508961!5m2!1str!2s" style={{ border: "1px", width: "100%", height: "500px" }} allowFullScreen loading="lazy"></iframe> */}
+                            <iframe title='0' src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29427.223293100265!2d52.85261334369845!3d39.96563932613931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1str!2s!4v1675774508961!5m2!1str!2s" style={{ border: "1px", width: "100%", height: "500px" }} allowFullScreen loading="lazy"></iframe>
                         </div>
 
                     </div>

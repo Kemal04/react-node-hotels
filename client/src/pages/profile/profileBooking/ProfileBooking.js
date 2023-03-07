@@ -41,15 +41,7 @@ const ProfileBooking = () => {
 
     return (
         <div className={darkMode ? "bg-dark" : "bg-white"}>
-            <div className='banner-fixed d-flex align-items-center'>
-                <div className='container'>
-                    <div className='row'>
-                        {/* <div className='col-lg-12 text-center text-white h2'>
-                            {user.name}
-                        </div> */}
-                    </div>
-                </div>
-            </div>
+            <div className='banner-fixed d-flex align-items-center'></div>
             <div className='container-fluid' style={{ marginTop: "-50px" }}>
                 <div className='row justify-content-center'>
                     <div className='w-75'>

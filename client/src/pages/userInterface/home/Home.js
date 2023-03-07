@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
@@ -7,6 +7,10 @@ import BannerSlider from "../../../components/banner/BannerSlider"
 import { useDispatch, useSelector } from "react-redux";
 import { getAllContacts } from '../../../redux/slices/contact'
 import { getAllRooms } from '../../../redux/slices/rooms'
+import { getAllHotels } from '../../../redux/slices/hotels';
+import "./home.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightLong } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
 
@@ -14,10 +18,14 @@ const Home = () => {
 
     const dispatch = useDispatch();
 
-    const { rooms, pages } = useSelector(state => state.rooms)
-    
+    const { rooms } = useSelector(state => state.rooms)
     useEffect(() => {
         dispatch(getAllRooms())
+    }, [dispatch])
+
+    const { hotels } = useSelector(state => state.hotels)
+    useEffect(() => {
+        dispatch(getAllHotels())
     }, [dispatch])
 
     const { contacts } = useSelector(state => state.contacts)
@@ -47,7 +55,7 @@ const Home = () => {
             <div className={darkMode ? 'bg-dark text-white' : 'bg-white'}>
 
                 {/* Seacrh Section  */}
-                <div className='container' style={{ marginTop: "-80px" }}>
+                {/* <div className='container' style={{ marginTop: "-80px" }}>
                     <div className={darkMode ? "card border-0 shadow p-5 bg-dark text-white" : "card border-0 shadow p-5 bg-white"}>
                         <div className='row align-items-center'>
                             <div className='col-xl-3 col-lg-3 mt-2'>
@@ -91,11 +99,11 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* Seacrh Section  */}
 
                 {/* About Section  */}
-                <div className='container my-5 py-5'>
+                <div className='container mb-5 py-5'>
                     <div className='row align-items-center'>
                         <div className='col-xl-6 col-lg-6'>
                             <div className='h6 ls-2 mb-3' style={{ color: "#1cc3b2" }}> BIz barada </div>
@@ -169,9 +177,47 @@ const Home = () => {
                 </div>
                 {/* Mini Cards Section  */}
 
-                {/* Rooms Section  */}
-                <div className='container-fluid p-0 my-5'>
+                {/* Hotels Section */}
+                <div className='container'>
+                    <div className='row justify-content-center mb-4'>
+                        <div className='col-xl-4 text-center text-blue h1 border-top border-bottom text-uppercase'>
+                            Otellar
+                        </div>
+                    </div>
+                    <div className='row no-gutters'>
+                        {
+                            hotels.slice(0, 5).map((hotel, index) => (
+                                <div key={index} className='col-xl-4 col-lg-6'>
+                                    <div className='main'>
+                                        <div className="main-card">
+                                            <img src="https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" alt="hotels" />
+                                            <div>
+                                                <h2>
+                                                    {hotel.name}
+                                                </h2>
+                                                <p style={{ lineHeight: "30px" }}>
+                                                    E-mailimiz: {hotel.email}
+                                                    <br />
+                                                    Telefon belgimiz: +993 {hotel.phoneNum}
+                                                    <br />
+                                                    Adresimiz: {hotel.address}
+                                                </p>
+                                                <Link to={`/hotel/${hotel.id}`} className="d-flex align-items-center card-linkk">
+                                                    Maglumatlary
+                                                    <FontAwesomeIcon className='ms-2' icon={faRightLong} />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+                {/* Hotels Section */}
 
+                {/* Rooms Section  */}
+                <div className='container-fluid p-0 my-5 pt-5'>
                     <Splide options={roomoptions} hasTrack={false}>
                         <SplideTrack className='row g-0'>
                             {
@@ -179,20 +225,16 @@ const Home = () => {
                                     <SplideSlide className='col-xl-12 mb-3' key={room.id}>
                                         <div className={darkMode ? 'row bg-white text-dark align-items-center' : 'row bg-primary-blue text-white align-items-center'}>
                                             <div className='col-xl-6 col-lg-6 col-12'>
-                                                <img src="/img/banners/1.jpg" alt="room" className='img-fluid ml-0' />
+                                                <img src={`http://localhost:3001/img/${room.img}`} alt="room" className='img-fluid ml-0' style={{ width: "900px" }} />
                                             </div>
                                             <div className='col-xl-6 col-lg-6 col-12 d-flex align-items-start justify-content-center flex-column py-3'>
-                                                <div className='ms-5 display-5'>№ {room.roomNum}</div>
+                                                <div className='ms-5 display-5'><b>{room.hotel.name}</b><span className='text-muted'> № {room.roomNum}</span></div>
                                                 <div className='ms-5 my-4'>
                                                     <span className='h2 text-blue'>{room.price} <small>TMT</small></span>
                                                     <span> / Gün</span>
                                                 </div>
                                                 <div className='ms-3'>
                                                     <ul className='ul'>
-                                                        <li className='li mb-3'>
-                                                            <span style={{ width: "120px", display: "inline-block" }}>Oteli</span>
-                                                            <span style={{ width: "auto", display: "inline-block" }}>: {room.hotel.name}</span>
-                                                        </li>
                                                         <li className='li mb-3'>
                                                             <span style={{ width: "120px", display: "inline-block" }}>Görnüşi</span>
                                                             <span style={{ width: "auto", display: "inline-block" }}>: {room.roomtype.name}</span>
@@ -237,14 +279,18 @@ const Home = () => {
                                 <SplideTrack className='row'>
                                     {
                                         contacts.map((contact) => (
-                                            <SplideSlide className='col-xl-12' key={contact.id}>
-                                                <div className='h5 lh-lg ls-1 text-secondary mb-5'>
-                                                    {contact.comment}
-                                                </div>
-                                                <div>
-                                                    {contact.name} - <span className='text-blue'>{contact.email}</span>
-                                                </div>
-                                            </SplideSlide>
+                                            !contact.check
+                                                ?
+                                                null
+                                                :
+                                                <SplideSlide className='col-xl-12' key={contact.id}>
+                                                    <div className='h5 lh-lg ls-1 text-secondary mb-5'>
+                                                        {contact.comment}
+                                                    </div>
+                                                    <div>
+                                                        {contact.name} - <span className='text-blue'>{contact.email}</span>
+                                                    </div>
+                                                </SplideSlide>
                                         ))
                                     }
                                 </SplideTrack>

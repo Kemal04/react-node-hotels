@@ -16,7 +16,7 @@ const Search = () => {
                     setResult([])
                     let searchQuery = value.toLowerCase();
 
-                    const hotels = resHotel.data.hotels.docs
+                    const hotels = resHotel.data.hotels
 
                     // const roomTypes = resRoomType.data.roomTypes
 
