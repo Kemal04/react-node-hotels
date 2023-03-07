@@ -7,9 +7,9 @@ import axios from 'axios'
 import { ThemeContext } from '../../../context/ThemeContext';
 import BannerImg from '../../../components/banner/BannerImg';
 import { AuthContext } from '../../../context/AuthContext';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { creatBooking } from '../../../redux/slices/bookings'
-import { creatRoomContact } from '../../../redux/slices/roomContacts';
+import { creatRoomContact, getAllRoomContacts } from '../../../redux/slices/roomContacts';
 
 const RoomRead = () => {
 
@@ -117,6 +117,12 @@ const RoomRead = () => {
         }
     }
 
+    const { roomContacts, isLoading, isError } = useSelector(state => state.roomContacts)
+
+    useEffect(() => {
+        dispatch(getAllRoomContacts())
+    }, [dispatch])
+
     return (
         <>
             <BannerImg name={`№ ${room.roomNum} Otag`} />
@@ -194,58 +200,53 @@ const RoomRead = () => {
                                 <div className='col-xl-12 p-0 h4'>
                                     Otag barada teswirler:
                                 </div>
-                                <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center'>
-                                    <div className='row align-items-center justify-content-center'>
-                                        <div className='col-xl-2 col-12 border-end'>
-                                            <img src="/img/icons/user-1.jpg" alt="User" className='rounded-circle' style={{ width: "100px" }} />
-                                        </div>
-                                        <div className='col-xl-10 col-12 mt-2'>
-                                            <div className='row justify-content-between align-items-center'>
-                                                <div className='col-xl-3 col-12'>
-                                                    <div className='mb-3 small text-secondary'>31 Awg 2022</div>
-                                                    <div className='mb-3 text-blue h6'>Kemal Hojaýew</div>
+                                {
+                                    roomContacts.map((contact) => (
+                                        <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center'>
+                                            <div className='row align-items-center justify-content-center'>
+                                                <div className='col-xl-2 col-12 border-end'>
+                                                    <img src="/img/icons/user-1.jpg" alt="User" className='rounded-circle' style={{ width: "100px" }} />
+                                                </div>
+                                                <div className='col-xl-10 col-12 mt-2'>
+                                                    <div className='row justify-content-between align-items-center'>
+                                                        <div className='col-xl-3 col-12'>
+                                                            <div className='mb-3 small text-secondary'>{new Date(contact.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</div>
+                                                            <div className='mb-3 text-blue h6'>{contact.name}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='text-secondary'>
+                                                        {contact.comment}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className='text-secondary'>
-                                                Bu owadandy. Myhmanhananyň özi ajaýyp. işgärler gaty gowy. Biz ony gowy görýärdik. Bu gaty gowydy. Men ýene gitmek isleýärin sebäbi tagam meniň damagymda galdy. Iýmitde gaty gowy. Bu gaty üstünlikli diýip pikir edýärin.
-                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center'>
-                                    <div className='row align-items-center justify-content-center'>
-                                        <div className='col-xl-2 col-12 border-end'>
-                                            <img src="/img/icons/user-1.jpg" alt="User" className='rounded-circle' style={{ width: "100px" }} />
-                                        </div>
-                                        <div className='col-xl-10 col-12 mt-2'>
-                                            <div className='row justify-content-between align-items-center'>
-                                                <div className='col-xl-3 col-12'>
-                                                    <div className='mb-3 small text-secondary'>31 Awg 2022</div>
-                                                    <div className='mb-3 text-blue h6'>Kemal Hojaýew</div>
-                                                </div>
-                                            </div>
-                                            <div className='text-secondary'>
-                                                Bu owadandy. Myhmanhananyň özi ajaýyp. işgärler gaty gowy. Biz ony gowy görýärdik. Bu gaty gowydy. Men ýene gitmek isleýärin sebäbi tagam meniň damagymda galdy. Iýmitde gaty gowy. Bu gaty üstünlikli diýip pikir edýärin.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    ))
+                                }
                             </div>
-                            <form className='row justify-content-center' onSubmit={clickContact}>
-                                <div className="col-xl-4 mb-4">
+                            <form className='row justify-content-between my-5'>
+                                <div className='col-xl-12 p-0 h4'>
+                                    Otag barada teswir ugrat
+                                </div>
+                                <div className="col-xl-6 my-4">
                                     <input onChange={changeContact} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
                                 </div>
-                                <div className="col-xl-4 mb-4">
+                                <div className="col-xl-6 my-4">
                                     <input onChange={changeContact} name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
                                 </div>
-                                <div className="col-xl-8 mb-4">
+                                <div className="col-xl-12 mb-4">
                                     <input onChange={changeContact} name='subject' type="text" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
                                 </div>
-                                <div className="col-xl-8 mb-4">
+                                <div className="col-xl-12 mb-4">
                                     <textarea onChange={changeContact} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
                                 </div>
-                                <div className="col-xl-5 mb-4 text-center">
-                                    <button className='btn btn-primary px-5'>Ugrat</button>
+                                <div className="col-xl-12 mb-4 text-center">
+                                    {
+                                        !authState.status
+                                            ?
+                                            <div title='Giriş etmän Teswir ýazyp bilmeýäňiz' className='btn btn-primary px-5' style={{ cursor: "pointer" }}>Ugrat</div>
+                                            :
+                                            <button onClick={clickContact} className='btn btn-primary px-5'>Ugrat</button>
+                                    }
                                 </div>
                             </form>
                         </div>
@@ -286,13 +287,13 @@ const RoomRead = () => {
                                             !authState.status
                                                 ?
                                                 <div className='d-grid'>
-                                                    <Link to="/giris-etmek" className="btn btn-lg btn-primary btn-block  fw-bold">
+                                                    <div title='Giriş etmän Bronlamak ýapykdyr' className="btn btn-lg btn-primary btn-block fw-bold" style={{ cursor: "pointer" }}>
                                                         Bronlamak
-                                                    </Link>
+                                                    </div>
                                                 </div>
                                                 :
                                                 <div className='d-grid'>
-                                                    <button onClick={bookingRoom} type="submit" className="btn btn-lg btn-primary btn-block fw-bold" id="buy-now">
+                                                    <button onClick={bookingRoom} type="submit" className="btn btn-lg btn-primary btn-block fw-bold">
                                                         Bronlamak
                                                     </button>
                                                 </div>

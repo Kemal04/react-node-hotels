@@ -12,9 +12,15 @@ const initialState = {
 
 export const getAllHotels = createAsyncThunk(
     "hotels/getAll",
-    async () => {
-        const { data } = await axios.get("http://localhost:3001/api/hotel")
-        return data.hotels.docs
+    async (page) => {
+        const { data } = await axios.get("http://localhost:3001/api/hotel", {
+            params: {
+                page: page
+            }
+        })
+        const hotels = data.hotels;
+        const pages = data.pagination.pages
+        return { hotels: hotels, pages: pages };
     }
 );
 
@@ -73,7 +79,8 @@ const hotelSlice = createSlice({
         })
         builder.addCase(getAllHotels.fulfilled, (state, action) => {
             state.isLoading = false
-            state.hotels = action.payload
+            state.hotels = action.payload.hotels
+            state.pages = action.payload.pages
         })
         builder.addCase(getAllHotels.rejected, (state, action) => {
             state.isError = true

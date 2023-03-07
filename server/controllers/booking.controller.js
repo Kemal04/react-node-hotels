@@ -91,7 +91,11 @@ module.exports.editBookingGet = async (req, res) => {
         }
     })
         .then((booking) => {
-            res.json({ booking: booking });
+            if (booking) {
+                res.json({ booking: booking })
+            } else {
+                res.json({ error: "Tapylmady" })
+            }
         })
         .catch((err) => {
             res.json({ err })

@@ -18,10 +18,9 @@ const Hotel = () => {
     return (
         <>
             <div className='container'>
-
                 <div className='row justify-content-center'>
                     <div className='w-75'>
-                        <div className={`card border-0 px-5 bg-white shadow`}>
+                        <div className={`card border-0 px-5 bg-white shadow mt-5 pt-5 mb-5 pb-4`}>
                             <div className='d-flex justify-content-center'>
                                 <img src="/img/icons/user-1.jpg" alt="" className='rounded-circle' style={{ width: "150px", marginTop: "-70px" }} />
                             </div>

@@ -40,6 +40,7 @@ const Hotel = sequelize.define("hotel", {
     password: { type: DataTypes.STRING, allowNull: false },
     phoneNum: { type: DataTypes.STRING, allowNull: true },
     address: { type: DataTypes.STRING, allowNull: true },
+    img: { type: DataTypes.STRING, allowNull: true },
     role: { type: DataTypes.STRING, defaultValue: "Hotel", allowNull: false },
     checked: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" }
 });
