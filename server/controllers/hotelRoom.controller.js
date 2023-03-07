@@ -166,9 +166,6 @@ module.exports.destroy = async (req, res) => {
                 fs.unlink("./public/img/" + room.img, err => {
                     console.log(err);
                 })
-                fs.unlink("./public/compress/" + room.img, err => {
-                    console.log(err);
-                })
                 room.destroy();
                 return res.json({ success: "Otag üstünlikli pozuldy" })
             }

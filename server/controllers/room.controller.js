@@ -1,4 +1,4 @@
-const { Room, RoomType, Hotel } = require("../models/model");
+const { Room, RoomType, Hotel, RoomContact } = require("../models/model");
 const fs = require('fs')
 
 
@@ -42,12 +42,19 @@ module.exports.singleGet = async (req, res) => {
             { model: RoomType, attributes: ['id', 'name'] }
         ]
     })
-        .then((room) => {
-            if (room) {
-                res.json({ room: room })
-            } else {
-                res.json({ error: "Otag tapylmady" })
-            }
+        .then(async(room) => {
+            await RoomContact.findAll({
+                where: {roomId: req.params.roomId}
+            }).then((roomContact)=>{
+                if (room) {
+                    res.json({ 
+                        room: room,
+                        roomContact: roomContact 
+                    })
+                } else {
+                    res.json({ error: "Otag tapylmady" })
+                }
+            })
         })
         .catch((err) => {
             res.status(500).json({ err })
