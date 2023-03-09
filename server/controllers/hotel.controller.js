@@ -110,8 +110,7 @@ module.exports.destroy = async (req, res) => {
 module.exports.editProfilGet = async (req, res) => {
     await Hotel.findOne({
         where: {
-            id: req.params.hotelId,
-            hotelId: req.user.id
+            id: req.user.id
         }
     })
         .then((hotel) => {
@@ -120,6 +119,8 @@ module.exports.editProfilGet = async (req, res) => {
             } else {
                 res.json({ error: "Otel tapylmady" })
             }
+        }).catch((err) => {
+            console.log(err);
         })
 }
 
@@ -134,8 +135,7 @@ module.exports.editProfilPost = async (req, res) => {
     }
     await Hotel.findOne({
         where: {
-            id: req.params.hotelId,
-            hotelId: req.user.id
+            id: req.user.id
         }
     })
         .then((hotel) => {

@@ -18,8 +18,8 @@ router.delete("/delete/:hotelId", isAdmin, hotelController.destroy);
 
 
 //Hotel ucin hotel data update
-router.get("/profil/edit/:hotelId", isHotel, hotelController.editProfilGet);
-router.post("/profil/edit/:hotelId", isHotel,imageUpload.upload.single("img"), hotelController.editProfilPost);
+router.get("/profil/edit", isHotel, hotelController.editProfilGet);
+router.post("/profil/edit", isHotel,imageUpload.upload.single("img"), hotelController.editProfilPost);
 
 
 module.exports = router;

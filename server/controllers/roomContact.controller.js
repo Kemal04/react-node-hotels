@@ -5,7 +5,7 @@ const { RoomContact, User, Room, Hotel } = require("../models/model")
 module.exports.AllContactGet = async (req, res) => {
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const search = req.query.search || "";
-    const size = 10;
+    const size = 5;
     const offset = (page - 1) * size;
     const limit = page * size;
     var before = offset > 0 ? page - 1 : 1;
