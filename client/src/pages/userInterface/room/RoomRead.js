@@ -10,6 +10,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { creatBooking } from '../../../redux/slices/bookings'
 import { creatRoomContact, getAllRoomContacts } from '../../../redux/slices/roomContacts';
+import ReactPaginate from 'react-paginate';
 
 const RoomRead = () => {
 
@@ -117,11 +118,17 @@ const RoomRead = () => {
         }
     }
 
-    const { roomContacts, isLoading, isError } = useSelector(state => state.roomContacts)
+    const { roomContacts, isLoading, isError, pages } = useSelector(state => state.roomContacts)
+
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
 
     useEffect(() => {
-        dispatch(getAllRoomContacts())
-    }, [dispatch])
+        dispatch(getAllRoomContacts(page))
+    }, [dispatch, page])
 
     return (
         <>
@@ -196,33 +203,6 @@ const RoomRead = () => {
                                     <div>Habarlaşmak 7/24</div>
                                 </div>
                             </div>
-                            <div className='row my-5 align-items-center'>
-                                <div className='col-xl-12 p-0 h4'>
-                                    Otag barada teswirler:
-                                </div>
-                                {
-                                    roomContacts.map((contact) => (
-                                        <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center'>
-                                            <div className='row align-items-center justify-content-center'>
-                                                <div className='col-xl-2 col-12 border-end'>
-                                                    <img src="/img/icons/user-1.jpg" alt="User" className='rounded-circle' style={{ width: "100px" }} />
-                                                </div>
-                                                <div className='col-xl-10 col-12 mt-2'>
-                                                    <div className='row justify-content-between align-items-center'>
-                                                        <div className='col-xl-3 col-12'>
-                                                            <div className='mb-3 small text-secondary'>{new Date(contact.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</div>
-                                                            <div className='mb-3 text-blue h6'>{contact.name}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='text-secondary'>
-                                                        {contact.comment}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-                            </div>
                             <form className='row justify-content-between my-5'>
                                 <div className='col-xl-12 p-0 h4'>
                                     Otag barada teswir ugrat
@@ -249,6 +229,47 @@ const RoomRead = () => {
                                     }
                                 </div>
                             </form>
+                            <div className='row my-5 align-items-center'>
+                                <div className='col-xl-12 p-0 h4'>
+                                    Otag barada teswirler:
+                                </div>
+                                {
+                                    roomContacts.map((contact, index) => (
+                                        <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center' key={index}>
+                                            <div className='row align-items-center justify-content-center'>
+                                                <div className='col-xl-2 col-12 border-end'>
+                                                    <img src="/img/icons/user-1.jpg" alt="User" className='rounded-circle' style={{ width: "100px" }} />
+                                                </div>
+                                                <div className='col-xl-10 col-12 mt-2'>
+                                                    <div className='row justify-content-between align-items-center'>
+                                                        <div className='col-xl-3 col-12'>
+                                                            <div className='mb-3 small text-secondary'>{new Date(contact.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</div>
+                                                            <div className='mb-3 text-blue h6'>{contact.name}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='text-secondary'>
+                                                        {contact.comment}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                                <nav className='col-xl-12 d-flex justify-content-center mt-5'>
+                                    <ReactPaginate
+                                        previousLabel="< previous"
+                                        nextLabel="next >"
+                                        pageCount={pages}
+                                        onPageChange={changePage}
+                                        containerClassName={"pagination"}
+                                        pageLinkClassName={"page-link"}
+                                        previousLinkClassName={"page-link"}
+                                        nextLinkClassName={"page-link"}
+                                        activeLinkClassName={"page-link active"}
+                                        disabledLinkClassName={"page-link disabled"}
+                                    />
+                                </nav>
+                            </div>
                         </div>
 
 

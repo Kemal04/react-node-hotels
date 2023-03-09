@@ -1,4 +1,5 @@
 export { default as Hotel } from "./hotel/Hotel"
+export { default as HotelEdit } from "./hotel/HotelEdit"
 export { default as HotelLogin } from "./auth/HotelLogin"
 
 export { default as HotelRooms } from "./room/HotelRooms"

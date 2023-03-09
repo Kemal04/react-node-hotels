@@ -65,7 +65,11 @@ export const updateRoomContact = createAsyncThunk(
 export const deleteRoomContact = createAsyncThunk(
     "roomContact/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/roomContact/delete/${id}`)
+        const { data } = await axios.delete(`http://localhost:3001/api/roomContact/delete/${id}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
         toast.success(data.success)
         return id
     }

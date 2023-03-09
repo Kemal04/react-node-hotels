@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { faBed, faBook, faComment } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faBook, faComment, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';

@@ -26,7 +26,7 @@ const HotelRead = () => {
     return (
         <>
 
-            <BannerImg name={`${hotel.name} oteli`} />
+            <BannerImg name={`Otel`} />
             <div className={darkMode ? "bg-dark text-white" : "bg-white text-dark"}>
                 <div className='container py-5'>
                     <div className='row'>

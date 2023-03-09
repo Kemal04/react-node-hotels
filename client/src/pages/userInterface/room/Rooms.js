@@ -8,22 +8,30 @@ import { getAllRooms } from '../../../redux/slices/rooms'
 import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
 import { getAllHotels } from '../../../redux/slices/hotels'
 import EmptyRoom from '../../../components/emptyRoom/EmptyRoom'
+import ReactPaginate from 'react-paginate'
 
 const Rooms = () => {
 
     const { darkMode } = useContext(ThemeContext)
     const dispatch = useDispatch()
 
+    const [page, setPage] = useState(1)
+
+    const changePage = ({ selected }) => {
+        setPage(selected + 1)
+    }
+
     //ROOMS
-    const { rooms } = useSelector(state => state.rooms)
+    const { rooms, pages } = useSelector(state => state.rooms)
     useEffect(() => {
-        dispatch(getAllRooms())
-    }, [dispatch])
+        dispatch(getAllRooms(page))
+    }, [dispatch, page])
 
     const [room, setRoom] = useState(rooms)
     useEffect(() => {
         setRoom(rooms);
     }, [rooms]);
+
 
     //ROOMTYPES
     const { roomTypes } = useSelector(state => state.roomTypes)
@@ -172,6 +180,20 @@ const Rooms = () => {
                                     :
                                     <EmptyRoom />
                                 }
+                                <nav className='col-xl-12 d-flex justify-content-center mt-5'>
+                                    <ReactPaginate
+                                        previousLabel="< previous"
+                                        nextLabel="next >"
+                                        pageCount={pages}
+                                        onPageChange={changePage}
+                                        containerClassName={"pagination"}
+                                        pageLinkClassName={"page-link"}
+                                        previousLinkClassName={"page-link"}
+                                        nextLinkClassName={"page-link"}
+                                        activeLinkClassName={"page-link active"}
+                                        disabledLinkClassName={"page-link disabled"}
+                                    />
+                                </nav>
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ import { About, Contact, Home, Rooms, RoomRead, Register, Login, HotelRead } fro
 import { Admin, AdminBannerCreate, AdminBannerEdit, AdminBanners, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
 
 //HOTEL
-import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit, HotelContacts, HotelContactEdit } from './pages/hotel';
+import { HotelLogin, Hotel, HotelRooms, HotelRoomCreate, HotelRoomEdit, HotelBooking, HotelBookingEdit, HotelContacts, HotelContactEdit, HotelEdit } from './pages/hotel';
 
 //PROFILE
 import { Profile, ProfileBooking, ProfileEdit, ProfileHistory } from './pages/profile';
@@ -125,6 +125,7 @@ const App = () => {
                                     authState.role === "Hotel" && (
                                         <>
                                             <Route path='/hotel' element={<Hotel />}></Route>
+                                            <Route path='/hotel-uytget/:id' element={<HotelEdit />}></Route>
 
                                             <Route path='/hotel/otaglar' element={<HotelRooms />}></Route>
                                             <Route path='/hotel/otag-gosmak' element={<HotelRoomCreate />}></Route>
