@@ -10,11 +10,20 @@ const HotelEdit = () => {
     const [eHotel, setEHotel] = useState({
         phoneNum: "",
         address: "",
+        img: "",
     })
+    const [img, setImg] = useState('')
 
     const handleChange = (e) => {
         setEHotel((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
+
+    const uploadPicture = (e) => {
+        setImg({
+            picturePreview: URL.createObjectURL(e.target.files[0]),
+            pictureAsFile: e.target.files[0],
+        });
+    };
 
     useEffect(() => {
         axios.get(`http://localhost:3001/api/hotel/profil/edit`, {
@@ -23,6 +32,7 @@ const HotelEdit = () => {
             },
         }).then((res) => {
             setEHotel(res.data.hotel)
+            setImg(res.data.hotel.img)
         }).catch((res) => {
             toast.error(res.response.data.error)
             navigate(`/${res.response.status}`)
@@ -32,6 +42,11 @@ const HotelEdit = () => {
 
     const handleClick = async (e) => {
         e.preventDefault()
+
+        const formData = new FormData()
+        formData.append('phoneNum', eHotel.phoneNum)
+        formData.append('address', eHotel.address)
+        formData.append('img', img.pictureAsFile === undefined ? img : img.pictureAsFile)
 
         if (!eHotel.phoneNum) {
             toast.error("Telefon belgisi yazyn")
@@ -46,8 +61,9 @@ const HotelEdit = () => {
             toast.error("Adresi yazyn")
         }
         else {
-            await axios.post(`http://localhost:3001/api/hotel/profil/edit/`, eHotel, {
+            await axios.post(`http://localhost:3001/api/hotel/profil/edit/`, formData, {
                 headers: {
+                    "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
                 },
             })
@@ -65,8 +81,11 @@ const HotelEdit = () => {
                 <div className='row justify-content-center'>
                     <div className='w-75'>
                         <div className={`card border-0 px-5 bg-white shadow mt-5 pt-5 mb-5 pb-4`}>
-                            <div className='d-flex justify-content-center'>
-                                <img src="/img/icons/user-1.jpg" alt="" className='rounded-circle' style={{ width: "150px", marginTop: "-70px" }} />
+                            <div className='d-flex justify-content-center flex-column align-items-center'>
+                                <img src={`http://localhost:3001/img/${eHotel.img}`} alt="" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
+                                <div className="input-group mb-3 w-25 mt-3">
+                                    <input name='img' onChange={uploadPicture} type="file" className="form-control" />
+                                </div>
                             </div>
                             <div className='mt-4 h2 text-center'>
                                 {eHotel.name}

@@ -1,5 +1,3 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +10,8 @@ const AdminBooking = () => {
     const dispatch = useDispatch();
 
     const { bookings, isLoading, isError, pages } = useSelector(state => state.bookings)
+    
+    const pageCount = Math.ceil(bookings.length / 10);
 
     const [page, setPage] = useState(1)
 
@@ -20,13 +20,8 @@ const AdminBooking = () => {
     }
 
     useEffect(() => {
-        dispatch(getAllBookings())
-    }, [dispatch])
-
-    const handleDelete = async (id) => {
-        dispatch(deleteBooking(id))
-        navigate("/admin/bronlanan-otaglar")
-    }
+        dispatch(getAllBookings(page))
+    }, [dispatch,page])
 
     return (
         <>
@@ -71,7 +66,7 @@ const AdminBooking = () => {
                         <ReactPaginate
                             previousLabel="< previous"
                             nextLabel="next >"
-                            pageCount={pages}
+                            pageCount={pageCount}
                             onPageChange={changePage}
                             containerClassName={"pagination"}
                             pageLinkClassName={"page-link"}
