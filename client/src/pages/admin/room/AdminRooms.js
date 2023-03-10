@@ -13,6 +13,8 @@ const AdminRooms = () => {
 
     const { rooms, isLoading, isError, pages } = useSelector(state => state.rooms)
 
+    const pageCount = Math.ceil(rooms.length / 10);
+
     const [page, setPage] = useState(1)
 
     const changePage = ({ selected }) => {
@@ -78,7 +80,7 @@ const AdminRooms = () => {
                         <ReactPaginate
                             previousLabel="< previous"
                             nextLabel="next >"
-                            pageCount={pages}
+                            pageCount={pageCount}
                             onPageChange={changePage}
                             containerClassName={"pagination"}
                             pageLinkClassName={"page-link"}

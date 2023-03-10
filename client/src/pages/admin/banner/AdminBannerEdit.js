@@ -15,6 +15,7 @@ const AdminBannerEdit = () => {
         title: "",
         description: "",
         img: "",
+        check: ""
     })
     const [img, setImg] = useState('')
 
@@ -50,8 +51,8 @@ const AdminBannerEdit = () => {
         const formData = new FormData()
         formData.append('title', banner.title)
         formData.append('description', banner.description)
+        formData.append('check', banner.check)
         formData.append('img', img.pictureAsFile === undefined ? img : img.pictureAsFile)
-
 
         if (!banner.title) {
             toast.error("Adyny ýazyň")
@@ -105,6 +106,13 @@ const AdminBannerEdit = () => {
                                     <div className="input-group mb-3">
                                         <input name='img' onChange={uploadPicture} type="file" className="form-control rounded-0" autoComplete="off" />
                                     </div>
+                                </div>
+
+                                <div className="col-lg-12 mb-3">
+                                    <select name='check' onChange={handleChange} className="form-select">
+                                        <option value={0} defaultValue>Tassyklanmadyk</option>
+                                        <option value={1}>Tassyklamak</option>
+                                    </select>
                                 </div>
 
                                 <div className='d-grid mt-3'>

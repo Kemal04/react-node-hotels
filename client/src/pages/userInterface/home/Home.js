@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
@@ -190,7 +190,7 @@ const Home = () => {
                                 <div key={index} className='col-xl-4 col-lg-6'>
                                     <div className='main'>
                                         <div className="main-card">
-                                            <img src="https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" alt="hotels" />
+                                            <img src={hotel.img === null ? "https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" : `http://localhost:3001/img/${hotel.img}`} alt="hotels" />
                                             <div>
                                                 <h2>
                                                     {hotel.name}
@@ -221,8 +221,8 @@ const Home = () => {
                     <Splide options={roomoptions} hasTrack={false}>
                         <SplideTrack className='row g-0'>
                             {
-                                rooms.map((room) => (
-                                    <SplideSlide className='col-xl-12 mb-3' key={room.id}>
+                                rooms.map((room, index) => (
+                                    <SplideSlide className='col-xl-12 mb-3' key={index}>
                                         <div className={darkMode ? 'row bg-white text-dark align-items-center' : 'row bg-primary-blue text-white align-items-center'}>
                                             <div className='col-xl-6 col-lg-6 col-12'>
                                                 <img src={`http://localhost:3001/img/${room.img}`} alt="room" className='img-fluid ml-0' style={{ width: "900px" }} />

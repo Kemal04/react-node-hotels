@@ -13,6 +13,8 @@ const AdminContact = () => {
 
     const { contacts, isLoading, isError, pages } = useSelector(state => state.contacts)
 
+    const pageCount = Math.ceil(contacts.length / 10);
+
     const [page, setPage] = useState(1)
 
     const changePage = ({ selected }) => {
@@ -80,7 +82,7 @@ const AdminContact = () => {
                         <ReactPaginate
                             previousLabel="< previous"
                             nextLabel="next >"
-                            pageCount={pages}
+                            pageCount={pageCount}
                             onPageChange={changePage}
                             containerClassName={"pagination"}
                             pageLinkClassName={"page-link"}

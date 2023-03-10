@@ -48,7 +48,7 @@ const AdminBanners = () => {
                                     banners.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((banner, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
-                                            <td>{banner.img}</td>
+                                            <td><img src={`http://localhost:3001/img/${banner.img}`} alt="" className='' style={{ width: "100px" }} /></td>
                                             <td>{banner.title}</td>
                                             <td>{banner.description}</td>
                                             <td>

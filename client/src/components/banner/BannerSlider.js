@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBanners } from '../../redux/slices/banner';
 
 const BannerSlider = () => {
 
@@ -13,34 +15,32 @@ const BannerSlider = () => {
         autoplay: false,
     };
 
-    return ( 
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const { banners, isLoading, isError } = useSelector(state => state.banner)
+
+    useEffect(() => {
+        dispatch(getAllBanners())
+    }, [dispatch])
+
+    return (
         <div className='container-fluid p-0'>
             <Splide options={options} hasTrack={false}>
                 <SplideTrack className='row g-0'>
-                    <SplideSlide className='col-lg-12 p-0'>
-                        <img src="/img/banners/1.jpg" alt="banner" className='w-100 position-relative' style={{ height: "85vh", objectFit: "cover", }} />
-                        <div className='d-flex justify-content-center align-items-center flex-column' style={{ backgroundColor: "rgba(14, 39, 55, 0.7)", position: "absolute", top: "0", height: "85vh", width: "100%" }}>
-                            <div className='text-white ls-1 text-uppercase'>Myhmanhanalar & Otaglar</div>
-                            <div className='text-white text-center display-2 mb-5 mt-4'>Myhmanhana Hoş Geldiňiz</div>
-                            <Link to="/otaglar" className='btn btn-outline-primary btn-lg px-5'>Şu Wagt Gözle</Link>
-                        </div>
-                    </SplideSlide>
-                    <SplideSlide className='col-lg-12 p-0'>
-                        <img src="/img/banners/2.jpg" alt="banner" className='w-100 position-relative' style={{ height: "85vh", objectFit: "cover", }} />
-                        <div className='d-flex justify-content-center align-items-center flex-column' style={{ backgroundColor: "rgba(14, 39, 55, 0.7)", position: "absolute", top: "0", height: "85vh", width: "100%" }}>
-                            <div className='text-white ls-1 text-uppercase'>Myhmanhanalar & Otaglar</div>
-                            <div className='text-white text-center display-2 mb-5 mt-4'>Myhmanhana Hoş Geldiňiz</div>
-                            <Link to="/otaglar" className='btn btn-outline-primary btn-lg px-5'>Şu Wagt Gözle</Link>
-                        </div>
-                    </SplideSlide>
-                    <SplideSlide className='col-lg-12 p-0'>
-                        <img src="/img/banners/3.jpg" alt="banner" className='w-100 position-relative' style={{ height: "85vh", objectFit: "cover", }} />
-                        <div className='d-flex justify-content-center align-items-center flex-column' style={{ backgroundColor: "rgba(14, 39, 55, 0.7)", position: "absolute", top: "0", height: "85vh", width: "100%" }}>
-                            <div className='text-white ls-1 text-uppercase'>Myhmanhanalar & Otaglar</div>
-                            <div className='text-white text-center display-2 mb-5 mt-4'>Myhmanhana Hoş Geldiňiz</div>
-                            <Link to="/otaglar" className='btn btn-outline-primary btn-lg px-5'>Şu Wagt Gözle</Link>
-                        </div>
-                    </SplideSlide>
+                    {
+
+                        banners.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((banner, index) => (
+                            <SplideSlide className='col-lg-12 p-0' key={index}>
+                                <img src={`http://localhost:3001/img/${banner.img}`} alt="banner" className='w-100 position-relative' style={{ height: "85vh", objectFit: "cover", }} />
+                                <div className='d-flex justify-content-center align-items-center flex-column' style={{ backgroundColor: "rgba(14, 39, 55, 0.7)", position: "absolute", top: "0", height: "85vh", width: "100%" }}>
+                                    <div className='text-white ls-1 text-uppercase'>{banner.description}</div>
+                                    <div className='text-white text-center display-2 mb-5 mt-4'>{banner.title}</div>
+                                    <Link to="/otaglar" className='btn btn-outline-primary btn-lg px-5'>Şu Wagt Gözle</Link>
+                                </div>
+                            </SplideSlide>
+                        ))
+                    }
                 </SplideTrack>
             </Splide>
         </div>

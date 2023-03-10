@@ -1,5 +1,5 @@
 const { Banner } = require("../models/model")
-
+const fs = require('fs')
 
 module.exports.AllBannerGet = async (req, res) => {
     await Banner.findAll().then((banners) => {
