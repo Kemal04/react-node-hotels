@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     roomContacts: [],
@@ -14,7 +15,7 @@ const initialState = {
 export const getAllRoomContacts = createAsyncThunk(
     "roomContacts/getAll",
     async (page) => {
-        const { data } = await axios.get(`http://localhost:3001/api/roomContact`, {
+        const { data } = await axios.get(`${Api_Address}/api/roomContact`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -32,7 +33,7 @@ export const getAllRoomContacts = createAsyncThunk(
 export const creatRoomContact = createAsyncThunk(
     "roomContact/create",
     async (contact) => {
-        await axios.post("http://localhost:3001/api/roomContact/create", contact, {
+        await axios.post(`${Api_Address}/api/roomContact/create`, contact, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -49,7 +50,7 @@ export const creatRoomContact = createAsyncThunk(
 export const updateRoomContact = createAsyncThunk(
     "roomContact/update",
     async (roomContact) => {
-        await axios.post(`http://localhost:3001/api/roomContact/edit/${roomContact.id}`, roomContact, {
+        await axios.post(`${Api_Address}/api/roomContact/edit/${roomContact.id}`, roomContact, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -65,7 +66,7 @@ export const updateRoomContact = createAsyncThunk(
 export const deleteRoomContact = createAsyncThunk(
     "roomContact/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/roomContact/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/roomContact/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

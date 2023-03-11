@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { AuthContext } from '../../../context/AuthContext'
 import { Link } from 'react-router-dom'
+import Api_Address from '../../../env'
 const Hotel = () => {
 
     const { authState } = useContext(AuthContext)
@@ -10,7 +11,7 @@ const Hotel = () => {
     const [user, setHotel] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/hotel/${id}`).then((res) => {
+        axios.get(`${Api_Address}/api/hotel/${id}`).then((res) => {
             setHotel(res.data.hotel);
         });
     }, [id]);
@@ -22,7 +23,7 @@ const Hotel = () => {
                     <div className='w-75'>
                         <div className={`card border-0 px-5 bg-white shadow mt-5 pt-5 mb-5 pb-4`}>
                             <div className='d-flex justify-content-center'>
-                                <img src={`http://localhost:3001/img/${user.img}`} alt="" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
+                                <img src={`${Api_Address}/img/${user.img}`} alt="" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
                             </div>
                             <div className='mt-4 h2 text-center'>
                                 {user.name}

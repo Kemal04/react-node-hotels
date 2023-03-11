@@ -60,7 +60,7 @@ const AdminRooms = () => {
                                     rooms.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((room, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
-                                            {/* <td><img src={`http://localhost:3001/img/${room.img}`} alt={room.roomType.name} style={{width:"100px"}}/></td> */}
+                                            {/* <td><img src={`${Api_Address}/img/${room.img}`} alt={room.roomType.name} style={{width:"100px"}}/></td> */}
                                             <td>{room.hotel.name}</td>
                                             <td>{room.roomtype.name}</td>
                                             <td>№ {room.roomNum}</td>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     rooms: [],
@@ -13,7 +14,7 @@ const initialState = {
 export const getAllRooms = createAsyncThunk(
     "rooms/getAll",
     async (page) => {
-        const { data } = await axios.get("http://localhost:3001/api/room", {
+        const { data } = await axios.get(`${Api_Address}/api/room`, {
             params: {
                 page: page
             }
@@ -27,7 +28,7 @@ export const getAllRooms = createAsyncThunk(
 export const deleteRoom = createAsyncThunk(
     "room/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/room/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/room/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

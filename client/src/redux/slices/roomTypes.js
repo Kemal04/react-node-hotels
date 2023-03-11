@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     roomTypes: [],
@@ -12,7 +13,7 @@ const initialState = {
 export const getAllRoomTypes = createAsyncThunk(
     "roomTypes/getAll",
     async () => {
-        const { data } = await axios.get("http://localhost:3001/api/roomType")
+        const { data } = await axios.get(`${Api_Address}/api/roomType`)
         return data.roomTypes
     }
 );
@@ -20,7 +21,7 @@ export const getAllRoomTypes = createAsyncThunk(
 export const creatRoomType = createAsyncThunk(
     "roomType/create",
     async (roomType) => {
-        await axios.post("http://localhost:3001/api/roomType/create", roomType, {
+        await axios.post(`${Api_Address}/api/roomType/create`, roomType, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -35,7 +36,7 @@ export const creatRoomType = createAsyncThunk(
 export const updateRoomType = createAsyncThunk(
     "roomType/update",
     async (roomType) => {
-        await axios.post(`http://localhost:3001/api/roomType/edit/${roomType.id}`, roomType, {
+        await axios.post(`${Api_Address}/api/roomType/edit/${roomType.id}`, roomType, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -51,7 +52,7 @@ export const updateRoomType = createAsyncThunk(
 export const deleteRoomType = createAsyncThunk(
     "roomType/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/roomType/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/roomType/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

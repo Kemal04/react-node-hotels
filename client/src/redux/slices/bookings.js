@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     bookings: [],
@@ -13,7 +14,7 @@ const initialState = {
 export const getAllBookings = createAsyncThunk(
     "bookings/getAll",
     async (page) => {
-        const { data } = await axios.get("http://localhost:3001/api/booking", {
+        const { data } = await axios.get(`${Api_Address}/api/booking`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -31,7 +32,7 @@ export const getAllBookings = createAsyncThunk(
 export const creatBooking = createAsyncThunk(
     "booking/create",
     async (booking) => {
-        await axios.post("http://localhost:3001/api/booking/create", booking, {
+        await axios.post(`${Api_Address}/api/booking/create`, booking, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -46,7 +47,7 @@ export const creatBooking = createAsyncThunk(
 export const deleteBooking = createAsyncThunk(
     "booking/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/booking/admin/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/booking/admin/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

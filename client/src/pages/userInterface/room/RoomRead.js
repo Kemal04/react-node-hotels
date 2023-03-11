@@ -12,6 +12,15 @@ import { creatBooking } from '../../../redux/slices/bookings'
 import { creatRoomContact, getAllRoomContacts } from '../../../redux/slices/roomContacts';
 import ReactPaginate from 'react-paginate';
 
+import icon_air from "../../../assets/icons/air.png"
+import icon_drinks from "../../../assets/icons/drinks.png"
+import icon_plate from "../../../assets/icons/plate.png"
+import icon_tv from "../../../assets/icons/tv.png"
+import icon_wifi from "../../../assets/icons/wifi.png"
+import icon_contact from "../../../assets/icons/contact.png"
+import user_icon from "../../../assets/icons/user-1.jpg"
+import Api_Address from '../../../env';
+
 const RoomRead = () => {
 
     const option = {
@@ -58,7 +67,7 @@ const RoomRead = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/room/${roomId}`).then((res) => {
+        axios.get(`${Api_Address}/api/room/${roomId}`).then((res) => {
             setRoom(res.data.room)
             setRoomType(res.data.room.roomtype)
             setHotel(res.data.room.hotel)
@@ -140,13 +149,7 @@ const RoomRead = () => {
                             <Splide options={option} hasTrack={false} className="mb-5">
                                 <SplideTrack className='row'>
                                     <SplideSlide className='col-xl-12'>
-                                        <img src={room.img ? `http://localhost:3001/img/${room.img}` : '/img/cards/room/1.jpg'} alt="" className='img-fluid w-100' style={{ height: "500px", objectFit: "cover" }} />
-                                    </SplideSlide>
-                                    <SplideSlide className='col-xl-12'>
-                                        <img src="/img/cards/room/2.jpg" alt="" className='img-fluid w-100' style={{ height: "500px", objectFit: "cover" }} />
-                                    </SplideSlide>
-                                    <SplideSlide className='col-xl-12'>
-                                        <img src="/img/cards/room/3.jpg" alt="" className='img-fluid w-100' style={{ height: "500px", objectFit: "cover" }} />
+                                        <img src={room.img ? `${Api_Address}/img/${room.img}` : '/img/cards/room/1.jpg'} alt="" className='img-fluid w-100' style={{ height: "500px", objectFit: "cover" }} />
                                     </SplideSlide>
                                 </SplideTrack>
                             </Splide>
@@ -179,27 +182,27 @@ const RoomRead = () => {
                                     Otag Hyzmatlary
                                 </div>
                                 <div className='col-xl-4 col-6 p-0 d-flex align-items-center my-4'>
-                                    <img src="/img/icons/air.png" alt="Air" className='img-fluid me-3' />
+                                    <img src={icon_air} alt="Air" className='img-fluid me-3' />
                                     <div>Kondisioner</div>
                                 </div>
                                 <div className='col-xl-4 col-6 p-0 d-flex align-items-center my-4'>
-                                    <img src="/img/icons/drinks.png" alt="Air" className='img-fluid me-3' />
+                                    <img src={icon_drinks} alt="Air" className='img-fluid me-3' />
                                     <div>Mugt içgiler</div>
                                 </div>
                                 <div className='col-xl-4 col-6 p-0 d-flex align-items-center my-4'>
-                                    <img src="/img/icons/plate.png" alt="Air" className='img-fluid me-3' />
+                                    <img src={icon_plate} alt="Air" className='img-fluid me-3' />
                                     <div>Restoran</div>
                                 </div>
                                 <div className='col-xl-4 col-6 p-0 d-flex align-items-center mt-4'>
-                                    <img src="/img/icons/tv.png" alt="Air" className='img-fluid me-3' />
+                                    <img src={icon_tv} alt="Air" className='img-fluid me-3' />
                                     <div>Telewizor</div>
                                 </div>
                                 <div className='col-xl-4 col-6 p-0 d-flex align-items-center mt-4'>
-                                    <img src="/img/icons/wifi.png" alt="Air" className='img-fluid me-3' />
+                                    <img src={icon_wifi} alt="Air" className='img-fluid me-3' />
                                     <div>Güýçli Wifi</div>
                                 </div>
                                 <div className='col-xl-4 col-6 p-0 d-flex align-items-center mt-4'>
-                                    <img src="/img/icons/contact.png" alt="Air" className='img-fluid me-3' />
+                                    <img src={icon_contact} alt="Air" className='img-fluid me-3' />
                                     <div>Habarlaşmak 7/24</div>
                                 </div>
                             </div>
@@ -238,7 +241,7 @@ const RoomRead = () => {
                                         <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center' key={index}>
                                             <div className='row align-items-center justify-content-center'>
                                                 <div className='col-xl-2 col-12 border-end'>
-                                                    <img src="/img/icons/user-1.jpg" alt="User" className='rounded-circle' style={{ width: "100px" }} />
+                                                    <img src={user_icon} alt="User" className='rounded-circle' style={{ width: "100px" }} />
                                                 </div>
                                                 <div className='col-xl-10 col-12 mt-2'>
                                                     <div className='row justify-content-between align-items-center'>

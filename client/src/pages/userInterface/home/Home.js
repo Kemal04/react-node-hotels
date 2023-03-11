@@ -12,6 +12,17 @@ import "./home.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLong } from '@fortawesome/free-solid-svg-icons';
 
+import about_1 from "../../../assets/cards/about/1.jpg"
+import about_2 from "../../../assets/cards/about/2.jpg"
+import about_3 from "../../../assets/cards/about/3.jpg"
+import role from "../../../assets/icons/rol.png"
+import coal from "../../../assets/icons/coal.png"
+import fork from "../../../assets/icons/fork.png"
+import drink from "../../../assets/icons/drink.png"
+import contact from "../../../assets/cards/contact/1.jpg"
+import signature from "../../../assets/icons/signature.png"
+import Api_Address from '../../../env';
+
 const Home = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -49,6 +60,7 @@ const Home = () => {
         autoplay: true,
         arrows: false,
     };
+
     return (
         <>
             <BannerSlider />
@@ -111,21 +123,21 @@ const Home = () => {
                             <div className='h5 lh-lg ls-1 text-secondary mb-3'>
                                 Dünýäde 340-dan gowrak myhmanhana bar, NH Hotel Group, barjak ýeriňize garamazdan ajaýyp ýaşamak üçin dürli myhmanhanalary hödürleýär.                            </div>
                             <div> Alyp Baryjy: <span style={{ color: "#1cc3b2" }}> Kemal Hojayew</span> </div>
-                            <img src="/img/icons/signature.png" alt="Signature" className='img-fluid mt-3' />
+                            <img src={signature} alt="Signature" className='img-fluid mt-3' />
                         </div>
                         <div className='col-xl-6 col-lg-6 mt-3'>
                             <div className='row g-4 align-items-center'>
                                 <div className='col-xl-6 col-lg-6 col-6'>
                                     <div className='scale'>
-                                        <img src="/img/cards/about/1.jpg" alt="cards" className='img-fluid rounded-3 mb-4' />
+                                        <img src={about_1} alt="cards" className='img-fluid rounded-3 mb-4' />
                                     </div>
                                     <div className='scale'>
-                                        <img src="/img/cards/about/2.jpg" alt="cards" className='img-fluid rounded-3' />
+                                        <img src={about_2} alt="cards" className='img-fluid rounded-3' />
                                     </div>
                                 </div>
                                 <div className='col-xl-6 col-lg-6 col-6'>
                                     <div className='scale'>
-                                        <img src="/img/cards/about/3.jpg" alt="cards" className='img-fluid rounded-3' />
+                                        <img src={about_3} alt="cards" className='img-fluid rounded-3' />
                                     </div>
                                 </div>
                             </div>
@@ -139,37 +151,37 @@ const Home = () => {
                     <div className={darkMode ? 'row align-items-center text-dark' : 'row align-items-center text-dark'}>
                         <div className='col-xl-2 col-lg-4 col-md-4 col-6'>
                             <div className='card border-0 shadow p-4 d-flex flex-column align-items-center text-primary-hover'>
-                                <img src="/img/icons/rol.png" alt="Rol" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                <img src={role} alt="Rol" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                                 <h5>Ulag</h5>
                             </div>
                         </div>
                         <div className='col-xl-2 col-lg-4 col-md-4 col-6'>
                             <div className='card border-0 shadow p-4 d-flex flex-column align-items-center text-primary-hover'>
-                                <img src="/img/icons/coal.png" alt="coal" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                <img src={coal} alt="coal" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                                 <h5>Rahatlyk</h5>
                             </div>
                         </div>
                         <div className='col-xl-2 col-lg-4 col-md-4 col-6'>
                             <div className='card border-0 shadow p-4 d-flex flex-column align-items-center text-primary-hover'>
-                                <img src="/img/icons/fork.png" alt="fork" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                <img src={fork} alt="fork" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                                 <h5>Restoran</h5>
                             </div>
                         </div>
                         <div className='col-xl-2 col-lg-4 col-md-4 col-6'>
                             <div className='card border-0 shadow p-4 d-flex flex-column align-items-center text-primary-hover'>
-                                <img src="/img/icons/drink.png" alt="drink" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                <img src={drink} alt="drink" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                                 <h5>Içgiler</h5>
                             </div>
                         </div>
                         <div className='col-xl-2 col-lg-4 col-md-4 col-6'>
                             <div className='card border-0 shadow p-4 d-flex flex-column align-items-center text-primary-hover'>
-                                <img src="/img/icons/rol.png" alt="Rol" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                <img src={role} alt="Rol" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                                 <h5>Ulag</h5>
                             </div>
                         </div>
                         <div className='col-xl-2 col-lg-4 col-md-4 col-6'>
                             <div className='card border-0 shadow p-4 d-flex flex-column align-items-center text-primary-hover'>
-                                <img src="/img/icons/coal.png" alt="coal" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                <img src={coal} alt="coal" className='img-fluid mb-3' style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                                 <h5>Spa</h5>
                             </div>
                         </div>
@@ -190,7 +202,7 @@ const Home = () => {
                                 <div key={index} className='col-xl-4 col-lg-6'>
                                     <div className='main'>
                                         <div className="main-card">
-                                            <img src={hotel.img === null ? "https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" : `http://localhost:3001/img/${hotel.img}`} alt="hotels" />
+                                            <img src={hotel.img === null ? "https://images.unsplash.com/photo-1656618020911-1c7a937175fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc1MzQyNTE&ixlib=rb-1.2.1&q=80" : `${Api_Address}/img/${hotel.img}`} alt="hotels" />
                                             <div>
                                                 <h2>
                                                     {hotel.name}
@@ -225,7 +237,7 @@ const Home = () => {
                                     <SplideSlide className='col-xl-12 mb-3' key={index}>
                                         <div className={darkMode ? 'row bg-white text-dark align-items-center' : 'row bg-primary-blue text-white align-items-center'}>
                                             <div className='col-xl-6 col-lg-6 col-12'>
-                                                <img src={`http://localhost:3001/img/${room.img}`} alt="room" className='img-fluid ml-0' style={{ width: "900px" }} />
+                                                <img src={`${Api_Address}/img/${room.img}`} alt="room" className='img-fluid ml-0' style={{ width: "900px" }} />
                                             </div>
                                             <div className='col-xl-6 col-lg-6 col-12 d-flex align-items-start justify-content-center flex-column py-3'>
                                                 <div className='ms-5 display-5'><b>{room.hotel.name}</b><span className='text-muted'> № {room.roomNum}</span></div>
@@ -270,7 +282,7 @@ const Home = () => {
                 <div className='container py-5'>
                     <div className='row justify-content-between '>
                         <div className='col-xl-6 col-lg-6 col-12 d-flex justify-content-center'>
-                            <img src="/img/cards/contact/1.jpg" alt="Person" className='img-fluid rounded-3 w-75' />
+                            <img src={contact} alt="Person" className='img-fluid rounded-3 w-75' />
                         </div>
                         <div className='col-xl-6 col-lg-6 col-12 mt-3'>
                             <div className='h6 ls-2 mb-3' style={{ color: "#1cc3b2" }}> Habarlaşmak </div>

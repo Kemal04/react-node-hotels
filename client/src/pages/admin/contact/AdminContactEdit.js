@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Api_Address from '../../../env'
 import { updateContact } from '../../../redux/slices/contact'
 
 const AdminContactEdit = () => {
@@ -24,7 +25,7 @@ const AdminContactEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/contact/edit/${contactId}`).then((res) => {
+        axios.get(`${Api_Address}/api/contact/edit/${contactId}`).then((res) => {
             setContact(res.data.contact)
         }).catch((err) => {
             console.log(err.message)

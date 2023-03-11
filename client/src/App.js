@@ -30,6 +30,7 @@ import { AuthContext } from './context/AuthContext';
 //CSS
 import './App.css'
 import ScrollToTop from './components/scroll/ScrollToTop';
+import Api_Address from './env';
 
 const App = () => {
 
@@ -41,7 +42,7 @@ const App = () => {
     });
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/auth/auth", {
+        axios.get(`${Api_Address}/api/auth/auth`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

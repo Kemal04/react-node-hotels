@@ -4,6 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ThemeContext } from '../../../context/ThemeContext';
 
+import user_icon from "../../../assets/icons/user-1.jpg"
+import Api_Address from '../../../env';
+
 const ProfileEdit = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -12,7 +15,7 @@ const ProfileEdit = () => {
     const [user, setUser] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/user/${id}`).then((res) => {
+        axios.get(`${Api_Address}/api/user/${id}`).then((res) => {
             setUser(res.data.user);
         });
     }, [id]);
@@ -30,7 +33,7 @@ const ProfileEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/user/edit/${id}`, {
+        axios.get(`${Api_Address}/api/user/edit/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -56,7 +59,7 @@ const ProfileEdit = () => {
             toast.error("Adresinizi yazyn")
         }
         else {
-            await axios.post(`http://localhost:3001/api/user/edit/${id}`, eUser, {
+            await axios.post(`${Api_Address}/api/user/edit/${id}`, eUser, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -78,7 +81,7 @@ const ProfileEdit = () => {
                     <div className='w-75'>
                         <div className={`card border-0 px-5 ${darkMode ? "bg-dark shadow-lg" : "bg-white shadow"}`}>
                             <div className='d-flex justify-content-center'>
-                                <img src="/img/icons/user-1.jpg" alt="" className='rounded-circle' style={{ width: "150px", marginTop: "-70px" }} />
+                                <img src={user_icon} alt="" className='rounded-circle' style={{ width: "150px", marginTop: "-70px" }} />
                             </div>
                             <div className='mt-4 h2 text-center'>
                                 {user.name}

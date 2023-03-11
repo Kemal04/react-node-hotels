@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom'
 import { faBed, faBook, faCommentAlt, faHotel, faImage, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import user_icon from "../../assets/icons/user-1.jpg"
+
 const AdminSidebar = () => {
     return (
         <>
@@ -10,7 +12,7 @@ const AdminSidebar = () => {
                 <div className="sidebar">
                     <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div className="image">
-                            <img src="/img/icons/user-1.jpg" className="img-circle elevation-2" alt='user' />
+                            <img src={user_icon} className="img-circle elevation-2" alt='user' />
                         </div>
                         <div className="info">
                             <NavLink to="" className="d-block text-uppercase text-decoration-none">Administrasiya</NavLink>

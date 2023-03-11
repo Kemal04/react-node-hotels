@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
+import Api_Address from '../../../env';
 
 const HotelRoomEdit = () => {
 
@@ -42,7 +43,7 @@ const HotelRoomEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/hotelRoom/edit/${roomId}`, {
+        axios.get(`${Api_Address}/api/hotelRoom/edit/${roomId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -89,7 +90,7 @@ const HotelRoomEdit = () => {
             toast.error("Tutýan meýdanyny ýazyň")
         }
         else {
-            await axios.post(`http://localhost:3001/api/hotelRoom/edit/${roomId}`, formData, {
+            await axios.post(`${Api_Address}/api/hotelRoom/edit/${roomId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),

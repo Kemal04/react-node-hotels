@@ -3,6 +3,9 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { ThemeContext } from '../../context/ThemeContext'
 
+import sun from "../../assets/icons/sun.png"
+import moon from "../../assets/icons/moon.png"
+
 const ProfileNavbar = () => {
 
     const { authState, setAuthState } = useContext(AuthContext)
@@ -46,9 +49,9 @@ const ProfileNavbar = () => {
                                 <button onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"}>
                                     {
                                         darkMode ?
-                                            <img src="/img/icons/sun.png" alt="Sun" style={{ width: "20px", }} />
+                                            <img src={sun} alt="Sun" style={{ width: "20px", }} />
                                             :
-                                            <img src="/img/icons/moon.png" alt="Moon" style={{ width: "20px" }} />
+                                            <img src={moon} alt="Moon" style={{ width: "20px" }} />
                                     }
                                 </button>
                             </li>

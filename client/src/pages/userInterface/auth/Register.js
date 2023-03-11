@@ -6,6 +6,9 @@ import { toast } from 'react-toastify'
 import { AuthContext } from "../../../context/AuthContext";
 import { ThemeContext } from '../../../context/ThemeContext';
 
+import register from "../../../assets/cards/auth/1.svg"
+import Api_Address from '../../../env'
+
 const Register = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -42,7 +45,7 @@ const Register = () => {
             toast.error("Açar sözüňiz 8-den uly bolmaly")
         }
         else {
-            await axios.post("http://localhost:3001/api/auth/register", data).then((res) => {
+            await axios.post(`${Api_Address}/api/auth/register`, data).then((res) => {
                 if (res.data.error) {
                     toast.error(res.data.error)
                 } else {
@@ -104,7 +107,7 @@ const Register = () => {
                     </div>
 
                     <div className='col-lg-6'>
-                        <img alt='' src="/img/cards/auth/1.svg" className="img-fluid" />
+                        <img alt='' src={register} className="img-fluid" />
                     </div>
 
                 </div>

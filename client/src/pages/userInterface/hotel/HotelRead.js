@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import BannerImg from '../../../components/banner/BannerImg';
 import { ThemeContext } from '../../../context/ThemeContext';
+import Api_Address from '../../../env';
 
 const HotelRead = () => {
 
@@ -15,7 +16,7 @@ const HotelRead = () => {
     const hotelId = location.pathname.split("/")[2];
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/hotel/${hotelId}`)
+        axios.get(`${Api_Address}/api/hotel/${hotelId}`)
             .then((res) => {
                 setHotel(res.data.hotel)
                 setRooms(res.data.rooms)
@@ -38,7 +39,7 @@ const HotelRead = () => {
                                         <div className='card border-0 my-4' style={{ backgroundColor: "transparent", boxShadow: 'none' }}>
                                             <div className='row align-items-center'>
                                                 <div className='col-xl-6'>
-                                                    <img src={room.img ? `http://localhost:3001/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
+                                                    <img src={room.img ? `${Api_Address}/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
                                                 </div>
                                                 <div className='col-xl-6'>
                                                     <div className='h4 mt-3'>№ {room.roomNum}</div>
@@ -104,7 +105,7 @@ const HotelRead = () => {
                                                     </div>
                                                 </div>
                                                 <div className='col-xl-6'>
-                                                    <img src={room.img ? `http://localhost:3001/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
+                                                    <img src={room.img ? `${Api_Address}/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
                                                 </div>
                                             </div>
                                         </div>

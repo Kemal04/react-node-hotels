@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Api_Address from '../../../env'
 import {updateHotel} from "../../../redux/slices/hotels"
 
 const AdminHotelEdit = () => {
@@ -23,7 +24,7 @@ const AdminHotelEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/hotel/edit/${hotelId}`, {
+        axios.get(`${Api_Address}/api/hotel/edit/${hotelId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

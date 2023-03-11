@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../../context/AuthContext'
+import Api_Address from '../../../env'
 
 const AdminLogin = () => {
 
@@ -27,7 +28,7 @@ const AdminLogin = () => {
             toast.error("Açar sözüňiz 8-den uly bolmaly")
         }
         else {
-            await axios.post("http://localhost:3001/api/auth/rootman", data).then((res) => {
+            await axios.post(`${Api_Address}/api/auth/rootman`, data).then((res) => {
                 if (res.data.error) {
                     toast.error(res.data.error)
                 } else {

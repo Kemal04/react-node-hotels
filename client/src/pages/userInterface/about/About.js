@@ -3,6 +3,12 @@ import BannerImg from '../../../components/banner/BannerImg'
 import { ThemeContext } from '../../../context/ThemeContext'
 import './about.css'
 
+import about_1 from "../../../assets/cards/about/4.jpg"
+import about_5 from "../../../assets/cards/about/5.jpg"
+import about_6 from "../../../assets/cards/about/6.jpg"
+import about_7 from "../../../assets/cards/about/7.jpg"
+import signature from "../../../assets/icons/signature.png"
+
 const About = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -14,7 +20,7 @@ const About = () => {
                 <div className='container py-5'>
                     <div className='row align-items-center justify-content-between'>
                         <div className='col-xl-5'>
-                            <img src="/img/cards/about/4.jpg" alt="About Us" className='img-fluid rounded-3' />
+                            <img src={about_1} alt="About Us" className='img-fluid rounded-3' />
                         </div>
                         <div className='col-xl-6'>
                             <div className='h6 ls-2 mb-3' style={{ color: "#1cc3b2" }}>Biz Barada</div>
@@ -25,7 +31,7 @@ const About = () => {
                             <div className='text-secondary mb-3 w-75'>
                                 Stayaşaýan ýerleri ýa-da tanyşlarynyň öýleri ýa-da howpsuz ýerleri. Soň bolsa ýygy-ýygydan gatnaşyp, söwda edip başladylar.
                             </div>
-                            <img src="/img/icons/signature.png" alt="Signature" className='img-fluid mt-5' />
+                            <img src={signature} alt="Signature" className='img-fluid mt-5' />
                         </div>
                     </div>
                 </div>
@@ -39,9 +45,6 @@ const About = () => {
                             <div className='col-lg-12 text-center mb-3 text-white h2'>
                                 Web Sahypasyna düşünmedim,<br /> näme etmeli ?
                             </div>
-                            <div className='col-lg-12 text-center'>
-                                <img src='img/icons/video.svg' alt='' className='img-fluid' />
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,7 +57,7 @@ const About = () => {
                     <div className='row'>
                         <div className='col-xl-4 mb-5'>
                             <div className='position-relative card-about'>
-                                <img src="/img/cards/about/5.jpg" alt="About Us" className='img-fluid' />
+                                <img src={about_5} alt="About Us" className='img-fluid' />
                                 <div className='position-absolute bottom-0 start-0 w-100 footer-rgba text-center'>
                                     <div className='h5 text-white py-3'>
                                         Restorant we Bar
@@ -64,7 +67,7 @@ const About = () => {
                         </div>
                         <div className='col-xl-4 mb-5'>
                             <div className='position-relative card-about'>
-                                <img src="/img/cards/about/6.jpg" alt="About Us" className='img-fluid' />
+                                <img src={about_6} alt="About Us" className='img-fluid' />
                                 <div className='position-absolute bottom-0 start-0 w-100 footer-rgba text-center'>
                                     <div className='h5 text-white py-3'>
                                         Spa & Fitnes
@@ -74,7 +77,7 @@ const About = () => {
                         </div>
                         <div className='col-xl-4 mb-5'>
                             <div className='position-relative card-about'>
-                                <img src="/img/cards/about/7.jpg" alt="About Us" className='img-fluid' />
+                                <img src={about_7} alt="About Us" className='img-fluid' />
                                 <div className='position-absolute bottom-0 start-0 w-100 footer-rgba text-center'>
                                     <div className='h5 text-white py-3'>
                                         Howuzlar
