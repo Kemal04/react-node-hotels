@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { updateRoomType } from '../../../redux/slices/roomTypes'
+import Api_Address from '../../../env'
 
 const AdminRoomTypeEdit = () => {
 
@@ -21,7 +22,7 @@ const AdminRoomTypeEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/roomType/edit/${roomTypeId}`, {
+        axios.get(`${Api_Address}/api/roomType/edit/${roomTypeId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

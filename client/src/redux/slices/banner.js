@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     banners: [],
@@ -12,7 +13,7 @@ const initialState = {
 export const getAllBanners = createAsyncThunk(
     "banners/getAll",
     async () => {
-        const { data } = await axios.get("http://localhost:3001/api/banner")
+        const { data } = await axios.get(`${Api_Address}/api/banner`)
         return data.banners
     }
 );
@@ -20,7 +21,7 @@ export const getAllBanners = createAsyncThunk(
 export const creatBanner = createAsyncThunk(
     "banner/create",
     async (formData) => {
-        await axios.post("http://localhost:3001/api/banner/create", formData, {
+        await axios.post(`${Api_Address}/api/banner/create`, formData, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -35,7 +36,7 @@ export const creatBanner = createAsyncThunk(
 export const updateBanner = createAsyncThunk(
     "banner/update",
     async (banner) => {
-        await axios.post(`http://localhost:3001/api/banner/edit/${banner.id}`, banner, {
+        await axios.post(`${Api_Address}/api/banner/edit/${banner.id}`, banner, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -52,7 +53,7 @@ export const updateBanner = createAsyncThunk(
 export const deleteBanner = createAsyncThunk(
     "banner/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/banner/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/banner/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

@@ -9,6 +9,7 @@ import { getAllRoomTypes } from '../../../redux/slices/roomTypes'
 import { getAllHotels } from '../../../redux/slices/hotels'
 import EmptyRoom from '../../../components/emptyRoom/EmptyRoom'
 import ReactPaginate from 'react-paginate'
+import Api_Address from '../../../env'
 
 const Rooms = () => {
 
@@ -143,7 +144,7 @@ const Rooms = () => {
                                             <div className='card border-0 my-4' style={{ backgroundColor: "transparent", boxShadow: 'none' }}>
                                                 <div className='row align-items-center'>
                                                     <div className='col-xl-6'>
-                                                        <img src={room.img ? `http://localhost:3001/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
+                                                        <img src={room.img ? `${Api_Address}/img/${room.img}` : '/img/cards/room/1.jpg'} alt="Room" className='img-fluid rounded-3' />
                                                     </div>
                                                     <div className='col-xl-6'>
                                                         <div className='h4 mt-3'><b className=''>{room.hotel.name}</b> № {room.roomNum}</div>

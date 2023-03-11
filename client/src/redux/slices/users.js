@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     users: [],
@@ -13,7 +14,7 @@ const initialState = {
 export const getAllUsers = createAsyncThunk(
     "users/getAll",
     async (page) => {
-        const { data } = await axios.get("http://localhost:3001/api/user", {
+        const { data } = await axios.get(`${Api_Address}/api/user`, {
             params: {
                 page: page
             }
@@ -27,7 +28,7 @@ export const getAllUsers = createAsyncThunk(
 export const deleteUsers = createAsyncThunk(
     "users/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/user/admin/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/user/admin/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

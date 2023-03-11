@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Search.css"
 import axios from "axios"
 import { Link } from 'react-router-dom'
+import Api_Address from '../../env'
 
 const Search = () => {
 
@@ -11,7 +12,7 @@ const Search = () => {
     useEffect(() => {
         if (value.length > 0) {
             async function fetchMyAPI() {
-                const resHotel = await axios.get('http://localhost:3001/api/hotel')
+                const resHotel = await axios.get(`${Api_Address}/api/hotel`)
                 try {
                     setResult([])
                     let searchQuery = value.toLowerCase();
@@ -28,7 +29,7 @@ const Search = () => {
                             });
                         }
                     }
-                    
+
                     // for (const key in roomTypes) {
                     //     let roomType = roomTypes[key].name.toLowerCase();
                     //     if (roomType.slice(0, searchQuery.length).indexOf(searchQuery) !== -1) {

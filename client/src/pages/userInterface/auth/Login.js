@@ -5,6 +5,9 @@ import { toast } from 'react-toastify';
 import { ThemeContext } from '../../../context/ThemeContext';
 import { AuthContext } from '../../../context/AuthContext';
 
+import login from "../../../assets/cards/auth/1.svg"
+import Api_Address from '../../../env';
+
 const Login = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -30,7 +33,7 @@ const Login = () => {
             toast.error("Açar sözüňiz 8-den uly bolmaly")
         }
         else {
-            await axios.post("http://localhost:3001/api/auth/login", data).then((res) => {
+            await axios.post(`${Api_Address}/api/auth/login`, data).then((res) => {
                 if (res.data.error) {
                     toast.error(res.data.error)
                 } else {
@@ -55,7 +58,7 @@ const Login = () => {
             <div className='container'>
                 <div className='row align-items-center justify-content-around'>
                     <div className='col-lg-6'>
-                        <img alt='' src="/img/cards/auth/1.svg" className="img-fluid" />
+                        <img alt='' src={login} className="img-fluid" />
                     </div>
                     <div className='col-lg-4'>
                         <form onSubmit={loginUser} className={`card p-4 shadow border-0 ${darkMode ? 'bg-dark text-white' : 'bg-white'}`}>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Api_Address from '../../../env';
 
 const AdminBannerEdit = () => {
 
@@ -31,7 +32,7 @@ const AdminBannerEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/banner/edit/${bannerId}`, {
+        axios.get(`${Api_Address}/api/banner/edit/${bannerId}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -64,7 +65,7 @@ const AdminBannerEdit = () => {
             toast.error("Surat yok")
         }
         else {
-            await axios.post(`http://localhost:3001/api/banner/edit/${bannerId}`, formData, {
+            await axios.post(`${Api_Address}/api/banner/edit/${bannerId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     hotelRooms: [],
@@ -13,9 +14,9 @@ const initialState = {
 export const getAllHotelRooms = createAsyncThunk(
     "rooms/getAll",
     async (page) => {
-        const { data } = await axios.get("http://localhost:3001/api/hotelRoom", {
+        const { data } = await axios.get(`${Api_Address}/api/hotelRoom`, {
             headers: {
-                accessToken: localStorage.getItem("accessToken"),
+                accessToken: localStorage.getItem("accessToken")
             },
             params: {
                 page: page
@@ -30,7 +31,7 @@ export const getAllHotelRooms = createAsyncThunk(
 export const creatHotelRoom = createAsyncThunk(
     "room/create",
     async (formData) => {
-        await axios.post("http://localhost:3001/api/hotelRoom/create", formData, {
+        await axios.post(`${Api_Address}/api/hotelRoom/create`, formData, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -45,7 +46,7 @@ export const creatHotelRoom = createAsyncThunk(
 export const deleteHotelRoom = createAsyncThunk(
     "room/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/hotelRoom/delete/${id}`, {
+        const { data } = await axios.delete(`${Api_Address}/api/hotelRoom/delete/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

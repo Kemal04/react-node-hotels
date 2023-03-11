@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Api_Address from '../../../env';
 
 const HotelEdit = () => {
 
@@ -26,7 +27,7 @@ const HotelEdit = () => {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/hotel/profil/edit`, {
+        axios.get(`${Api_Address}/api/hotel/profil/edit`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -61,7 +62,7 @@ const HotelEdit = () => {
             toast.error("Adresi yazyn")
         }
         else {
-            await axios.post(`http://localhost:3001/api/hotel/profil/edit/`, formData, {
+            await axios.post(`${Api_Address}/api/hotel/profil/edit/`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
@@ -82,7 +83,7 @@ const HotelEdit = () => {
                     <div className='w-75'>
                         <div className={`card border-0 px-5 bg-white shadow mt-5 pt-5 mb-5 pb-4`}>
                             <div className='d-flex justify-content-center flex-column align-items-center'>
-                                <img src={`http://localhost:3001/img/${eHotel.img}`} alt="" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
+                                <img src={`${Api_Address}/img/${eHotel.img}`} alt="" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
                                 <div className="input-group mb-3 w-25 mt-3">
                                     <input name='img' onChange={uploadPicture} type="file" className="form-control" />
                                 </div>

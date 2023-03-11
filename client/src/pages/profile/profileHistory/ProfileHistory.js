@@ -3,6 +3,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../../context/ThemeContext';
 
+import user_icon from "../../../assets/icons/user-1.jpg"
+import Api_Address from '../../../env';
+
 const ProfileHistory = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -11,7 +14,7 @@ const ProfileHistory = () => {
     const [user, setUser] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/user/${id}`).then((res) => {
+        axios.get(`${Api_Address}/api/user/${id}`).then((res) => {
             setUser(res.data.user);
         });
     }, [id]);
@@ -22,7 +25,7 @@ const ProfileHistory = () => {
     useEffect(() => {
         const fetchBooking = async () => {
             try {
-                const res = await axios.get("http://localhost:3001/api/booking/user", {
+                const res = await axios.get(`${Api_Address}/api/booking/user`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
@@ -43,7 +46,7 @@ const ProfileHistory = () => {
             <div className='banner-fixed d-flex align-items-center'>
                 <div className='container'>
                     <div className='row'>
-                        
+
                     </div>
                 </div>
             </div>
@@ -52,7 +55,7 @@ const ProfileHistory = () => {
                     <div className='w-75'>
                         <div className={`card border-0 px-5 ${darkMode ? "bg-dark shadow-lg" : "bg-white shadow"}`}>
                             <div className='d-flex justify-content-center'>
-                                <img src="/img/icons/user-1.jpg" alt="" className='rounded-circle' style={{ width: "150px", marginTop: "-70px" }} />
+                                <img src={user_icon} alt="" className='rounded-circle' style={{ width: "150px", marginTop: "-70px" }} />
                             </div>
                             <div className='mt-4 h2 text-center'>
                                 {user.name}
@@ -70,7 +73,7 @@ const ProfileHistory = () => {
                                                     ?
                                                     <div key={index} className='col-lg-4'>
                                                         <div className={`card mb-5 border-0 shadow rounded-0 me-3 ${darkMode ? "bg-dark shadow-lg" : "bg-white shadow"}`}>
-                                                            <img src='/img/cards/room/4.jpg' className="img-fluid" alt={room.room.roomNum} />
+                                                            <img src={`${Api_Address}/img/${room.img}`} className="img-fluid" alt={room.room.roomNum} />
                                                             <div className="card-body">
                                                                 <div className='d-flex justify-content-between'>
                                                                     <h5 className="card-title">№ {room.room.roomNum} otag</h5>

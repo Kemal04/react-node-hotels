@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import Api_Address from '../../../env'
 import { getAllBanners, deleteBanner } from '../../../redux/slices/banner'
 
 const AdminBanners = () => {
@@ -48,7 +49,7 @@ const AdminBanners = () => {
                                     banners.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((banner, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
-                                            <td><img src={`http://localhost:3001/img/${banner.img}`} alt="" className='' style={{ width: "100px" }} /></td>
+                                            <td><img src={`${Api_Address}/img/${banner.img}`} alt="" className='' style={{ width: "100px" }} /></td>
                                             <td>{banner.title}</td>
                                             <td>{banner.description}</td>
                                             <td>

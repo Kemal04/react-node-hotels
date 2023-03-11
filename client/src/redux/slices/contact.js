@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Api_Address from "../../env";
 
 const initialState = {
     contacts: [],
@@ -14,7 +15,7 @@ const initialState = {
 export const getAllContacts = createAsyncThunk(
     "contacts/getAll",
     async (page) => {
-        const { data } = await axios.get(`http://localhost:3001/api/contact`, {
+        const { data } = await axios.get(`${Api_Address}/api/contact`, {
             params: {
                 page: page
             }
@@ -28,7 +29,7 @@ export const getAllContacts = createAsyncThunk(
 export const creatContact = createAsyncThunk(
     "contact/create",
     async ({ contact, recaptchaValue }) => {
-        await axios.post("http://localhost:3001/api/contact/create", { contact, recaptchaValue })
+        await axios.post(`${Api_Address}/api/contact/create`, { contact, recaptchaValue })
             .then((res) => {
                 toast.success(res.data.success)
             }).catch((res) => {
@@ -41,7 +42,7 @@ export const creatContact = createAsyncThunk(
 export const updateContact = createAsyncThunk(
     "contact/update",
     async (contact) => {
-        await axios.post(`http://localhost:3001/api/contact/edit/${contact.id}`, contact, {
+        await axios.post(`${Api_Address}/api/contact/edit/${contact.id}`, contact, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -57,7 +58,7 @@ export const updateContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
     "contact/delete",
     async (id) => {
-        const { data } = await axios.delete(`http://localhost:3001/api/contact/delete/${id}`)
+        const { data } = await axios.delete(`${Api_Address}/api/contact/delete/${id}`)
         toast.success(data.success)
         return id
     }

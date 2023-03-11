@@ -8,6 +8,10 @@ import { creatContact } from '../../../redux/slices/contact'
 import { ReCAPTCHA } from 'react-google-recaptcha'
 import RecaptchaWrapper from 'react-google-recaptcha/lib/recaptcha-wrapper'
 
+import phone from "../../../assets/icons/loc.svg"
+import loc from "../../../assets/icons/phone.svg"
+import email from "../../../assets/icons/email.svg"
+
 const Contact = () => {
 
     const { darkMode } = useContext(ThemeContext)
@@ -66,22 +70,22 @@ const Contact = () => {
                     <div className={darkMode ? "card border-0 shadow p-5 bg-white" : "card border-0 shadow p-5 bg-white"}>
                         <div className='row align-items-center'>
                             <div className='col-xl-3 mb-4 text-center'>
-                                <img src="/img/icons/phone.svg" alt="" style={{ width: "20px" }} />
+                                <img src={phone} alt="" style={{ width: "20px" }} />
                                 <div className='h4 mt-3'>Telefon</div>
                                 <div className='text-secondary'>499401, 499402, 499403</div>
                             </div>
                             <div className='col-xl-3 mb-4 text-center'>
-                                <img src="/img/icons/loc.svg" alt="" style={{ width: "20px" }} />
+                                <img src={loc} alt="" style={{ width: "20px" }} />
                                 <div className='h4 mt-3'>Salgymyz</div>
                                 <div className='text-secondary'>Aşgabat ş., Oguzhan köç., 13 "A"</div>
                             </div>
                             <div className='col-xl-3 mb-4 text-center'>
-                                <img src="/img/icons/phone.svg" alt="" style={{ width: "20px" }} />
+                                <img src={phone} alt="" style={{ width: "20px" }} />
                                 <div className='h4 mt-3'>Iş wagtlarymyz</div>
                                 <div className='text-secondary'>09:00-dan, 22:00 çenli</div>
                             </div>
                             <div className='col-xl-3 mb-4 text-center'>
-                                <img src="/img/icons/email.svg" alt="" style={{ width: "20px" }} />
+                                <img src={email} alt="" style={{ width: "20px" }} />
                                 <div className='h4 mt-3'>E-mail salgymyz</div>
                                 <div className='text-secondary'>it@sanly.tm</div>
                             </div>

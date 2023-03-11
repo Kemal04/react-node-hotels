@@ -5,6 +5,12 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { AuthContext } from '../../context/AuthContext';
 import Search from '../search/Search';
 
+import tm_icon from "../../assets/icons/lang/tm.png";
+import ru_icon from "../../assets/icons/lang/ru.png";
+import en_icon from "../../assets/icons/lang/en.png";
+import moon from "../../assets/icons/moon.png"
+import sun from "../../assets/icons/sun.png"
+
 const Navbar = () => {
 
     const { authState, setAuthState } = useContext(AuthContext)
@@ -37,13 +43,13 @@ const Navbar = () => {
                         </div>
                         <div className='col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 text-end d-xl-block d-lg-block d-md-block d-sm-none d-none'>
                             <Link to="/" className='px-3'>
-                                <img src="/img/icons/lang/tm.png" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
+                                <img src={tm_icon} alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
                             </Link>
                             <Link to="/" className='px-3'>
-                                <img src="/img/icons/lang/en.png" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
+                                <img src={ru_icon} alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
                             </Link>
                             <Link to="/" className='px-3'>
-                                <img src="/img/icons/lang/ru.png" alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
+                                <img src={en_icon} alt="Icon" style={{ width: "25px", height: "25px", objectFit: "cover" }} />
                             </Link>
                         </div>
                     </div>
@@ -73,9 +79,9 @@ const Navbar = () => {
                                 <button onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"}>
                                     {
                                         darkMode ?
-                                            <img src="/img/icons/sun.png" alt="Sun" style={{ width: "20px", }} />
+                                            <img src={sun} alt="Sun" style={{ width: "20px", }} />
                                             :
-                                            <img src="/img/icons/moon.png" alt="Moon" style={{ width: "20px" }} />
+                                            <img src={moon} alt="Moon" style={{ width: "20px" }} />
                                     }
                                 </button>
                             </li>
