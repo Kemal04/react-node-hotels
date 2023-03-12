@@ -32,6 +32,7 @@ export const getAllBookings = createAsyncThunk(
 export const creatBooking = createAsyncThunk(
     "booking/create",
     async (booking) => {
+        console.log(booking);
         await axios.post(`${Api_Address}/api/booking/create`, booking, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),

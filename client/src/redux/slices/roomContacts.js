@@ -30,6 +30,16 @@ export const getAllRoomContacts = createAsyncThunk(
     }
 );
 
+export const getSingleRoomContacts = createAsyncThunk(
+    "roomContacts/single",
+    async ({ roomId }) => {
+        const { data } = await axios.get(`${Api_Address}/api/room/${roomId}`)
+        const roomContacts = data.roomContact;
+        // const pages = data.pagination.pages
+        return { roomContacts: roomContacts };
+    }
+);
+
 export const creatRoomContact = createAsyncThunk(
     "roomContact/create",
     async (contact) => {
@@ -92,6 +102,19 @@ const roomContactSlice = createSlice({
             state.pages = action.payload.pages
         })
         builder.addCase(getAllRoomContacts.rejected, (state, action) => {
+            state.isError = true
+        })
+
+
+        builder.addCase(getSingleRoomContacts.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(getSingleRoomContacts.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.roomContacts = action.payload.roomContacts
+            state.pages = action.payload.pages
+        })
+        builder.addCase(getSingleRoomContacts.rejected, (state, action) => {
             state.isError = true
         })
 
