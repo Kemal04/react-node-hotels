@@ -9,7 +9,7 @@ import BannerImg from '../../../components/banner/BannerImg';
 import { AuthContext } from '../../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { creatBooking } from '../../../redux/slices/bookings'
-import { creatRoomContact, getAllRoomContacts } from '../../../redux/slices/roomContacts';
+import { creatRoomContact, getAllRoomContacts, getSingleRoomContacts } from '../../../redux/slices/roomContacts';
 import ReactPaginate from 'react-paginate';
 
 import icon_air from "../../../assets/icons/air.png"
@@ -20,6 +20,11 @@ import icon_wifi from "../../../assets/icons/wifi.png"
 import icon_contact from "../../../assets/icons/contact.png"
 import user_icon from "../../../assets/icons/user-1.jpg"
 import Api_Address from '../../../env';
+import { DatePicker } from 'antd';
+import 'antd/dist/reset.css';
+import moment from "moment"
+
+const { RangePicker } = DatePicker;
 
 const RoomRead = () => {
 
@@ -42,12 +47,31 @@ const RoomRead = () => {
     const [room, setRoom] = useState("")
     const [roomType, setRoomType] = useState("")
     const [hotel, setHotel] = useState("")
+
+    const [fromdate, setFromdate] = useState()
+    const [todate, setTodate] = useState()
+    const [totalAmount, setTotalAmount] = useState()
+
+    const fromdateTotal = moment(fromdate, 'DD-MM-YYYY')
+    const todateTotal = moment(todate, 'DD-MM-YYYY')
+    const totalDay = moment.duration(todateTotal.diff(fromdateTotal)).asDays()
+
+    function filterDate(dates) {
+        setFromdate(moment(dates[0])._i.format("DD-MM-YYYY"))
+        setTodate(moment(dates[1])._i.format("DD-MM-YYYY"))
+    }
+
+    function disabledDate(){
+
+    }
+
     const [booking, setBooking] = useState({
         roomId: roomId,
         hotelId: "",
-        checkIn: "",
-        checkOut: "",
+        checkIn: fromdate,
+        checkOut: todate,
         phoneNum: "",
+        totalAmount: totalAmount,
     })
     const [contact, setContact] = useState({
         roomId: roomId,
@@ -71,12 +95,16 @@ const RoomRead = () => {
             setRoom(res.data.room)
             setRoomType(res.data.room.roomtype)
             setHotel(res.data.room.hotel)
+            setTotalAmount(totalDay * room.price)
             contact.hotelId = res.data.room.hotel.id
             booking.hotelId = res.data.room.hotel.id
+            booking.checkIn = fromdate
+            booking.checkOut = todate
+            booking.totalAmount = totalAmount
         }).catch((err) => {
             toast.error(err.message)
         })
-    }, [booking, contact, roomId]);
+    }, [booking, contact, fromdate, room.price, roomId, todate, totalAmount, totalDay]);
 
     const bookingRoom = async (e) => {
         e.preventDefault()
@@ -129,15 +157,9 @@ const RoomRead = () => {
 
     const { roomContacts, isLoading, isError, pages } = useSelector(state => state.roomContacts)
 
-    const [page, setPage] = useState(1)
-
-    const changePage = ({ selected }) => {
-        setPage(selected + 1)
-    }
-
     useEffect(() => {
-        dispatch(getAllRoomContacts(page))
-    }, [dispatch, page])
+        dispatch(getSingleRoomContacts({ roomId }))
+    }, [dispatch, roomId])
 
     return (
         <>
@@ -258,7 +280,7 @@ const RoomRead = () => {
                                         </div>
                                     ))
                                 }
-                                <nav className='col-xl-12 d-flex justify-content-center mt-5'>
+                                {/* <nav className='col-xl-12 d-flex justify-content-center mt-5'>
                                     <ReactPaginate
                                         previousLabel="< previous"
                                         nextLabel="next >"
@@ -271,7 +293,7 @@ const RoomRead = () => {
                                         activeLinkClassName={"page-link active"}
                                         disabledLinkClassName={"page-link disabled"}
                                     />
-                                </nav>
+                                </nav> */}
                             </div>
                         </div>
 
@@ -283,11 +305,8 @@ const RoomRead = () => {
                                     <div className='col-xl-12'>
                                         <label className="form-label mb-3">Giriş we Çykyş wagtlary</label>
                                         <div className='row g-0'>
-                                            <div className='col-xl-6 mb-3'>
-                                                <input onChange={handleChange} name='checkIn' type="date" className="form-control rounded-0 py-2 px-3" placeholder='Check In' />
-                                            </div>
-                                            <div className='col-xl-6 mb-3'>
-                                                <input onChange={handleChange} name='checkOut' type="date" className="form-control rounded-0 py-2 px-3" placeholder='Check Out' />
+                                            <div className='col-xl-12 mb-3'>
+                                                <RangePicker format="DD-MM-YYYY" onChange={filterDate} disabledDate={disabledDate} />
                                             </div>
                                         </div>
                                     </div>
@@ -300,10 +319,28 @@ const RoomRead = () => {
                                             <input onChange={handleChange} type="number" min="60000000" max="65999999" className="form-control" autoComplete='off' name="phoneNum" required />
                                         </div>
                                     </div>
-                                    <div className='col-xl-12 border-top mt-5 pt-3'>
+                                    <div className='col-xl-12 mb-2 border-top mt-5 pt-3'>
+                                        <div className='d-flex justify-content-between align-items-center'>
+                                            <div>Giris wagty</div>
+                                            <div className='font-italic'>{!fromdate ? "DD-MM-YYYY" : fromdate}</div>
+                                        </div>
+                                    </div>
+                                    <div className='col-xl-12 mb-2'>
+                                        <div className='d-flex justify-content-between align-items-center'>
+                                            <div>Cykys wagty</div>
+                                            <div className='font-italic'>{!todate ? "DD-MM-YYYY" : todate}</div>
+                                        </div>
+                                    </div>
+                                    <div className='col-xl-12 mb-2'>
+                                        <div className='d-flex justify-content-between align-items-center'>
+                                            <div>Planca gun</div>
+                                            <div className='font-italic'>{!totalDay ? "0" : totalDay}</div>
+                                        </div>
+                                    </div>
+                                    <div className='col-xl-12 border-top pt-3'>
                                         <div className='d-flex justify-content-between align-items-center'>
                                             <div className='h4'>Bahasy</div>
-                                            <div className='h3 text-blue'>{room.price} <small>TMT</small></div>
+                                            <div className='h3 text-blue'>{!totalAmount ? room.price : totalAmount} <small>TMT</small></div>
                                         </div>
                                     </div>
                                     <div className='col-xl-12 d-grid mt-5'>
