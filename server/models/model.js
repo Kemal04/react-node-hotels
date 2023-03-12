@@ -96,8 +96,11 @@ const Booking = sequelize.define("booking", {
     },
     checkIn: { type: DataTypes.DATE, allowNull: false },
     checkOut: { type: DataTypes.DATE, allowNull: false },
+    totalDays: { type: DataTypes.INTEGER, allowNull: false },
+    totalAmount: { type: DataTypes.INTEGER, allowNull: false },
     phoneNum: { type: DataTypes.INTEGER, allowNull: false },
-    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" }
+    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" },
+    status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Booked" }
 });
 
 const Banner = sequelize.define("banner", {

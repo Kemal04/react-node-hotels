@@ -70,6 +70,8 @@ module.exports.createBookingPost = async (req, res) => {
         checkIn: req.body.checkIn,
         checkOut: req.body.checkOut,
         phoneNum: req.body.phoneNum,
+        totalDays: req.body.totalDays,
+        totalAmount: req.body.totalAmount,
         hotelId: req.body.hotelId,
         roomId: req.body.roomId,
         userId: req.user.id
