@@ -56,15 +56,25 @@ const RoomRead = () => {
 
     const fromdateTotal = moment(fromdate, 'DD-MM-YYYY')
     const todateTotal = moment(todate, 'DD-MM-YYYY')
-    const totalDay = moment.duration(todateTotal.diff(fromdateTotal)).asDays()
+    const totalDays = moment.duration(todateTotal.diff(fromdateTotal)).asDays()
 
     function filterDate(dates) {
         setFromdate(moment(dates[0])._i.format("DD-MM-YYYY"))
         setTodate(moment(dates[1])._i.format("DD-MM-YYYY"))
     }
 
-    function disabledDate(){
+    const [currentBooking, setCurrentBooking] = useState([])
 
+    useEffect(() => {
+        axios.get(`${Api_Address}/api/booking/currentBooking`).then((res) => {
+            setCurrentBooking(res.data.currentBooking)
+        }).catch((err) => {
+            toast.error(err.message)
+        })
+    }, []);
+
+    function disabledDate(current) {
+        
     }
 
     //BOOKING
@@ -73,17 +83,17 @@ const RoomRead = () => {
         hotelId: "",
         checkIn: fromdate,
         checkOut: todate,
-        phoneNum: "",
+        totalDays: totalDays,
         totalAmount: totalAmount,
-    }) 
-    
+        phoneNum: "",
+    })
+
     const handleChange = (e) => {
         setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
 
     //CONTACT
-
     const { roomContacts } = useSelector(state => state.roomContacts)
 
     useEffect(() => {
@@ -98,7 +108,7 @@ const RoomRead = () => {
         subject: "",
         comment: "",
     })
-    
+
     const changeContact = (e) => {
         setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -109,16 +119,17 @@ const RoomRead = () => {
             setRoom(res.data.room)
             setRoomType(res.data.room.roomtype)
             setHotel(res.data.room.hotel)
-            setTotalAmount(totalDay * room.price)
+            setTotalAmount(totalDays * room.price)
             contact.hotelId = res.data.room.hotel.id
             booking.hotelId = res.data.room.hotel.id
             booking.checkIn = fromdate
             booking.checkOut = todate
             booking.totalAmount = totalAmount
+            booking.totalDays = totalDays
         }).catch((err) => {
             toast.error(err.message)
         })
-    }, [booking, contact, fromdate, room.price, roomId, todate, totalAmount, totalDay]);
+    }, [booking, contact, fromdate, room.price, roomId, todate, totalAmount, totalDays]);
 
     const bookingRoom = async (e) => {
         e.preventDefault()
@@ -288,7 +299,7 @@ const RoomRead = () => {
                                             </div>
                                         </div>
                                     ))
-                                }   
+                                }
                             </div>
                         </div>
 
@@ -329,7 +340,7 @@ const RoomRead = () => {
                                     <div className='col-xl-12 mb-2'>
                                         <div className='d-flex justify-content-between align-items-center'>
                                             <div>Planca gun</div>
-                                            <div className='font-italic'>{!totalDay ? "0" : totalDay}</div>
+                                            <div className='font-italic'>{!totalDays ? "0" : totalDays}</div>
                                         </div>
                                     </div>
                                     <div className='col-xl-12 border-top pt-3'>

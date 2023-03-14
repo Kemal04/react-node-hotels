@@ -1,13 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Api_Address from '../../../env';
 
 const AdminBannerEdit = () => {
 
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation();
     const bannerId = location.pathname.split("/")[3];

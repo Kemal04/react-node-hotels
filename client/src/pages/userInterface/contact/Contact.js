@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { creatContact } from '../../../redux/slices/contact'
-import { ReCAPTCHA } from 'react-google-recaptcha'
 import RecaptchaWrapper from 'react-google-recaptcha/lib/recaptcha-wrapper'
 
 import phone from "../../../assets/icons/loc.svg"
