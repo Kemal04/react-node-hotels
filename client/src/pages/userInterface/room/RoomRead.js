@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { ThemeContext } from '../../../context/ThemeContext';
@@ -9,9 +9,7 @@ import BannerImg from '../../../components/banner/BannerImg';
 import { AuthContext } from '../../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { creatBooking } from '../../../redux/slices/bookings'
-import { creatRoomContact, getAllRoomContacts, getSingleRoomContacts } from '../../../redux/slices/roomContacts';
-import ReactPaginate from 'react-paginate';
-
+import { creatRoomContact, getSingleRoomContacts } from '../../../redux/slices/roomContacts';
 import icon_air from "../../../assets/icons/air.png"
 import icon_drinks from "../../../assets/icons/drinks.png"
 import icon_plate from "../../../assets/icons/plate.png"
@@ -36,18 +34,22 @@ const RoomRead = () => {
         autoplay: true,
     };
 
+    //CONTEXT
     const { authState } = useContext(AuthContext)
     const { darkMode } = useContext(ThemeContext)
 
+    //CONST'S
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation();
     const roomId = location.pathname.split("/")[2];
 
+    //STATE'S
     const [room, setRoom] = useState("")
     const [roomType, setRoomType] = useState("")
     const [hotel, setHotel] = useState("")
 
+    //DATE
     const [fromdate, setFromdate] = useState()
     const [todate, setTodate] = useState()
     const [totalAmount, setTotalAmount] = useState()
@@ -65,6 +67,7 @@ const RoomRead = () => {
 
     }
 
+    //BOOKING
     const [booking, setBooking] = useState({
         roomId: roomId,
         hotelId: "",
@@ -72,7 +75,21 @@ const RoomRead = () => {
         checkOut: todate,
         phoneNum: "",
         totalAmount: totalAmount,
-    })
+    }) 
+    
+    const handleChange = (e) => {
+        setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+
+    //CONTACT
+
+    const { roomContacts } = useSelector(state => state.roomContacts)
+
+    useEffect(() => {
+        dispatch(getSingleRoomContacts({ roomId }))
+    }, [dispatch, roomId])
+
     const [contact, setContact] = useState({
         roomId: roomId,
         hotelId: "",
@@ -81,15 +98,12 @@ const RoomRead = () => {
         subject: "",
         comment: "",
     })
-
-    const handleChange = (e) => {
-        setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    }
-
+    
     const changeContact = (e) => {
         setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
+    //BOOKING
     useEffect(() => {
         axios.get(`${Api_Address}/api/room/${roomId}`).then((res) => {
             setRoom(res.data.room)
@@ -130,6 +144,7 @@ const RoomRead = () => {
         }
     }
 
+    //CONTACT
     const clickContact = async (e) => {
         e.preventDefault()
 
@@ -155,12 +170,6 @@ const RoomRead = () => {
         }
     }
 
-    const { roomContacts, isLoading, isError, pages } = useSelector(state => state.roomContacts)
-
-    useEffect(() => {
-        dispatch(getSingleRoomContacts({ roomId }))
-    }, [dispatch, roomId])
-
     return (
         <>
             <BannerImg name={`№ ${room.roomNum} Otag`} />
@@ -177,7 +186,7 @@ const RoomRead = () => {
                             </Splide>
                             <div className='row border p-4' style={{ fontWeight: "500" }}>
                                 <div className='col-xl-3 col-6 mt-3 d-flex flex-column align-items-center border-end'>
-                                    <div style={{ color: "#afb4bf" }}>Tutýan meýdany :</div>
+                                    <div style={{ color: "#afb4bf" }}>Tutýan meýdan :</div>
                                     <div>{room.size}m<sup>2</sup></div>
                                 </div>
                                 <div className='col-xl-3 col-6 mt-3 d-flex flex-column align-items-center border-end'>
@@ -199,7 +208,7 @@ const RoomRead = () => {
                                     {room.description}
                                 </div>
                             </div>
-                            <div className='row my-5 align-items-center'>
+                            <div className='row my-5 align-items-center p-2'>
                                 <div className='col-xl-12 p-0 h4'>
                                     Otag Hyzmatlary
                                 </div>
@@ -228,7 +237,7 @@ const RoomRead = () => {
                                     <div>Habarlaşmak 7/24</div>
                                 </div>
                             </div>
-                            <form className='row justify-content-between my-5'>
+                            <form className='row justify-content-between my-5 p-2'>
                                 <div className='col-xl-12 p-0 h4'>
                                     Otag barada teswir ugrat
                                 </div>
@@ -260,12 +269,12 @@ const RoomRead = () => {
                                 </div>
                                 {
                                     roomContacts.map((contact, index) => (
-                                        <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start text-center' key={index}>
+                                        <div className='col-xl-12 p-0 mt-5 text-xl-start text-lg-start text-md-start' key={index}>
                                             <div className='row align-items-center justify-content-center'>
-                                                <div className='col-xl-2 col-12 border-end'>
+                                                <div className='col-xl-2 col-4 border-end'>
                                                     <img src={user_icon} alt="User" className='rounded-circle' style={{ width: "100px" }} />
                                                 </div>
-                                                <div className='col-xl-10 col-12 mt-2'>
+                                                <div className='col-xl-10 col-8 mt-2'>
                                                     <div className='row justify-content-between align-items-center'>
                                                         <div className='col-xl-3 col-12'>
                                                             <div className='mb-3 small text-secondary'>{new Date(contact.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</div>
@@ -279,21 +288,7 @@ const RoomRead = () => {
                                             </div>
                                         </div>
                                     ))
-                                }
-                                {/* <nav className='col-xl-12 d-flex justify-content-center mt-5'>
-                                    <ReactPaginate
-                                        previousLabel="< previous"
-                                        nextLabel="next >"
-                                        pageCount={pages}
-                                        onPageChange={changePage}
-                                        containerClassName={"pagination"}
-                                        pageLinkClassName={"page-link"}
-                                        previousLinkClassName={"page-link"}
-                                        nextLinkClassName={"page-link"}
-                                        activeLinkClassName={"page-link active"}
-                                        disabledLinkClassName={"page-link disabled"}
-                                    />
-                                </nav> */}
+                                }   
                             </div>
                         </div>
 
