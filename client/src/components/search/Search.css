@@ -33,5 +33,5 @@
 
 .search:focus,
 .search:not(:placeholder-shown) {
-    width: 250px;
+    width: 200px;
 }

@@ -10,6 +10,8 @@ import { getAllHotels } from '../../../redux/slices/hotels'
 import EmptyRoom from '../../../components/emptyRoom/EmptyRoom'
 import ReactPaginate from 'react-paginate'
 import Api_Address from '../../../env'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
 const Rooms = () => {
 
@@ -107,7 +109,34 @@ const Rooms = () => {
             <div className={darkMode ? "bg-dark text-white" : "bg-white text-dark"}>
                 <div className='container py-5'>
                     <div className='row align-items-start justify-content-center'>
-                        <div className='col-xl-2'>
+
+                        {/* OFFCANVAS  */}
+                        <div className="offcanvas offcanvas-start" style={{ width: "250px" }} data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions1" aria-labelledby="offcanvasWithBothOptionsLabel1">
+                            <div className="offcanvas-header flex-column align-items-start p-0">
+                                <div className='d-flex align-items-center justify-content-between p-3'>
+                                    <h5 className="offcanvas-title me-5 pe-5" id="offcanvasWithBothOptionsLabel1">Logo</h5>
+                                    <button type="button" className="btn-close ms-4" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div className="d-flex flex-column mt-3 ">
+                                    <Filter
+                                        filterItem={filterItem}
+                                        roomType={roomType}
+                                        rooms={rooms}
+                                        setRoom={setRoom}
+
+                                        hotel={hotel}
+                                        filterHotel={filterHotel}
+
+                                        capacity={capacity}
+                                        filterCapacity={filterCapacity}
+                                    />
+
+                                </div>
+                            </div>
+                        </div>
+                        {/* /OFFCANVAS  */}
+
+                        <div className='col-xl-2 col-lg-2 col-md-2 col-12 d-xl-block d-lg-block d-md-block d-none'>
                             <Filter
                                 filterItem={filterItem}
                                 roomType={roomType}
@@ -122,10 +151,18 @@ const Rooms = () => {
                             />
                         </div>
 
-                        <div className='col-xl-8 mb-3'>
-                            <div className='row justify-content-end text-end mt-4'>
-                                <div className='col-xl-3'>
-                                    <label htmlFor="exampleFormControlInput1" className="form-label">Sort</label>
+                        <div className='col-xl-8 col-lg-8 col-md-8 col-12 mb-3'>
+                            <div className='row justify-content-end text-end mt-4 align-items-center'>
+
+                                {/* OFFCANVAS  */}
+                                <div className='col-2 d-xl-none d-lg-none d-md-none d-inline-block mt-2'>
+                                    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions1" aria-controls="offcanvasWithBothOptions1">
+                                        <FontAwesomeIcon icon={faFilter} className="border px-3 py-2" />
+                                    </button>
+                                </div>
+                                {/* /OFFCANVAS  */}
+
+                                <div className='col-xl-3 col-10'>
                                     <select className="form-select rounded-0" onChange={onSelectionChange}>
                                         <option value="asc">Koneler</option>
                                         <option value="desc">Tazeler</option>
