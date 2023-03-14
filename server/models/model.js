@@ -103,6 +103,19 @@ const Booking = sequelize.define("booking", {
     status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Booked" }
 });
 
+const CurrentBooking = sequelize.define("currentbooking", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    checkIn: { type: DataTypes.DATE, allowNull: false },
+    checkOut: { type: DataTypes.DATE, allowNull: false },
+    check: { type: DataTypes.TINYINT, allowNull: false, defaultValue: "0" },
+    status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Booked" }
+});
+
+
 const Banner = sequelize.define("banner", {
     id: {
         type: DataTypes.INTEGER,
@@ -156,7 +169,8 @@ RoomContact.belongsTo(Room);
 Hotel.hasMany(RoomContact, { onDelete: "cascade" });
 RoomContact.belongsTo(Hotel);
 
-
+Booking.hasMany(CurrentBooking, { onDelete: "cascade" });
+CurrentBooking.belongsTo(Booking);
 
 module.exports = {
     User,
@@ -167,5 +181,6 @@ module.exports = {
     Contact,
     Booking,
     Banner,
-    RoomContact
+    RoomContact,
+    CurrentBooking
 };
