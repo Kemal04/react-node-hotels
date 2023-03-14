@@ -11,7 +11,7 @@ const AdminHotels = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { hotels, isLoading, isError, pages } = useSelector(state => state.hotels)
+    const { hotels, isLoading, isError } = useSelector(state => state.hotels)
 
     const pageCount = Math.ceil(hotels.length / 10);
 

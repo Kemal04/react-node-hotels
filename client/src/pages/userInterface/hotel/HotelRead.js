@@ -18,7 +18,7 @@ const HotelRead = () => {
     useEffect(() => {
         axios.get(`${Api_Address}/api/hotel/${hotelId}`)
             .then((res) => {
-                setHotel(res.data.hotel)
+                setHotel(res.data.hotel.name)
                 setRooms(res.data.rooms)
             })
     }, [hotelId])
@@ -27,7 +27,7 @@ const HotelRead = () => {
     return (
         <>
 
-            <BannerImg name={`Otel`} />
+            <BannerImg name={`${hotel} Otel`} />
             <div className={darkMode ? "bg-dark text-white" : "bg-white text-dark"}>
                 <div className='container py-5'>
                     <div className='row'>

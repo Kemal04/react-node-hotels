@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBanners } from '../../redux/slices/banner';
 import Api_Address from '../../env';
@@ -16,10 +16,9 @@ const BannerSlider = () => {
         autoplay: false,
     };
 
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { banners, isLoading, isError } = useSelector(state => state.banner)
+    const { banners } = useSelector(state => state.banner)
 
     useEffect(() => {
         dispatch(getAllBanners())

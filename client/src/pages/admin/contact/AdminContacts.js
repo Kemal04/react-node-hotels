@@ -11,7 +11,7 @@ const AdminContact = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { contacts, isLoading, isError, pages } = useSelector(state => state.contacts)
+    const { contacts, isLoading, isError } = useSelector(state => state.contacts)
 
     const pageCount = Math.ceil(contacts.length / 10);
 

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBooking, getAllBookings } from '../../../redux/slices/bookings'
+import { getAllBookings } from '../../../redux/slices/bookings'
 import ReactPaginate from 'react-paginate';
 
 const AdminBooking = () => {
 
-    const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const { bookings, isLoading, isError, pages } = useSelector(state => state.bookings)
-    
+    const { bookings, isLoading, isError } = useSelector(state => state.bookings)
+
     const pageCount = Math.ceil(bookings.length / 10);
 
     const [page, setPage] = useState(1)
@@ -21,7 +19,7 @@ const AdminBooking = () => {
 
     useEffect(() => {
         dispatch(getAllBookings(page))
-    }, [dispatch,page])
+    }, [dispatch, page])
 
     return (
         <>

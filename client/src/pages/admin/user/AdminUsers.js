@@ -11,7 +11,7 @@ const AdminUsers = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { users, isLoading, isError, pages } = useSelector(state => state.users)
+    const { users, isLoading, isError } = useSelector(state => state.users)
 
     const pageCount = Math.ceil(users.length / 10);
 
