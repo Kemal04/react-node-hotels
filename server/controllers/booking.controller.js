@@ -1,4 +1,4 @@
-const { Booking, Room, User, Hotel } = require("../models/model");
+const { Booking, Room, User, Hotel, CurrentBooking } = require("../models/model");
 
 module.exports.AllBookingGet = async (req, res) => {
     const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -28,6 +28,17 @@ module.exports.AllBookingGet = async (req, res) => {
         })
     }).catch((err) => {
         res.status(500).json(err);
+    })
+}
+
+module.exports.currentBookingGet = async (req, res) => {
+    await CurrentBooking.findAll({
+        where: {status: "Booked"}
+    }).then((currentBooking) => {
+        console.log(currentBooking)
+        res.json({
+            currentBooking: currentBooking
+        })
     })
 }
 
@@ -76,8 +87,15 @@ module.exports.createBookingPost = async (req, res) => {
         roomId: req.body.roomId,
         userId: req.user.id
     })
-        .then(() => {
-            res.json({ success: "Otag üstünlikli bronlandy" });
+        .then((booking) => {
+            CurrentBooking.create({
+                checkIn: req.body.checkIn,
+                checkOut: req.body.checkOut,
+                bookingId: booking.id
+            })
+                .then(() => {
+                    res.json({ success: "Otag üstünlikli bronlandy" });
+                })
         })
         .catch((err) => {
             res.status(500).json(err);
