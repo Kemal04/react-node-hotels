@@ -73,9 +73,34 @@ const RoomRead = () => {
         })
     }, []);
 
-    function disabledDate(current) {
+    const [start, setStart] = useState("")
+    const [end, setEnd] = useState("")
+
+    useEffect(()=>{
+        const checkIn = currentBooking.map((newVal) => newVal.checkIn);
+        setStart(checkIn[0]);
         
-    }
+        const checkOut = currentBooking.map((newVal) => newVal.checkOut);
+        setEnd(checkOut[0]);
+    },[currentBooking])
+
+
+    const disabledDate = (current) => {
+
+        const startDis = moment(start)
+        const endDis = moment(end)
+
+        if (current < startDis) {
+            return false;
+        }
+        else if (current > endDis) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    };
 
     //BOOKING
     const [booking, setBooking] = useState({
