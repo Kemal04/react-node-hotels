@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className="container">
                     <div className="footer-text">
                         <div className="row justify-content-between align-items-center">
-                            <div className="col-lg-4">
+                            <div className="col-lg-4 col-md-4 col-12 text-lg-start text-md-start text-center mb-5">
                                 <div className="ft-about">
                                     <div className="mb-2">
                                         <Link to="/" className={`text-decoration-none text-white`}>
@@ -21,7 +21,7 @@ const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-4 ">
+                            <div className="col-lg-4  col-md-4 col-12 text-lg-start text-md-start text-center mb-5">
                                 <div className="ft-newslatter">
                                     <h6 className='mb-4'>Salgylar</h6>
                                     <p>Baş Sahypa</p>
@@ -30,7 +30,7 @@ const Footer = () => {
                                     <p>Habarlaşmak</p>
                                 </div>
                             </div>
-                            <div className="col-lg-4 ">
+                            <div className="col-lg-4 col-md-4 col-12 text-lg-start text-md-start text-center mb-5 ">
                                 <div className="ft-contact">
                                     <h6>Habarlaşmak</h6>
                                     <ul className='p-0 mt-4'>

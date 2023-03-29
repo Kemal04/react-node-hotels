@@ -60,7 +60,7 @@ const Navbar = () => {
                 <div className="container">
 
                     {/* LOGO */}
-                    <Link to="/" className="navbar-brand">Logo</Link>
+                    <Link to="/" className="navbar-brand ps-2">Logo</Link>
 
                     {/* RESPONSOVE BUTTON */}
                     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
@@ -83,14 +83,14 @@ const Navbar = () => {
                                 <NavLink to="/habarlasmak" className="nav-link fw-bold">Habarlaşmak</NavLink>
                             </li>
                             <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                <button onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"}>
+                                <div onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"} style={{ cursor: "pointer" }}>
                                     {
                                         darkMode ?
                                             <img src={sun} alt="Sun" style={{ width: "20px", }} />
                                             :
                                             <img src={moon} alt="Moon" style={{ width: "20px" }} />
                                     }
-                                </button>
+                                </div>
                             </li>
                             <li className="nav-item mx-xl-2 pe-3 pt-1 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
                                 <Search />
@@ -126,77 +126,78 @@ const Navbar = () => {
                         </form>
                     </div>
 
-                    {/* SIDEBAR */}
-                    <div className="offcanvas offcanvas-start" style={{ width: "250px" }} data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                        <div className="offcanvas-header flex-column align-items-start p-0">
-
-                            <div className='d-flex align-items-center justify-content-between p-3'>
-                                <h5 className="offcanvas-title me-5 pe-5" id="offcanvasWithBothOptionsLabel">Logo</h5>
-                                <button type="button" className="btn-close ms-4" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-
-                            <div className="d-flex flex-column mt-3">
-                                <ul className="navbar-nav p-3">
-                                    <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                        <NavLink style={({ isActive }) => ({ color: isActive ? "active" : null })} to="/" className="nav-link fw-bold">Baş sahypa</NavLink>
-                                    </li>
-                                    <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                        <NavLink to="/otaglar" className="nav-link fw-bold">Otaglar</NavLink>
-                                    </li>
-                                    <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                        <NavLink to="/biz-barada" className="nav-link fw-bold">Biz barada</NavLink>
-                                    </li>
-                                    <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                        <NavLink to="/habarlasmak" className="nav-link fw-bold">Habarlaşmak</NavLink>
-                                    </li>
-                                    <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                        <button onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"}>
-                                            {
-                                                darkMode ?
-                                                    <img src={sun} alt="Sun" style={{ width: "20px", }} />
-                                                    :
-                                                    <img src={moon} alt="Moon" style={{ width: "20px" }} />
-                                            }
-                                        </button>
-                                    </li>
-                                    <li className="nav-item mx-xl-2 pe-3 pt-1 mx-lg-2 mx-md-2 mx-sm-0 mx-0 mb-4" style={{ fontSize: "17px" }}>
-                                        <Search />
-                                    </li>
-                                </ul>
-                                <form className="d-flex position-absolute bottom-0 justify-content-center">
-                                    {
-                                        !authState.status
-                                            ?
-                                            <Link to="/giris-etmek" className="btn btn-primary py-4 fw-bold" style={{ letterSpacing: "1px", paddingLeft: "102px", paddingRight: "103px" }} type="submit">Giriş</Link>
-                                            :
-                                            <div className="navbar-nav ms-5">
-                                                <li className="nav-item dropdown">
-                                                    <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ letterSpacing: "1px" }}>
-                                                        Şahsy Otag
-                                                    </div>
-                                                    <ul className="dropdown-menu rounded-0">
-                                                        {
-                                                            authState.role === "Admin" && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
-                                                        }
-                                                        {
-                                                            authState.role === "Hotel" && <li><NavLink to="/hotel" className="dropdown-item bg-white text-black">Hotel</NavLink></li>
-                                                        }
-                                                        {
-                                                            authState.role === "User" && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>
-                                                        }
-                                                        <li><hr className="dropdown-divider" /></li>
-                                                        <li><button onClick={logout} className="dropdown-item bg-white text-black">Ulgamdan çyk</button></li>
-                                                    </ul>
-                                                </li>
-                                            </div>
-                                    }
-                                </form>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </nav>
+
+            {/* SIDEBAR */}
+            <div className={darkMode ? `offcanvas offcanvas-start bg-dark` : `offcanvas offcanvas-start bg-white`} style={{ width: "250px" }} data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div className="offcanvas-header flex-column align-items-start p-0">
+
+                    <div className='d-flex align-items-center justify-content-between p-3'>
+                        <h5 className="offcanvas-title me-5 pe-5" id="offcanvasWithBothOptionsLabel">Logo</h5>
+                        <button type="button" className={`btn-close ms-4`} data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <div className="d-flex flex-column mt-3">
+                        <ul className="navbar-nav p-3">
+                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <NavLink style={({ isActive }) => ({ color: isActive ? "active" : null })} to="/" className="nav-link fw-bold">Baş sahypa</NavLink>
+                            </li>
+                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <NavLink to="/otaglar" className="nav-link fw-bold">Otaglar</NavLink>
+                            </li>
+                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <NavLink to="/biz-barada" className="nav-link fw-bold">Biz barada</NavLink>
+                            </li>
+                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <NavLink to="/habarlasmak" className="nav-link fw-bold">Habarlaşmak</NavLink>
+                            </li>
+                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <div style={{ cursor: "pointer" }} onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"}>
+                                    {
+                                        darkMode ?
+                                            <img src={sun} alt="Sun" style={{ width: "20px", }} />
+                                            :
+                                            <img src={moon} alt="Moon" style={{ width: "20px" }} />
+                                    }
+                                </div>
+                            </li>
+                            <li className="nav-item mx-xl-2 pe-3 pt-1 mx-lg-2 mx-md-2 mx-sm-0 mx-0 mb-4" style={{ fontSize: "17px" }}>
+                                <Search />
+                            </li>
+                        </ul>
+                        <form className="d-flex position-absolute bottom-0 justify-content-center">
+                            {
+                                !authState.status
+                                    ?
+                                    <Link to="/giris-etmek" className="btn btn-primary py-4 fw-bold" style={{ letterSpacing: "1px", paddingLeft: "102px", paddingRight: "103px" }} type="submit">Giriş</Link>
+                                    :
+                                    <div className="navbar-nav ms-5">
+                                        <li className="nav-item dropdown">
+                                            <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ letterSpacing: "1px" }}>
+                                                Şahsy Otag
+                                            </div>
+                                            <ul className="dropdown-menu rounded-0">
+                                                {
+                                                    authState.role === "Admin" && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
+                                                }
+                                                {
+                                                    authState.role === "Hotel" && <li><NavLink to="/hotel" className="dropdown-item bg-white text-black">Hotel</NavLink></li>
+                                                }
+                                                {
+                                                    authState.role === "User" && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>
+                                                }
+                                                <li><hr className="dropdown-divider" /></li>
+                                                <li><button onClick={logout} className="dropdown-item bg-white text-black">Ulgamdan çyk</button></li>
+                                            </ul>
+                                        </li>
+                                    </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

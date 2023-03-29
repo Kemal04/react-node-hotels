@@ -35,6 +35,7 @@ const Rooms = () => {
         setRoom(rooms);
     }, [rooms]);
 
+    const pageCount = Math.ceil(rooms.length / 10) + 1;
 
     //ROOMTYPES
     const { roomTypes } = useSelector(state => state.roomTypes)
@@ -117,7 +118,7 @@ const Rooms = () => {
                                     <h5 className="offcanvas-title me-5 pe-5" id="offcanvasWithBothOptionsLabel1">Logo</h5>
                                     <button type="button" className="btn-close ms-4" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
-                                <div className="d-flex flex-column mt-3 ">
+                                <div className="d-flex flex-column mt-3">
                                     <Filter
                                         filterItem={filterItem}
                                         roomType={roomType}
@@ -130,7 +131,6 @@ const Rooms = () => {
                                         capacity={capacity}
                                         filterCapacity={filterCapacity}
                                     />
-
                                 </div>
                             </div>
                         </div>
@@ -218,20 +218,26 @@ const Rooms = () => {
                                     :
                                     <EmptyRoom />
                                 }
-                                <nav className='col-xl-12 d-flex justify-content-center mt-5'>
-                                    <ReactPaginate
-                                        previousLabel="< previous"
-                                        nextLabel="next >"
-                                        pageCount={pages}
-                                        onPageChange={changePage}
-                                        containerClassName={"pagination"}
-                                        pageLinkClassName={"page-link"}
-                                        previousLinkClassName={"page-link"}
-                                        nextLinkClassName={"page-link"}
-                                        activeLinkClassName={"page-link active"}
-                                        disabledLinkClassName={"page-link disabled"}
-                                    />
-                                </nav>
+                                {
+                                    pages === 1
+                                        ?
+                                        null
+                                        :
+                                        <nav className='col-xl-12 d-flex justify-content-center mt-5'>
+                                            <ReactPaginate
+                                                previousLabel="< yza"
+                                                nextLabel="öňe >"
+                                                pageCount={pageCount}
+                                                onPageChange={changePage}
+                                                containerClassName={"pagination"}
+                                                pageLinkClassName={"page-link"}
+                                                previousLinkClassName={"page-link"}
+                                                nextLinkClassName={"page-link"}
+                                                activeLinkClassName={"page-link active"}
+                                                disabledLinkClassName={"page-link disabled"}
+                                            />
+                                        </nav>
+                                }
                             </div>
                         </div>
                     </div>

@@ -17,6 +17,7 @@ import icon_tv from "../../../assets/icons/tv.png"
 import icon_wifi from "../../../assets/icons/wifi.png"
 import icon_contact from "../../../assets/icons/contact.png"
 import user_icon from "../../../assets/icons/user-1.jpg"
+import room_img from '../../../assets/cards/room/1.jpg'
 import Api_Address from '../../../env';
 import { DatePicker } from 'antd';
 import 'antd/dist/reset.css';
@@ -76,13 +77,13 @@ const RoomRead = () => {
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")
 
-    useEffect(()=>{
+    useEffect(() => {
         const checkIn = currentBooking.map((newVal) => newVal.checkIn);
         setStart(checkIn[0]);
-        
+
         const checkOut = currentBooking.map((newVal) => newVal.checkOut);
         setEnd(checkOut[0]);
-    },[currentBooking])
+    }, [currentBooking])
 
 
     const disabledDate = (current) => {
@@ -216,7 +217,7 @@ const RoomRead = () => {
                             <Splide options={option} hasTrack={false} className="mb-5">
                                 <SplideTrack className='row'>
                                     <SplideSlide className='col-xl-12'>
-                                        <img src={room.img ? `${Api_Address}/img/${room.img}` : '/img/cards/room/1.jpg'} alt="" className='img-fluid w-100' style={{ height: "500px", objectFit: "cover" }} />
+                                        <img src={room.img === undefined ? room_img : `${Api_Address}/img/${room.img}`} alt="otag suraty yuklenyar" className='img-fluid w-100' style={{ height: "500px", objectFit: "cover" }} />
                                     </SplideSlide>
                                 </SplideTrack>
                             </Splide>
@@ -329,7 +330,7 @@ const RoomRead = () => {
                         </div>
 
 
-                        <div className='col-xl-4 col-12'>
+                        <div className={`col-xl-4 col-12 ${darkMode ? "text-dark" : "text-white"}`}>
                             <div className='card p-5 rounded-0'>
                                 <div className='h4 mb-5 text-center'>Bronlamak</div>
                                 <div className='row'>
