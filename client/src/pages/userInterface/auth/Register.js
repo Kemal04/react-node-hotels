@@ -65,12 +65,12 @@ const Register = () => {
     }
 
     return (
-        <div style={{ height: "88vh" }} className={`d-flex align-items-center ${darkMode ? 'bg-dark text-white' : 'bg-white'}`}>
+        <div className={`d-flex align-items-center ${darkMode ? 'bg-dark text-white' : 'bg-white'}`}>
             <div className='container'>
-                <div className='row align-items-center justify-content-around'>
+                <div className='row align-items-center justify-content-around mt-5'>
 
-                    <div className='col-lg-4'>
-                        <form onSubmit={registerUser} className={`card p-4 shadow border-0 ${darkMode ? 'bg-dark text-white' : 'bg-white'}`}>
+                    <div className='col-xl-4 col-lg-6 col-md-6 col-12 my-5'>
+                        <form onSubmit={registerUser} className={`card p-4 shadow border-0 ${darkMode ? 'bg-white text-dark' : 'bg-white'}`}>
 
                             <div className="mb-5 h2 text-center">
                                 Agza Bolmak
@@ -106,7 +106,7 @@ const Register = () => {
                         </form>
                     </div>
 
-                    <div className='col-lg-6'>
+                    <div className='col-xl-6 col-lg-6 col-md-6 col-12 my-5'>
                         <img alt='' src={register} className="img-fluid" />
                     </div>
 
