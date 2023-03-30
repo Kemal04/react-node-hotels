@@ -64,7 +64,7 @@ const Search = () => {
                 <div className='position-absolute shadow w-100 text-white' style={{ zIndex: "1", backgroundColor: "rgb(14, 39, 55)" }}>
                     {
                         result.map((res, index) => (
-                            <Link to={`/hotel/${res.id}`} className='p-3 d-block text-center text-white text-decoration-none' key={index}>
+                            <Link to={`/myhmanhanalar/${res.id}`} className='p-3 d-block text-center text-white text-decoration-none' key={index}>
                                 {res.name}
                             </Link>
                         ))

@@ -23,7 +23,7 @@ const Hotel = () => {
                     <div className='w-75'>
                         <div className={`card border-0 px-5 bg-white shadow mt-5 pt-5 mb-5 pb-4`}>
                             <div className='d-flex justify-content-center'>
-                                <img src={`${Api_Address}/img/${user.img}`} alt="" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
+                                <img src={user.img ? `${Api_Address}/img/${user.img}` : null} alt="foto" className='rounded' style={{ width: "150px", marginTop: "-70px" }} />
                             </div>
                             <div className='mt-4 h2 text-center'>
                                 {user.name}
@@ -71,7 +71,7 @@ const Hotel = () => {
                                         </div>
                                         <div className="row mt-5">
                                             <div className="col-sm-12 d-grid">
-                                                <Link to={`/hotel-uytget/${user.id}`} className="btn btn-primary">Maglumatlary düzeltmek</Link>
+                                                <Link to={`/myhmanhana-uytget/${user.id}`} className="btn btn-primary">Maglumatlary düzeltmek</Link>
                                             </div>
                                         </div>
                                     </div>

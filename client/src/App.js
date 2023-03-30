@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import { Navbar, Footer, AdminNavbar, AdminSidebar, HotelNavbar, HotelSidebar, ProfileNavbar } from "./components"
 
 //USERINTERFACE
-import { About, Contact, Home, Rooms, RoomRead, Register, Login, HotelRead } from "./pages/userInterface"
+import { About, Contact, Home, Rooms, RoomRead, Register, Login, HotelRead, Hotels } from "./pages/userInterface"
 
 //ADMIN
 import { Admin, AdminBannerCreate, AdminBannerEdit, AdminBanners, AdminBooking, AdminContactEdit, AdminContacts, AdminHotelEdit, AdminHotels, AdminHotelsCreate, AdminLogin, AdminRooms, AdminRoomTypeCreate, AdminRoomTypeEdit, AdminRoomTypes, AdminUsers } from "./pages/admin"
@@ -69,16 +69,18 @@ const App = () => {
                         <ToastContainer />
                         <ScrollToTop />
                         <Routes>
-
+                        
                             <Route path="/" element={<WithNavbar />}>
                                 <Route path='/' element={<Home />}></Route>
                                 <Route path='/biz-barada' element={<About />}></Route>
                                 <Route path='/habarlasmak' element={<Contact />}></Route>
 
+                                <Route path='/myhmanhanalar' element={<Hotels />}></Route>
+
                                 <Route path='/otaglar' element={<Rooms />}></Route>
                                 <Route path='/otag/:id' element={<RoomRead />}></Route>
 
-                                <Route path='/hotel/:id' element={<HotelRead />}></Route>
+                                <Route path='/myhmanhana/:id' element={<HotelRead />}></Route>
 
                                 {
                                     !authState.status && (
@@ -101,9 +103,9 @@ const App = () => {
                                             <Route path='/admin/teswirler' element={<AdminContacts />}></Route>
                                             <Route path='/admin/teswir-uytgetmek/:id' element={<AdminContactEdit />}></Route>
 
-                                            <Route path='/admin/hotellar' element={<AdminHotels />}></Route>
-                                            <Route path='/admin/hotel-gosmak' element={<AdminHotelsCreate />}></Route>
-                                            <Route path='/admin/hotel-uytgetmek/:id' element={<AdminHotelEdit />}></Route>
+                                            <Route path='/admin/myhmanhanalar' element={<AdminHotels />}></Route>
+                                            <Route path='/admin/myhmanhana-gosmak' element={<AdminHotelsCreate />}></Route>
+                                            <Route path='/admin/myhmanhana-uytgetmek/:id' element={<AdminHotelEdit />}></Route>
 
                                             <Route path='/admin/bannerler' element={<AdminBanners />}></Route>
                                             <Route path='/admin/banner-gosmak' element={<AdminBannerCreate />}></Route>
@@ -125,18 +127,18 @@ const App = () => {
                                 {
                                     authState.role === "Hotel" && (
                                         <>
-                                            <Route path='/hotel' element={<Hotel />}></Route>
-                                            <Route path='/hotel-uytget/:id' element={<HotelEdit />}></Route>
+                                            <Route path='/myhmanhana' element={<Hotel />}></Route>
+                                            <Route path='/myhmanhana-uytget/:id' element={<HotelEdit />}></Route>
 
-                                            <Route path='/hotel/otaglar' element={<HotelRooms />}></Route>
-                                            <Route path='/hotel/otag-gosmak' element={<HotelRoomCreate />}></Route>
-                                            <Route path='/hotel/otag-uytgetmek/:id' element={<HotelRoomEdit />}></Route>
+                                            <Route path='/myhmanhana/otaglar' element={<HotelRooms />}></Route>
+                                            <Route path='/myhmanhana/otag-gosmak' element={<HotelRoomCreate />}></Route>
+                                            <Route path='/myhmanhana/otag-uytgetmek/:id' element={<HotelRoomEdit />}></Route>
 
-                                            <Route path='/hotel/bronlar' element={<HotelBooking />}></Route>
-                                            <Route path='/hotel/bron-uytgetmek/:id' element={<HotelBookingEdit />}></Route>
+                                            <Route path='/myhmanhana/bronlar' element={<HotelBooking />}></Route>
+                                            <Route path='/myhmanhana/bron-uytgetmek/:id' element={<HotelBookingEdit />}></Route>
 
-                                            <Route path='/hotel/teswirler' element={<HotelContacts />}></Route>
-                                            <Route path='/hotel/teswir-uytgetmek/:id' element={<HotelContactEdit />}></Route>
+                                            <Route path='/myhmanhana/teswirler' element={<HotelContacts />}></Route>
+                                            <Route path='/myhmanhana/teswir-uytgetmek/:id' element={<HotelContactEdit />}></Route>
                                         </>
                                     )
                                 }
@@ -156,7 +158,7 @@ const App = () => {
                             </Route>
 
                             <Route path='/admin/giris-etmek' element={<AdminLogin />}></Route>
-                            <Route path='/hotel/giris-etmek' element={<HotelLogin />}></Route>
+                            <Route path='/myhmanhana/giris-etmek' element={<HotelLogin />}></Route>
 
                         </Routes>
                     </Router>

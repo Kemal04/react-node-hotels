@@ -49,7 +49,7 @@ const AdminHotelEdit = () => {
         }
         else {
             dispatch(updateHotel(hotel))
-            navigate("/admin/hotellar")
+            navigate("/admin/myhmanhanalar")
         }
     }
 

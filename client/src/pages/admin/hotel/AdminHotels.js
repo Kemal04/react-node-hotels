@@ -27,7 +27,7 @@ const AdminHotels = () => {
 
     const handleDelete = async (id) => {
         dispatch(deleteHotel(id))
-        navigate("/admin/hotellar")
+        navigate("/admin/myhmanhanalar")
     }
 
     return (
@@ -35,7 +35,7 @@ const AdminHotels = () => {
             <div className='container py-5'>
                 <div className='d-flex justify-content-between aling-items-center h2 mb-5'>
                     Hotellar bölümi
-                    <Link to="/admin/hotel-gosmak"><FontAwesomeIcon className='text-dark' icon={faPlus} /></Link>
+                    <Link to="/admin/myhmanhana-gosmak"><FontAwesomeIcon className='text-dark' icon={faPlus} /></Link>
                 </div>
                 <div className='row'>
                     <div className='col-lg-12'>
@@ -62,7 +62,7 @@ const AdminHotels = () => {
                                             <td>{hotel.email}</td>
                                             <td>*************</td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/hotel-uytgetmek/${hotel.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/admin/myhmanhana-uytgetmek/${hotel.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(hotel.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>
@@ -73,8 +73,8 @@ const AdminHotels = () => {
                     </div>
                     <nav className='col-xl-12 d-flex justify-content-center'>
                         <ReactPaginate
-                            previousLabel="< previous"
-                            nextLabel="next >"
+                            previousLabel="< yza"
+                            nextLabel="öňe >"
                             pageCount={pageCount}
                             onPageChange={changePage}
                             containerClassName={"pagination"}

@@ -64,7 +64,7 @@ const HotelRoomCreate = () => {
         }
         else {
             dispatch(creatHotelRoom(formData))
-            navigate("/hotel/otaglar")
+            navigate("/myhmanhana/otaglar")
         }
     }
 

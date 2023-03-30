@@ -13,7 +13,7 @@ const HotelNavbar = () => {
     const logout = () => {
         localStorage.removeItem("accessToken");
         setAuthState({ email: "", id: 0, status: false, role: "User" })
-        navigate('/hotel/giris-etmek')
+        navigate('/myhmanhana/giris-etmek')
     };
 
     return (

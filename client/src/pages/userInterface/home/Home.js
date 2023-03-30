@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
@@ -147,7 +147,7 @@ const Home = () => {
                     <div className='row no-gutters'>
                         {
                             hotels.slice(0, 5).map((hotel, index) => (
-                                <Link to={`/hotel/${hotel.id}`} key={index} className='col-xl-4 col-lg-6'>
+                                <Link to={`/myhmanhana/${hotel.id}`} key={index} className='col-xl-4 col-lg-6'>
                                     <div className='main'>
                                         <div className="main-card">
                                             <img src={hotel.img === null ? about_3 : `${Api_Address}/img/${hotel.img}`} alt="hotels" />

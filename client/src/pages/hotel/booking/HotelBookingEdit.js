@@ -43,7 +43,7 @@ const HotelBookingEdit = () => {
         }
         else {
             dispatch(updateHotelBooking({bookingId, booking}))
-            navigate("/hotel/bronlar")
+            navigate("/myhmanhana/bronlar")
         }
     }
 
