@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { Booking, Room, User, Hotel, CurrentBooking } = require("../models/model");
 
 module.exports.AllBookingGet = async (req, res) => {
@@ -78,8 +79,8 @@ module.exports.hotelBookingGet = async (req, res) => {
 //booking create for user
 module.exports.createBookingPost = async (req, res) => {
     await Booking.create({
-        checkIn: req.body.checkIn,
-        checkOut: req.body.checkOut,
+        checkIn: moment(req.body.checkIn).format("DD-MM-YYYY"),
+        checkOut: moment(req.body.checkOut).format("DD-MM-YYYY"),
         phoneNum: req.body.phoneNum,
         totalDays: req.body.totalDays,
         totalAmount: req.body.totalAmount,
