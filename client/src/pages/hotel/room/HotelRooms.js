@@ -20,13 +20,15 @@ const HotelRooms = () => {
         setPage(selected + 1)
     }
 
+    const pageCount = Math.ceil(hotelRooms.length / 10) + 1;
+
     useEffect(() => {
         dispatch(getAllHotelRooms(page))
     }, [dispatch, page])
 
     const handleDelete = async (id) => {
         dispatch(deleteHotelRoom(id))
-        navigate("/hotel/otaglar")
+        navigate("/myhmanhana/otaglar")
     }
 
     return (
@@ -34,7 +36,7 @@ const HotelRooms = () => {
             <div className='container py-5'>
                 <div className='d-flex justify-content-between aling-items-center h2 mb-5'>
                     Otaglar bölümi
-                    <Link to="/hotel/otag-gosmak"><FontAwesomeIcon className='text-dark' icon={faPlus} /></Link>
+                    <Link to="/myhmanhana/otag-gosmak"><FontAwesomeIcon className='text-dark' icon={faPlus} /></Link>
                 </div>
                 <div className='row'>
                     <div className='col-xl-12'>
@@ -66,7 +68,7 @@ const HotelRooms = () => {
                                             <td>{room.capacity} adam</td>
                                             <td>{room.price}<span className='small'> TMT</span></td>
                                             <td>
-                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/hotel/otag-uytgetmek/${room.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
+                                                <Link className='me-3 btn btn-sm btn-outline-warning mx-1' to={`/myhmanhana/otag-uytgetmek/${room.id}`}><FontAwesomeIcon icon={faPencil} /></Link>
                                                 <button className='btn btn-sm btn-outline-danger mx-1' onClick={() => handleDelete(room.id)}><FontAwesomeIcon icon={faTrash} /></button>
                                             </td>
                                         </tr>
@@ -75,20 +77,27 @@ const HotelRooms = () => {
                             </tbody>
                         </table>
                     </div>
-                    <nav className='col-xl-12 d-flex justify-content-center'>
-                        <ReactPaginate
-                            previousLabel="< previous"
-                            nextLabel="next >"
-                            pageCount={pages}
-                            onPageChange={changePage}
-                            containerClassName={"pagination"}
-                            pageLinkClassName={"page-link"}
-                            previousLinkClassName={"page-link"}
-                            nextLinkClassName={"page-link"}
-                            activeLinkClassName={"page-link active"}
-                            disabledLinkClassName={"page-link disabled"}
-                        />
-                    </nav>
+
+                    {
+                        pages === 1
+                            ?
+                            null
+                            :
+                            <nav className='col-xl-12 d-flex justify-content-center'>
+                                <ReactPaginate
+                                    previousLabel="< yza"
+                                    nextLabel="öňe >"
+                                    pageCount={pageCount}
+                                    onPageChange={changePage}
+                                    containerClassName={"pagination"}
+                                    pageLinkClassName={"page-link"}
+                                    previousLinkClassName={"page-link"}
+                                    nextLinkClassName={"page-link"}
+                                    activeLinkClassName={"page-link active"}
+                                    disabledLinkClassName={"page-link disabled"}
+                                />
+                            </nav>
+                    }
                 </div>
             </div>
         </>

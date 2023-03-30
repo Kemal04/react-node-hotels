@@ -74,13 +74,13 @@ const Navbar = () => {
                                 <NavLink style={({ isActive }) => ({ color: isActive ? "active" : null })} to="/" className="nav-link fw-bold">Baş sahypa</NavLink>
                             </li>
                             <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
+                                <NavLink to="/myhmanhanalar" className="nav-link fw-bold">Myhmanhanalar</NavLink>
+                            </li>
+                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
                                 <NavLink to="/otaglar" className="nav-link fw-bold">Otaglar</NavLink>
                             </li>
                             <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
                                 <NavLink to="/biz-barada" className="nav-link fw-bold">Biz barada</NavLink>
-                            </li>
-                            <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
-                                <NavLink to="/habarlasmak" className="nav-link fw-bold">Habarlaşmak</NavLink>
                             </li>
                             <li className="nav-item mx-xl-2 mx-lg-2 mx-md-2 mx-sm-0 mx-0" style={{ fontSize: "17px" }}>
                                 <div onClick={darkModeClick} className={darkMode ? "nav-link border-0 bg-dark" : "nav-link border-0 bg-light"} style={{ cursor: "pointer" }}>
@@ -112,7 +112,7 @@ const Navbar = () => {
                                                     authState.role === "Admin" && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
                                                 }
                                                 {
-                                                    authState.role === "Hotel" && <li><NavLink to="/hotel" className="dropdown-item bg-white text-black">Hotel</NavLink></li>
+                                                    authState.role === "Hotel" && <li><NavLink to="/myhmanhana" className="dropdown-item bg-white text-black">Myhmanhana</NavLink></li>
                                                 }
                                                 {
                                                     authState.role === "User" && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>
@@ -183,7 +183,7 @@ const Navbar = () => {
                                                     authState.role === "Admin" && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
                                                 }
                                                 {
-                                                    authState.role === "Hotel" && <li><NavLink to="/hotel" className="dropdown-item bg-white text-black">Hotel</NavLink></li>
+                                                    authState.role === "Hotel" && <li><NavLink to="/myhmanhana" className="dropdown-item bg-white text-black">Myhmanhana</NavLink></li>
                                                 }
                                                 {
                                                     authState.role === "User" && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Şahsy Otagym</NavLink></li>

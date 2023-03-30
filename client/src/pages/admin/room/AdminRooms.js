@@ -78,8 +78,8 @@ const AdminRooms = () => {
                     </div>
                     <nav className='col-xl-12 d-flex justify-content-center'>
                         <ReactPaginate
-                            previousLabel="< previous"
-                            nextLabel="next >"
+                            previousLabel="< yza"
+                            nextLabel="öňe >"
                             pageCount={pageCount}
                             onPageChange={changePage}
                             containerClassName={"pagination"}

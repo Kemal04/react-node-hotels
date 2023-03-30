@@ -1,7 +1,7 @@
 import React from 'react'
 import "./bannerImg.css"
 
-const BannerImg = ({name}) => {
+const BannerImg = ({ name }) => {
     return (
         <div className='banner-fixed d-flex align-items-center'>
             <div className='container'>
@@ -11,7 +11,7 @@ const BannerImg = ({name}) => {
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     )
 }
 

@@ -274,33 +274,7 @@ const RoomRead = () => {
                                     <div>Habarlaşmak 7/24</div>
                                 </div>
                             </div>
-                            <form className='row justify-content-between my-5 p-2'>
-                                <div className='col-xl-12 p-0 h4'>
-                                    Otag barada teswir ugrat
-                                </div>
-                                <div className="col-xl-6 my-4">
-                                    <input onChange={changeContact} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
-                                </div>
-                                <div className="col-xl-6 my-4">
-                                    <input onChange={changeContact} name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
-                                </div>
-                                <div className="col-xl-12 mb-4">
-                                    <input onChange={changeContact} name='subject' type="text" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
-                                </div>
-                                <div className="col-xl-12 mb-4">
-                                    <textarea onChange={changeContact} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
-                                </div>
-                                <div className="col-xl-12 mb-4 text-center">
-                                    {
-                                        !authState.status
-                                            ?
-                                            <div title='Giriş etmän Teswir ýazyp bilmeýäňiz' className='btn btn-primary px-5' style={{ cursor: "pointer" }}>Ugrat</div>
-                                            :
-                                            <button onClick={clickContact} className='btn btn-primary px-5'>Ugrat</button>
-                                    }
-                                </div>
-                            </form>
-                            <div className='row my-5 align-items-center'>
+                            <div className='row my-5 align-items-center p-2'>
                                 <div className='col-xl-12 p-0 h4'>
                                     Otag barada teswirler:
                                 </div>
@@ -327,10 +301,36 @@ const RoomRead = () => {
                                     ))
                                 }
                             </div>
+                            <form className='row justify-content-between my-5 p-2'>
+                                <div className='col-xl-12 p-0 h4'>
+                                    Otag barada teswir ugrat
+                                </div>
+                                <div className="col-xl-6 my-4">
+                                    <input onChange={changeContact} name='name' type="text" className="form-control rounded-0" placeholder='Adynyz' autoComplete='off' />
+                                </div>
+                                <div className="col-xl-6 my-4">
+                                    <input onChange={changeContact} name='email' type="email" className="form-control rounded-0" placeholder='E-mail adresiniz' autoComplete='off' />
+                                </div>
+                                <div className="col-xl-12 mb-4">
+                                    <input onChange={changeContact} name='subject' type="text" className="form-control rounded-0" placeholder='Temasy' autoComplete='off' />
+                                </div>
+                                <div className="col-xl-12 mb-4">
+                                    <textarea onChange={changeContact} name='comment' typeof='string' className="form-control rounded-0" rows="6" placeholder='Mazmuny'></textarea>
+                                </div>
+                                <div className="col-xl-12 mb-4 text-center">
+                                    {
+                                        !authState.status
+                                            ?
+                                            <div title='Giriş etmän Teswir ýazyp bilmeýäňiz' className='btn btn-primary px-5' style={{ cursor: "pointer" }}>Ugrat</div>
+                                            :
+                                            <button onClick={clickContact} className='btn btn-primary px-5'>Ugrat</button>
+                                    }
+                                </div>
+                            </form>
                         </div>
 
 
-                        <div className={`col-xl-4 col-12 ${darkMode ? "text-dark" : "text-white"}`}>
+                        <div className={`col-xl-4 col-12 text-dark`}>
                             <div className='card p-5 rounded-0'>
                                 <div className='h4 mb-5 text-center'>Bronlamak</div>
                                 <div className='row'>

@@ -13,7 +13,7 @@ const BannerSlider = () => {
         perPage: 1,
         perMove: 1,
         pagination: false,
-        autoplay: false,
+        autoplay: true,
     };
 
     const dispatch = useDispatch()

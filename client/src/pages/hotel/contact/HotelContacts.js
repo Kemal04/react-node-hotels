@@ -18,6 +18,8 @@ const HotelContacts = () => {
     const changePage = ({ selected }) => {
         setPage(selected + 1)
     }
+    
+    const pageCount = Math.ceil(roomContacts.length / 10) + 1;
 
     const [contact, setContact] = useState([])
     useEffect(() => {
@@ -30,7 +32,7 @@ const HotelContacts = () => {
 
     const handleDelete = async (id) => {
         dispatch(deleteRoomContact(id))
-        navigate("/hotel/teswirler")
+        navigate("/myhmanhana/teswirler")
     }
 
     return (
@@ -75,20 +77,26 @@ const HotelContacts = () => {
                             </tbody>
                         </table>
                     </div>
-                    <nav className='col-xl-12 d-flex justify-content-center'>
-                        <ReactPaginate
-                            previousLabel="< previous"
-                            nextLabel="next >"
-                            pageCount={pages}
-                            onPageChange={changePage}
-                            containerClassName={"pagination"}
-                            pageLinkClassName={"page-link"}
-                            previousLinkClassName={"page-link"}
-                            nextLinkClassName={"page-link"}
-                            activeLinkClassName={"page-link active"}
-                            disabledLinkClassName={"page-link disabled"}
-                        />
-                    </nav>
+                    {
+                        page === 1
+                            ?
+                            null
+                            :
+                            <nav className='col-xl-12 d-flex justify-content-center'>
+                                <ReactPaginate
+                                    previousLabel="< yza"
+                                    nextLabel="öňe >"
+                                    pageCount={pageCount}
+                                    onPageChange={changePage}
+                                    containerClassName={"pagination"}
+                                    pageLinkClassName={"page-link"}
+                                    previousLinkClassName={"page-link"}
+                                    nextLinkClassName={"page-link"}
+                                    activeLinkClassName={"page-link active"}
+                                    disabledLinkClassName={"page-link disabled"}
+                                />
+                            </nav>
+                    }
                 </div>
             </div>
         </>

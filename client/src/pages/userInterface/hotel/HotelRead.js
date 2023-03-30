@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import BannerImg from '../../../components/banner/BannerImg';
 import { ThemeContext } from '../../../context/ThemeContext';
 import Api_Address from '../../../env';
@@ -12,22 +12,26 @@ const HotelRead = () => {
     const [hotel, setHotel] = useState("");
     const [rooms, setRooms] = useState([]);
 
-    const location = useLocation();
-    const hotelId = location.pathname.split("/")[2];
+    const { id } = useParams()
+
+    const fetchData = async () => {
+        try {
+            const res = await axios.get(`${Api_Address}/api/hotel/${id}`)
+            setHotel(res.data.hotel)
+            setRooms(res.data.rooms)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
-        axios.get(`${Api_Address}/api/hotel/${hotelId}`)
-            .then((res) => {
-                setHotel(res.data.hotel.name)
-                setRooms(res.data.rooms)
-            })
-    }, [hotelId])
+        fetchData()
+    }, [])
 
 
     return (
         <>
-
-            <BannerImg name={`${hotel} Otel`} />
+            <BannerImg name={`${hotel.name} Otel`} />
             <div className={darkMode ? "bg-dark text-white" : "bg-white text-dark"}>
                 <div className='container py-5'>
                     <div className='row'>

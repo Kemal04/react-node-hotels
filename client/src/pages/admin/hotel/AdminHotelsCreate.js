@@ -33,7 +33,7 @@ const AdminHotelsCreate = () => {
         }
         else {
             dispatch(creatHotel(hotel))
-            navigate("/admin/hotellar")
+            navigate("/admin/myhmanhanalar")
         }
     }
 

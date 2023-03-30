@@ -29,7 +29,7 @@ const HotelSidebar = () => {
                             <img src={user_icon} className="img-circle elevation-2" alt='user' />
                         </div>
                         <div className="info">
-                            <NavLink to="" className="d-block text-uppercase text-decoration-none">{hotel.name}</NavLink>
+                            <NavLink to="/myhmanhanalar" className="d-block text-uppercase text-decoration-none">{hotel.name}</NavLink>
                         </div>
                     </div>
 
@@ -38,26 +38,26 @@ const HotelSidebar = () => {
                             <i className="fas fa-home text-white"></i>
                         </div>
                         <div className="info">
-                            <NavLink to="/hotel" className="d-block text-uppercase text-decoration-none">Esasy Sahypa</NavLink>
+                            <NavLink to="/myhmanhanalar" className="d-block text-uppercase text-decoration-none">Esasy Sahypa</NavLink>
                         </div>
                     </div>
 
                     <nav className="mt-2">
                         <ul className="nav nav-pills nav-sidebar flex-column nav-treeview" data-widget="treeview" role="menu" data-accordion="false">
                             <li className="nav-item">
-                                <NavLink to="/hotel/otaglar" className="nav-link">
+                                <NavLink to="/myhmanhana/otaglar" className="nav-link">
                                     <FontAwesomeIcon icon={faBed} className="nav-icon me-2" />
                                     <p>Otaglar</p>
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/hotel/bronlar" className="nav-link">
+                                <NavLink to="/myhmanhana/bronlar" className="nav-link">
                                     <FontAwesomeIcon icon={faBook} className="nav-icon me-2" />
                                     <p>Bronlanan otaglar</p>
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="/hotel/teswirler" className="nav-link">
+                                <NavLink to="/myhmanhana/teswirler" className="nav-link">
                                     <FontAwesomeIcon icon={faComment} className="nav-icon me-2" />
                                     <p>Teswirler</p>
                                 </NavLink>

@@ -40,7 +40,7 @@ const HotelLogin = () => {
                         role: res.data.role,
                     });
                     toast.success(res.data.success)
-                    navigate("/hotel")
+                    navigate("/myhmanhana")
                     window.location.reload()
                 }
 
