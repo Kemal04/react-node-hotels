@@ -22,19 +22,16 @@ module.exports.AllRoomsGet = async (req, res) => {
         where: req.user.role == "Hotel" ? { hotelId: req.user.id } : null
     })
         .then((rooms) => {
-            if (rooms) {
-                return res.json({
-                    rooms: rooms.rows,
-                    pagination: {
-                        before: before,
-                        next: next,
-                        page: page,
-                        total: rooms.count,
-                        pages: Math.ceil(rooms.count / size)
-                    }
-                });
-            }
-            console.log(rooms);
+            res.json({
+                rooms: rooms.rows,
+                pagination: {
+                    before: before,
+                    next: next,
+                    page: page,
+                    total: rooms.count,
+                    pages: Math.ceil(rooms.count / size)
+                }
+            });
         })
         .catch((err) => {
             res.status(500).json(err);
