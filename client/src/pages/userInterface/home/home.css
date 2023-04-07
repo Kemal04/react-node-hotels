@@ -71,3 +71,12 @@
     transition: opacity .3s ease-in;
     opacity: 1;
 }
+
+.more-info{
+    color: #1cc3b2;
+    border-bottom: 1px solid #1cc3b2;
+    width: 90px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+}

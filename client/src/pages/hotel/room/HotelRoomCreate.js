@@ -41,6 +41,8 @@ const HotelRoomCreate = () => {
         formData.append('capacity', room.capacity)
         formData.append('size', room.size)
 
+        console.log(formData);
+
         if (!room.roomtypeId) {
             toast.error("Otagyň görnüşini saýlaň")
         }

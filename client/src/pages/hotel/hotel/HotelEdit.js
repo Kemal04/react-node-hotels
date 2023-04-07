@@ -70,7 +70,7 @@ const HotelEdit = () => {
             })
                 .then((res) => {
                     toast.success(res.data.success)
-                    navigate(`/myhmanhanalar`)
+                    navigate(`/myhmanhana`)
                 }).catch((error) => {
                     toast.error(error.message)
                 });

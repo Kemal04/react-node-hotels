@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../../context/ThemeContext';
 import user_icon from "../../../assets/icons/user-1.jpg"
 import Api_Address from '../../../env';
+import moment from 'moment';
 
 const ProfileBooking = () => {
 
@@ -38,8 +39,6 @@ const ProfileBooking = () => {
     }, [id])
 
     let newDate = new Date()
-    let date = (newDate.getDate()) + "." + (newDate.getMonth() + 1) + "." + (newDate.getFullYear());
-    let day = newDate.getDate()
 
     return (
         <div className={darkMode ? "bg-dark" : "bg-white"}>
@@ -63,13 +62,13 @@ const ProfileBooking = () => {
                                         {booking.sort((a, b) => a.timeM > b.timeM ? 1 : -1).map((room, index) => (
                                             room.check
                                                 ?
-                                                new Date(room.checkOut).toLocaleDateString(undefined, { year: "numeric", month: "numeric", day: "numeric" }) <= date
+                                                moment(room.checkOut).format("DD-MM-YYYY") >= moment(newDate).format("DD-MM-YYYY")
                                                     ?
                                                     null
                                                     :
                                                     <div key={index} className='col-lg-4'>
                                                         <div className={`card mb-5 border-0 shadow rounded-0 me-3 ${darkMode ? "bg-dark shadow-lg" : "bg-white shadow"}`}>
-                                                            <img src={`${Api_Address}/img/${room.img}`} className="img-fluid" alt={room.room.roomNum} />
+                                                            <img src={`${Api_Address}/img/${room.room.img}`} className="img-fluid" alt={room.room.roomNum} />
                                                             <div className="card-body">
                                                                 <div className='d-flex justify-content-between'>
                                                                     <h5 className="card-title">№ {room.room.roomNum} otag</h5>
@@ -101,11 +100,11 @@ const ProfileBooking = () => {
                                                                 <div className='row justify-content-between align-items-center mb-5'>
                                                                     <div className='col-lg-6'>
                                                                         <div style={{ fontWeight: "500", color: "#afb4bf" }}>Giriş wagtyň:</div>
-                                                                        {new Date(room.checkIn).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
+                                                                        {moment(room.checkIn).format("DD-MM-YYYY")}
                                                                     </div>
                                                                     <div className='col-lg-6 text-end'>
                                                                         <div style={{ fontWeight: "500", color: "#afb4bf" }}>Çykyş wagtyň:</div>
-                                                                        {new Date(room.checkOut).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
+                                                                        {moment(room.checkOut).format("DD-MM-YYYY")}
                                                                     </div>
                                                                     <div className='col-lg-12 mt-3'>
                                                                         <div style={{ fontWeight: "500", color: "#afb4bf" }}>Telefon belgisi:</div>
@@ -114,7 +113,7 @@ const ProfileBooking = () => {
                                                                 </div>
 
                                                                 <div className='d-grid'>
-                                                                    <div className='btn btn-sm btn-success disabled'>Bronlanan ({new Date(room.checkOut).toLocaleDateString(undefined, { day: "numeric" }) - day} gün galdy)</div>
+                                                                    {/* <div className='btn btn-sm btn-success disabled'>Bronlanan ({new Date(room.checkOut).toLocaleDateString(undefined, { day: "numeric" }) - day} gün galdy)</div> */}
                                                                 </div>
 
                                                             </div>

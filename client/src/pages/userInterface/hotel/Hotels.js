@@ -6,7 +6,7 @@ import about_3 from "../../../assets/cards/about/3.jpg"
 import BannerImg from '../../../components/banner/BannerImg';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightLong } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faRightLong } from '@fortawesome/free-solid-svg-icons';
 
 const Hotels = () => {
 
@@ -34,33 +34,30 @@ const Hotels = () => {
                     {
 
                         hotels.slice().sort((a, b) => (a.id < b.id) ? 1 : -1).map((hotel, index) => (
-                            <div className='col-xl-4 col-lg-4 col-md-6 col-12 mb-3' key={index}>
-                                <div className='card rounded-3 shadow border-0'>
-                                    <img src={hotel.img === null ? about_3 : `${Api_Address}/img/${hotel.img}`} alt="hotels" />
+                            <Link to={`/myhmanhana/${hotel.id}`} key={index} className='col-xl-4 col-lg-6 text-decoration-none text-dark'>
+                                <div className='card rounded-0 shadow-sm border-0 mx-2'>
+                                    <img src={`${Api_Address}/img/${hotel.img}`} alt="room" className='img-fluid' style={{ objectFit: "cover", height: "300px" }} />
                                     <div className='card-body'>
-                                        <div className='h4'><span className='text-blue fw-bold ls-1'>{hotel.name}</span> myhmanhanasy</div>
-                                        <table className='my-4' style={{ fontSize: "18px" }}>
-                                            <tbody>
-                                                <tr>
-                                                    <td className="text-secondary lh-lg" style={{ width: "125px" }}>Telefon belgisi:</td>
-                                                    <td className='text-secondary'>+993 {hotel.phoneNum}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="text-secondary lh-lg" style={{ width: "125px" }}>E-mail adresi:</td>
-                                                    <td className='text-secondary'>{hotel.email}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="text-secondary lh-lg" style={{ width: "125px" }}>Adresi:</td>
-                                                    <td className='text-secondary'>{hotel.address}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div className='my-3'>
-                                            <Link to={`/myhmanhana/${hotel.id}`} className="text-decoration-none text-dark h5 pb-2 ls-1">Maglumatlar <FontAwesomeIcon icon={faRightLong} className="text-blue"/></Link>
+                                        <div className='d-flex justify-content-between align-items-center mb-4'>
+                                            <div className='h4 mb-0'>{hotel.name}</div>
+                                            <div><FontAwesomeIcon icon={faEye} className='mr-1' />31</div>
                                         </div>
+                                        <div className='fw-bold mb-3'>
+                                            E-mail adesi:
+                                            <span className='fw-normal'> {hotel.email}</span>
+                                        </div>
+                                        <div className='fw-bold mb-3'>
+                                            Telefon belgisi:
+                                            <span className='fw-normal'> +993 {hotel.phoneNum}</span>
+                                        </div>
+                                        <div className='fw-bold mb-3'>
+                                            Adresi:
+                                            <span className='fw-normal'> {hotel.address}</span>
+                                        </div>
+                                        <div className='more-info'>Giňişleýin</div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     }
                 </div>
