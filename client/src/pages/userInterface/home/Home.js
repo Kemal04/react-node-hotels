@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightLong } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faRightLong } from '@fortawesome/free-solid-svg-icons';
 import { ThemeContext } from '../../../context/ThemeContext';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllContacts } from '../../../redux/slices/contact'
@@ -147,26 +147,27 @@ const Home = () => {
                     <div className='row no-gutters'>
                         {
                             hotels.slice(0, 5).map((hotel, index) => (
-                                <Link to={`/myhmanhana/${hotel.id}`} key={index} className='col-xl-4 col-lg-6'>
-                                    <div className='main'>
-                                        <div className="main-card">
-                                            <img src={hotel.img === null ? about_3 : `${Api_Address}/img/${hotel.img}`} alt="hotels" />
-                                            <div>
-                                                <h2>
-                                                    {hotel.name}
-                                                </h2>
-                                                <p style={{ lineHeight: "30px" }}>
-                                                    E-mailimiz: {hotel.email}
-                                                    <br />
-                                                    Telefon belgimiz: +993 {hotel.phoneNum}
-                                                    <br />
-                                                    Adresimiz: {hotel.address}
-                                                    <br />
-                                                    Maglumatlary
-                                                    <FontAwesomeIcon className='ms-2' icon={faRightLong} />
-
-                                                </p>
+                                <Link to={`/myhmanhana/${hotel.id}`} key={index} className='col-xl-4 col-lg-6 text-decoration-none text-dark'>
+                                    <div className='card rounded-0 shadow-sm border-0 mx-2'>
+                                        <img src={`${Api_Address}/img/${hotel.img}`} alt="room" className='img-fluid' style={{ objectFit: "cover", height: "300px" }} />
+                                        <div className='card-body'>
+                                            <div className='d-flex justify-content-between align-items-center mb-4'>
+                                                <div className='h4 mb-0'>{hotel.name}</div>
+                                                <div><FontAwesomeIcon icon={faEye} className='mr-1' />31</div>
                                             </div>
+                                            <div className='fw-bold mb-3'>
+                                                E-mail adesi:
+                                                <span className='fw-normal'> {hotel.email}</span>
+                                            </div>
+                                            <div className='fw-bold mb-3'>
+                                                Telefon belgisi:
+                                                <span className='fw-normal'> +993 {hotel.phoneNum}</span>
+                                            </div>
+                                            <div className='fw-bold mb-3'>
+                                                Adresi:
+                                                <span className='fw-normal'> {hotel.address}</span>
+                                            </div>
+                                            <div className='more-info'>Giňişleýin</div>
                                         </div>
                                     </div>
                                 </Link>
@@ -185,7 +186,7 @@ const Home = () => {
                                     <SplideSlide className='col-xl-12 mb-3 p-0' key={index}>
                                         <Link to={`/otag/${room.id}`} className={darkMode ? 'row bg-white text-dark align-items-center text-decoration-none' : 'row bg-primary-blue text-white align-items-center text-decoration-none'}>
                                             <div className='col-xl-6 col-lg-6 col-12'>
-                                                <img src={`${Api_Address}/img/${room.img}`} alt="room" className='img-fluid' style={{ width: "900px" }} />
+                                                <img src={`${Api_Address}/img/${room.img}`} alt="room" className='img-fluid' style={{ width: "900px", objectFit: "cover", height: "700px" }} />
                                             </div>
                                             <div className='col-xl-6 col-lg-6 col-12 d-flex align-items-start justify-content-center flex-column py-5'>
                                                 <div className='ms-5 display-5'><b>{room.hotel.name}</b><span className='text-muted'> {room.roomtype.name} otagy</span></div>

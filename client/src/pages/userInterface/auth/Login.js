@@ -38,6 +38,7 @@ const Login = () => {
                     toast.error(res.data.error)
                 } else {
                     localStorage.setItem("accessToken", res.data.token)
+                    console.log(res.data);
                     setAuthState({
                         phoneNum: res.data.phoneNum,
                         id: res.data.id,

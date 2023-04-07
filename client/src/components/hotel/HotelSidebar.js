@@ -29,7 +29,7 @@ const HotelSidebar = () => {
                             <img src={user_icon} className="img-circle elevation-2" alt='user' />
                         </div>
                         <div className="info">
-                            <NavLink to="/myhmanhanalar" className="d-block text-uppercase text-decoration-none">{hotel.name}</NavLink>
+                            <NavLink to="/myhmanhana" className="d-block text-uppercase text-decoration-none">{hotel.name}</NavLink>
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@ const HotelSidebar = () => {
                             <i className="fas fa-home text-white"></i>
                         </div>
                         <div className="info">
-                            <NavLink to="/myhmanhanalar" className="d-block text-uppercase text-decoration-none">Esasy Sahypa</NavLink>
+                            <NavLink to="/myhmanhana" className="d-block text-uppercase text-decoration-none">Esasy Sahypa</NavLink>
                         </div>
                     </div>
 
